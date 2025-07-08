@@ -3,7 +3,7 @@
     "name": "2468_counter",
     "slug": "2468_counter",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
