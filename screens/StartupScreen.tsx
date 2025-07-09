@@ -36,7 +36,7 @@ export const StartupScreen: React.FC = () => {
               2468 Scorekeeper
             </Text>
             <Text style={[FONTS.body, styles.subtitle]}>
-              Keep scores of your 2468 games!
+              Keep track of your 2468 games!
             </Text>
           </View>
 
