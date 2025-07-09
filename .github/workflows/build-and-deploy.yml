@@ -38,13 +38,14 @@ jobs:
         run: |
           # Check commit message for version bump indicators
           COMMIT_MSG="${{ github.event.head_commit.message }}"
-          if [[ "$COMMIT_MSG" =~ ^.*BREAKING.*CHANGE ]] || [[ "$COMMIT_MSG" =~ ^.*!: ]]; then
+          # Handle both direct commits and merge commits
+          if [[ "$COMMIT_MSG" =~ BREAKING.*CHANGE ]] || [[ "$COMMIT_MSG" =~ !: ]]; then
             echo "bump=major" >> $GITHUB_OUTPUT
             echo "Version bump: MAJOR (breaking change detected)"
-          elif [[ "$COMMIT_MSG" =~ ^feat ]]; then
+          elif [[ "$COMMIT_MSG" =~ feat ]]; then
             echo "bump=minor" >> $GITHUB_OUTPUT
             echo "Version bump: MINOR (new feature detected)"
-          elif [[ "$COMMIT_MSG" =~ ^fix ]]; then
+          elif [[ "$COMMIT_MSG" =~ fix ]]; then
             echo "bump=patch" >> $GITHUB_OUTPUT
             echo "Version bump: PATCH (bug fix detected)"
           else
