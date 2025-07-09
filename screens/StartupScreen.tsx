@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     textAlign: 'center',
     marginBottom: SPACING.sm,
-    fontSize: 48,
+    fontSize: 42,
     fontWeight: 'bold',
   },
   subtitle: {
