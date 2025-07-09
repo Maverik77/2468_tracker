@@ -33,10 +33,10 @@ export const StartupScreen: React.FC = () => {
           {/* App Title */}
           <View style={styles.titleSection}>
             <Text style={[FONTS.h1, styles.title]}>
-              2468 Tracker
+              2468 Scorekeeper
             </Text>
             <Text style={[FONTS.body, styles.subtitle]}>
-              Keep track of your 2468 game!
+              Keep scores of your 2468 games!
             </Text>
           </View>
 
