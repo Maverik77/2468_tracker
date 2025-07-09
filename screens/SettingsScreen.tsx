@@ -8,6 +8,7 @@ import { useResponsive } from '../hooks/useResponsive';
 import { storage, Settings } from '../utils/storage';
 import * as Updates from 'expo-updates';
 
+// Testing improved OTA update configuration
 type NavigationProp = any;
 
 export const SettingsScreen: React.FC = () => {
