@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput, Alert, Switch } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Constants from 'expo-constants';
 import { ResponsiveContainer } from '../components/ResponsiveContainer';
 import { COLORS, FONTS, SPACING } from '../constants/theme';
 import { useResponsive } from '../hooks/useResponsive';
@@ -139,6 +140,9 @@ export const SettingsScreen: React.FC = () => {
 
           {/* Footer */}
           <View style={styles.footer}>
+            <Text style={[FONTS.caption, styles.versionText]}>
+              Version {Constants.expoConfig?.version}
+            </Text>
             <Text style={[FONTS.caption, styles.copyrightText]}>
               Copyright 2025 by Erik Wagner
             </Text>
@@ -259,5 +263,10 @@ const styles = StyleSheet.create({
   switchLabel: {
     color: COLORS.text,
     flex: 1,
+  },
+  versionText: {
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+    marginBottom: SPACING.xs,
   },
 }); 
