@@ -93,7 +93,7 @@ export const SettingsScreen: React.FC = () => {
       }
     } catch (error) {
       console.error('Update check failed:', error);
-      Alert.alert('Error', 'Failed to check for updates: ' + error.message);
+      Alert.alert('Error', 'Failed to check for updates: ' + (error instanceof Error ? error.message : String(error)));
     }
   };
 
@@ -196,7 +196,7 @@ export const SettingsScreen: React.FC = () => {
               Copyright 2025 by Erik Wagner
             </Text>
             <Text style={[FONTS.caption, styles.debugText]}>
-              Channel: {getUpdateDebugInfo().channel} | Update: {getUpdateDebugInfo().updateId}
+              {getUpdateDebugInfo().channel} • {getUpdateDebugInfo().updateId}
             </Text>
           </View>
         </View>
@@ -299,11 +299,27 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingVertical: SPACING.lg,
+    paddingHorizontal: SPACING.md,
     alignItems: 'center',
+    minHeight: 80, // Ensure minimum height for proper spacing
+  },
+  versionText: {
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+    marginBottom: SPACING.sm, // Increased spacing
+    fontSize: 14,
   },
   copyrightText: {
     color: COLORS.textSecondary,
     textAlign: 'center',
+    marginBottom: SPACING.sm, // Added spacing
+    fontSize: 12,
+  },
+  debugText: {
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+    fontSize: 10, // Smaller font for debug info
+    opacity: 0.7, // Make it less prominent
   },
   switchContainer: {
     flexDirection: 'row',
@@ -316,11 +332,6 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     flex: 1,
   },
-  versionText: {
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    marginBottom: SPACING.xs,
-  },
   updateButton: {
     backgroundColor: COLORS.primary,
     paddingHorizontal: SPACING.md,
@@ -332,10 +343,5 @@ const styles = StyleSheet.create({
   updateButtonText: {
     color: COLORS.background,
     fontWeight: '600',
-  },
-  debugText: {
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    marginTop: SPACING.xs,
   },
 }); 

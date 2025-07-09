@@ -32,9 +32,14 @@ export const StartupScreen: React.FC = () => {
         <View style={styles.mainContent}>
           {/* App Title */}
           <View style={styles.titleSection}>
-            <Text style={[FONTS.h1, styles.title]}>
-              2468 Scorekeeper
-            </Text>
+            <View style={styles.titleContainer}>
+              <Text style={[FONTS.h1, styles.title]}>
+                2468{' '}
+              </Text>
+              <Text style={[FONTS.h1, styles.scorekeeperTitle]}>
+                Scorekeeper
+              </Text>
+            </View>
             <Text style={[FONTS.body, styles.subtitle]}>
               Keep track of your 2468 games!
             </Text>
@@ -199,5 +204,17 @@ const styles = StyleSheet.create({
   },
   settingsIcon: {
     fontSize: 24,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  scorekeeperTitle: {
+    color: COLORS.primary,
+    textAlign: 'center',
+    fontSize: 32,
+    fontWeight: 'bold',
   },
 }); 

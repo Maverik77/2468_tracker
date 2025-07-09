@@ -1,0 +1,12 @@
+          {/* Footer */}
+          <View style={styles.footer}>
+            <Text style={[FONTS.caption, styles.versionText]}>
+              Version {Constants.expoConfig?.version}
+            </Text>
+            <Text style={[FONTS.caption, styles.copyrightText]}>
+              Copyright 2025 by Erik Wagner
+            </Text>
+            <Text style={[FONTS.caption, styles.debugText]}>
+              {getUpdateDebugInfo().channel} • {getUpdateDebugInfo().updateId}
+            </Text>
+          </View>
