@@ -6,6 +6,7 @@ import { ResponsiveContainer } from '../components/ResponsiveContainer';
 import { COLORS, FONTS, SPACING } from '../constants/theme';
 import { useResponsive } from '../hooks/useResponsive';
 import { storage, Settings } from '../utils/storage';
+import * as Updates from 'expo-updates';
 
 type NavigationProp = any;
 
@@ -62,6 +63,45 @@ export const SettingsScreen: React.FC = () => {
 
   const handleClose = () => {
     navigation.goBack();
+  };
+
+  const handleManualUpdate = async () => {
+    try {
+      console.log('Checking for updates...');
+      const update = await Updates.checkForUpdateAsync();
+      
+      if (update.isAvailable) {
+        Alert.alert(
+          'Update Available', 
+          'A new update is available. Download now?',
+          [
+            { text: 'Cancel', style: 'cancel' },
+            { 
+              text: 'Update', 
+              onPress: async () => {
+                console.log('Downloading update...');
+                await Updates.fetchUpdateAsync();
+                console.log('Reloading app...');
+                await Updates.reloadAsync();
+              }
+            }
+          ]
+        );
+      } else {
+        Alert.alert('No Updates', 'You already have the latest version.');
+      }
+    } catch (error) {
+      console.error('Update check failed:', error);
+      Alert.alert('Error', 'Failed to check for updates: ' + error.message);
+    }
+  };
+
+  const getUpdateDebugInfo = () => {
+    return {
+      updateId: Updates.updateId?.substring(0, 8) || 'embedded',
+      channel: Updates.channel || 'default',
+      isEmbedded: Updates.isEmbeddedLaunch
+    };
   };
 
   return (
@@ -136,6 +176,14 @@ export const SettingsScreen: React.FC = () => {
                 />
               </View>
             </View>
+
+            <TouchableOpacity
+              style={styles.updateButton}
+              onPress={handleManualUpdate}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.updateButtonText}>Check for Updates</Text>
+            </TouchableOpacity>
           </View>
 
           {/* Footer */}
@@ -145,6 +193,9 @@ export const SettingsScreen: React.FC = () => {
             </Text>
             <Text style={[FONTS.caption, styles.copyrightText]}>
               Copyright 2025 by Erik Wagner
+            </Text>
+            <Text style={[FONTS.caption, styles.debugText]}>
+              Channel: {getUpdateDebugInfo().channel} | Update: {getUpdateDebugInfo().updateId}
             </Text>
           </View>
         </View>
@@ -268,5 +319,22 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     textAlign: 'center',
     marginBottom: SPACING.xs,
+  },
+  updateButton: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+    borderRadius: 8,
+    marginTop: SPACING.md,
+    alignItems: 'center',
+  },
+  updateButtonText: {
+    color: COLORS.background,
+    fontWeight: '600',
+  },
+  debugText: {
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+    marginTop: SPACING.xs,
   },
 }); 

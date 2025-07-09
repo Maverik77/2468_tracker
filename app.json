@@ -39,7 +39,13 @@
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/102b5420-8e0a-4615-9e8b-985b0b9402ec"
+      "url": "https://u.expo.dev/102b5420-8e0a-4615-9e8b-985b0b9402ec",
+      "enabled": true,
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD",
+      "requestHeaders": {
+        "expo-channel-name": "preview"
+      }
     }
   }
 }
