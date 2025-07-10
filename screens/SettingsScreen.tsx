@@ -185,18 +185,25 @@ export const SettingsScreen: React.FC = () => {
             >
               <Text style={styles.updateButtonText}>Check for Updates</Text>
             </TouchableOpacity>
+
+            {/* Debug Info Section - Now scrollable */}
+            <View style={styles.debugSection}>
+              <Text style={[FONTS.caption, styles.debugText]}>
+                Channel: {getUpdateDebugInfo().channel}
+              </Text>
+              <Text style={[FONTS.caption, styles.debugText]}>
+                Update ID: {getUpdateDebugInfo().updateId}
+              </Text>
+              <Text style={[FONTS.caption, styles.debugText]}>
+                Version: {Constants.expoConfig?.version}
+              </Text>
+            </View>
           </View>
 
-          {/* Footer */}
+          {/* Simplified Footer */}
           <View style={styles.footer}>
-            <Text style={[FONTS.caption, styles.versionText]}>
-              Version {Constants.expoConfig?.version}
-            </Text>
             <Text style={[FONTS.caption, styles.copyrightText]}>
               Copyright 2025 by Erik Wagner
-            </Text>
-            <Text style={[FONTS.caption, styles.debugText]}>
-              {getUpdateDebugInfo().channel} • {getUpdateDebugInfo().updateId}
             </Text>
           </View>
         </View>
@@ -298,10 +305,9 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   footer: {
-    paddingVertical: SPACING.lg,
+    paddingVertical: SPACING.md,
     paddingHorizontal: SPACING.md,
     alignItems: 'center',
-    minHeight: 80, // Ensure minimum height for proper spacing
   },
   versionText: {
     color: COLORS.textSecondary,
@@ -312,14 +318,21 @@ const styles = StyleSheet.create({
   copyrightText: {
     color: COLORS.textSecondary,
     textAlign: 'center',
-    marginBottom: SPACING.sm, // Added spacing
     fontSize: 12,
   },
   debugText: {
     color: COLORS.textSecondary,
     textAlign: 'center',
-    fontSize: 10, // Smaller font for debug info
-    opacity: 0.7, // Make it less prominent
+    fontSize: 11,
+    marginBottom: SPACING.xs,
+  },
+  debugSection: {
+    backgroundColor: COLORS.surface,
+    borderRadius: 12,
+    padding: SPACING.md,
+    marginTop: SPACING.lg,
+    marginBottom: SPACING.md,
+    alignItems: 'center',
   },
   switchContainer: {
     flexDirection: 'row',
