@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput, Alert, Switch } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput, Alert, Switch, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { ResponsiveContainer } from '../components/ResponsiveContainer';
@@ -125,7 +125,11 @@ export const SettingsScreen: React.FC = () => {
           </View>
 
           {/* Settings Content */}
-          <View style={styles.settingsContent}>
+          <ScrollView 
+            style={styles.settingsContent}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContent}
+          >
             <Text style={[FONTS.h3, styles.settingsTitle]}>App Settings</Text>
             
             {/* Default Multiplier Setting */}
@@ -198,7 +202,7 @@ export const SettingsScreen: React.FC = () => {
                 Version: {Constants.expoConfig?.version}
               </Text>
             </View>
-          </View>
+          </ScrollView>
 
           {/* Simplified Footer */}
           <View style={styles.footer}>
@@ -244,6 +248,9 @@ const styles = StyleSheet.create({
   },
   settingsContent: {
     flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: SPACING.lg,
   },
   settingsTitle: {
     color: COLORS.text,
