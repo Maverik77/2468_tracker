@@ -202,14 +202,14 @@ export const SettingsScreen: React.FC = () => {
                 Version: {Constants.expoConfig?.version}
               </Text>
             </View>
+            
+            {/* Simplified Footer */}
+            <View style={styles.footer}>
+              <Text style={[FONTS.caption, styles.copyrightText]}>
+                Copyright 2025 by Erik Wagner
+              </Text>
+            </View>
           </ScrollView>
-
-          {/* Simplified Footer */}
-          <View style={styles.footer}>
-            <Text style={[FONTS.caption, styles.copyrightText]}>
-              Copyright 2025 by Erik Wagner
-            </Text>
-          </View>
         </View>
       </ResponsiveContainer>
     </SafeAreaView>
