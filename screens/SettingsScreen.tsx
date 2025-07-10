@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput, Alert, Switch, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput, Alert, Switch, ScrollView, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { ResponsiveContainer } from '../components/ResponsiveContainer';
@@ -16,6 +16,16 @@ export const SettingsScreen: React.FC = () => {
   const { isLandscape, isTablet } = useResponsive();
   const [settings, setSettings] = useState<Settings>({ defaultMultiplier: 1, winningAllFourPaysDouble: false });
   const [defaultMultiplierInput, setDefaultMultiplierInput] = useState('1');
+  const [updateModalVisible, setUpdateModalVisible] = useState(false);
+  const [updateInfo, setUpdateInfo] = useState<{
+    hasUpdate: boolean;
+    currentVersion: string;
+    updateId: string;
+    channel: string;
+    runtimeVersion: string;
+    isEmbedded: boolean;
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     loadSettings();
@@ -71,29 +81,59 @@ export const SettingsScreen: React.FC = () => {
       console.log('Checking for updates...');
       const update = await Updates.checkForUpdateAsync();
       
+      const debugInfo = getUpdateDebugInfo();
+      const currentVersion = Constants.expoConfig?.version || 'Unknown';
+      const runtimeVersion = Constants.expoConfig?.runtimeVersion || 'Unknown';
+      
       if (update.isAvailable) {
-        Alert.alert(
-          'Update Available', 
-          'A new update is available. Download now?',
-          [
-            { text: 'Cancel', style: 'cancel' },
-            { 
-              text: 'Update', 
-              onPress: async () => {
-                console.log('Downloading update...');
-                await Updates.fetchUpdateAsync();
-                console.log('Reloading app...');
-                await Updates.reloadAsync();
-              }
-            }
-          ]
-        );
+        setUpdateInfo({
+          hasUpdate: true,
+          currentVersion,
+          updateId: debugInfo.updateId,
+          channel: debugInfo.channel,
+          runtimeVersion: runtimeVersion.toString(),
+          isEmbedded: debugInfo.isEmbedded,
+          message: 'A new update is available and ready to download!'
+        });
       } else {
-        Alert.alert('No Updates', 'You already have the latest version.');
+        setUpdateInfo({
+          hasUpdate: false,
+          currentVersion,
+          updateId: debugInfo.updateId,
+          channel: debugInfo.channel,
+          runtimeVersion: runtimeVersion.toString(),
+          isEmbedded: debugInfo.isEmbedded,
+          message: 'You already have the latest version.'
+        });
       }
+      
+      setUpdateModalVisible(true);
     } catch (error) {
       console.error('Update check failed:', error);
-      Alert.alert('Error', 'Failed to check for updates: ' + (error instanceof Error ? error.message : String(error)));
+      setUpdateInfo({
+        hasUpdate: false,
+        currentVersion: Constants.expoConfig?.version || 'Unknown',
+        updateId: 'Error',
+        channel: 'Unknown',
+        runtimeVersion: 'Unknown',
+        isEmbedded: false,
+        message: 'Failed to check for updates: ' + (error instanceof Error ? error.message : String(error))
+      });
+      setUpdateModalVisible(true);
+    }
+  };
+
+  const handleDownloadUpdate = async () => {
+    try {
+      setUpdateModalVisible(false);
+      // Show a loading state or progress indicator here if needed
+      console.log('Downloading update...');
+      await Updates.fetchUpdateAsync();
+      console.log('Reloading app...');
+      await Updates.reloadAsync();
+    } catch (error) {
+      console.error('Update download failed:', error);
+      Alert.alert('Error', 'Failed to download update: ' + (error instanceof Error ? error.message : String(error)));
     }
   };
 
@@ -212,6 +252,74 @@ export const SettingsScreen: React.FC = () => {
           </ScrollView>
         </View>
       </ResponsiveContainer>
+
+      {/* Update Info Modal */}
+      <Modal
+        visible={updateModalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setUpdateModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={[FONTS.h3, styles.modalTitle]}>
+              {updateInfo?.hasUpdate ? '🚀 Update Available' : '✅ Up to Date'}
+            </Text>
+            
+            <Text style={[FONTS.body, styles.modalMessage]}>
+              {updateInfo?.message}
+            </Text>
+            
+            <View style={styles.versionInfoContainer}>
+              <Text style={[FONTS.caption, styles.versionInfoTitle]}>Version Information:</Text>
+              <Text style={[FONTS.caption, styles.versionInfoText]}>
+                Current Version: {updateInfo?.currentVersion}
+              </Text>
+              <Text style={[FONTS.caption, styles.versionInfoText]}>
+                Runtime Version: {updateInfo?.runtimeVersion}
+              </Text>
+              <Text style={[FONTS.caption, styles.versionInfoText]}>
+                Channel: {updateInfo?.channel}
+              </Text>
+              <Text style={[FONTS.caption, styles.versionInfoText]}>
+                Update ID: {updateInfo?.updateId}
+              </Text>
+              <Text style={[FONTS.caption, styles.versionInfoText]}>
+                Build Type: {updateInfo?.isEmbedded ? 'Embedded' : 'OTA'}
+              </Text>
+            </View>
+            
+            <View style={styles.modalButtons}>
+              {updateInfo?.hasUpdate ? (
+                <>
+                  <TouchableOpacity
+                    style={[styles.modalButton, styles.cancelButton]}
+                    onPress={() => setUpdateModalVisible(false)}
+                    activeOpacity={0.7}
+                  >
+                    <Text style={styles.cancelButtonText}>Later</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.modalButton, styles.updateButton]}
+                    onPress={handleDownloadUpdate}
+                    activeOpacity={0.7}
+                  >
+                    <Text style={styles.updateButtonText}>Update Now</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.okButton]}
+                  onPress={() => setUpdateModalVisible(false)}
+                  activeOpacity={0.7}
+                >
+                  <Text style={styles.okButtonText}>OK</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -361,6 +469,82 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   updateButtonText: {
+    color: COLORS.background,
+    fontWeight: '600',
+  },
+  // Modal styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: SPACING.lg,
+  },
+  modalContent: {
+    backgroundColor: COLORS.background,
+    borderRadius: 16,
+    padding: SPACING.xl,
+    width: '100%',
+    maxWidth: 400,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  modalTitle: {
+    color: COLORS.text,
+    textAlign: 'center',
+    marginBottom: SPACING.md,
+    fontWeight: 'bold',
+  },
+  modalMessage: {
+    color: COLORS.text,
+    textAlign: 'center',
+    marginBottom: SPACING.lg,
+    lineHeight: 22,
+  },
+  versionInfoContainer: {
+    backgroundColor: COLORS.surface,
+    borderRadius: 12,
+    padding: SPACING.md,
+    marginBottom: SPACING.lg,
+  },
+  versionInfoTitle: {
+    color: COLORS.text,
+    fontWeight: '600',
+    marginBottom: SPACING.sm,
+  },
+  versionInfoText: {
+    color: COLORS.textSecondary,
+    marginBottom: SPACING.xs,
+    fontSize: 12,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: SPACING.md,
+  },
+  modalButton: {
+    flex: 1,
+    paddingVertical: SPACING.md,
+    paddingHorizontal: SPACING.lg,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  cancelButton: {
+    backgroundColor: COLORS.surface,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  cancelButtonText: {
+    color: COLORS.text,
+    fontWeight: '600',
+  },
+  okButton: {
+    backgroundColor: COLORS.primary,
+  },
+  okButtonText: {
     color: COLORS.background,
     fontWeight: '600',
   },
