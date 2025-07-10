@@ -43,6 +43,9 @@ export const StartupScreen: React.FC = () => {
             <Text style={[FONTS.body, styles.subtitle]}>
               Keep track of your 2468 games!
             </Text>
+            <Text style={[FONTS.body, styles.otaTestText]}>
+              🚀 OTA UPDATE TEST 🚀
+            </Text>
           </View>
 
           {/* Game Buttons */}
@@ -216,5 +219,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 32,
     fontWeight: 'bold',
+  },
+  otaTestText: {
+    color: COLORS.error || '#FF6B6B',
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: SPACING.sm,
   },
 }); 
