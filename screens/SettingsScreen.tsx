@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, TextInput, Alert, Switch, ScrollView, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, TextInput, Alert, Switch, ScrollView, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { ResponsiveContainer } from '../components/ResponsiveContainer';
@@ -7,6 +7,18 @@ import { COLORS, FONTS, SPACING } from '../constants/theme';
 import { useResponsive } from '../hooks/useResponsive';
 import { storage, Settings } from '../utils/storage';
 import * as Updates from 'expo-updates';
+
+// Import separated styles
+import { 
+  layoutStyles, 
+  buttonStyles, 
+  buttonTextStyles, 
+  cardStyles, 
+  formStyles, 
+  modalStyles, 
+  modalTextStyles 
+} from '../styles/common';
+import { settingsStyles } from '../styles/screens/SettingsScreen.styles';
 
 // Testing improved OTA update configuration
 type NavigationProp = any;
@@ -146,21 +158,21 @@ export const SettingsScreen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={layoutStyles.container}>
       <ResponsiveContainer>
         <View style={[
-          styles.content,
-          isLandscape && styles.contentLandscape
+          layoutStyles.content,
+          isLandscape && layoutStyles.contentLandscape
         ]}>
           {/* Header */}
-          <View style={styles.header}>
-            <Text style={[FONTS.h2, styles.title]}>Settings</Text>
+          <View style={layoutStyles.header}>
+            <Text style={[FONTS.h2, { color: COLORS.text, fontWeight: 'bold' }]}>Settings</Text>
             <TouchableOpacity 
-              style={styles.closeButton}
+              style={buttonStyles.close}
               onPress={handleClose}
               activeOpacity={0.7}
             >
-              <Text style={styles.closeButtonText}>✕</Text>
+              <Text style={settingsStyles.closeButtonText}>✕</Text>
             </TouchableOpacity>
           </View>
 
@@ -324,228 +336,5 @@ export const SettingsScreen: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: SPACING.md,
-  },
-  contentLandscape: {
-    paddingHorizontal: SPACING.lg,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: SPACING.lg,
-  },
-  title: {
-    color: COLORS.text,
-    fontWeight: 'bold',
-  },
-  closeButton: {
-    paddingHorizontal: SPACING.sm,
-    paddingVertical: SPACING.sm,
-    borderRadius: 8,
-  },
-  closeButtonText: {
-    fontSize: 24,
-  },
-  settingsContent: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingBottom: SPACING.lg,
-  },
-  settingsTitle: {
-    color: COLORS.text,
-    marginBottom: SPACING.lg,
-    textAlign: 'center',
-  },
-  settingsSection: {
-    backgroundColor: COLORS.surface,
-    borderRadius: 16,
-    padding: SPACING.lg,
-    marginBottom: SPACING.md,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  sectionTitle: {
-    color: COLORS.text,
-    fontWeight: '600',
-    marginBottom: SPACING.sm,
-  },
-  sectionDescription: {
-    color: COLORS.textSecondary,
-    lineHeight: 20,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: SPACING.md,
-    marginBottom: SPACING.sm,
-  },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 8,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-    fontSize: 16,
-    color: COLORS.text,
-    marginRight: SPACING.sm,
-  },
-  saveButton: {
-    backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-    borderRadius: 8,
-  },
-  saveButtonText: {
-    color: COLORS.background,
-    fontWeight: '600',
-  },
-  currentValue: {
-    color: COLORS.textSecondary,
-    fontStyle: 'italic',
-  },
-  footer: {
-    paddingVertical: SPACING.md,
-    paddingHorizontal: SPACING.md,
-    alignItems: 'center',
-  },
-  versionText: {
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    marginBottom: SPACING.sm, // Increased spacing
-    fontSize: 14,
-  },
-  copyrightText: {
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    fontSize: 12,
-  },
-  debugText: {
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    fontSize: 11,
-    marginBottom: SPACING.xs,
-  },
-  debugSection: {
-    backgroundColor: COLORS.surface,
-    borderRadius: 12,
-    padding: SPACING.md,
-    marginTop: SPACING.lg,
-    marginBottom: SPACING.md,
-    alignItems: 'center',
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: SPACING.md,
-    paddingVertical: SPACING.sm,
-  },
-  switchLabel: {
-    color: COLORS.text,
-    flex: 1,
-  },
-  updateButton: {
-    backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-    borderRadius: 8,
-    marginTop: SPACING.md,
-    alignItems: 'center',
-  },
-  updateButtonText: {
-    color: COLORS.background,
-    fontWeight: '600',
-  },
-  // Modal styles
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: SPACING.lg,
-  },
-  modalContent: {
-    backgroundColor: COLORS.background,
-    borderRadius: 16,
-    padding: SPACING.xl,
-    width: '100%',
-    maxWidth: 400,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  modalTitle: {
-    color: COLORS.text,
-    textAlign: 'center',
-    marginBottom: SPACING.md,
-    fontWeight: 'bold',
-  },
-  modalMessage: {
-    color: COLORS.text,
-    textAlign: 'center',
-    marginBottom: SPACING.lg,
-    lineHeight: 22,
-  },
-  versionInfoContainer: {
-    backgroundColor: COLORS.surface,
-    borderRadius: 12,
-    padding: SPACING.md,
-    marginBottom: SPACING.lg,
-  },
-  versionInfoTitle: {
-    color: COLORS.text,
-    fontWeight: '600',
-    marginBottom: SPACING.sm,
-  },
-  versionInfoText: {
-    color: COLORS.textSecondary,
-    marginBottom: SPACING.xs,
-    fontSize: 12,
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: SPACING.md,
-  },
-  modalButton: {
-    flex: 1,
-    paddingVertical: SPACING.md,
-    paddingHorizontal: SPACING.lg,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  cancelButton: {
-    backgroundColor: COLORS.surface,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-  },
-  cancelButtonText: {
-    color: COLORS.text,
-    fontWeight: '600',
-  },
-  okButton: {
-    backgroundColor: COLORS.primary,
-  },
-  okButtonText: {
-    color: COLORS.background,
-    fontWeight: '600',
-  },
-}); 
+// Styles are now imported from separated style files
+// No local StyleSheet.create needed!
