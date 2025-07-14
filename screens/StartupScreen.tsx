@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ResponsiveContainer } from '../components/ResponsiveContainer';
@@ -30,6 +30,18 @@ export const StartupScreen: React.FC = () => {
       <ResponsiveContainer>
         {/* Main Content */}
         <View style={styles.mainContent}>
+          {/* Logo */}
+          <View style={styles.logoSection}>
+            <Image 
+              source={require('../assets/new_logo.jpg')} 
+              style={[
+                styles.logo,
+                isTablet && styles.logoTablet
+              ]}
+              resizeMode="contain"
+            />
+          </View>
+
           {/* App Title */}
           <View style={styles.titleSection}>
             <View style={styles.titleContainer}>
@@ -111,6 +123,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: SPACING.lg,
+  },
+  logoSection: {
+    alignItems: 'center',
+    marginBottom: SPACING.lg,
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    shadowColor: COLORS.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  logoTablet: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
   },
   titleSection: {
     alignItems: 'center',
