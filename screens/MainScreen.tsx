@@ -729,7 +729,8 @@ export const MainScreen: React.FC = () => {
                       style={[
                         styles.areaCard,
                         isTablet && styles.areaCardTablet,
-                        isLandscape && styles.areaCardLandscape
+                        isLandscape && styles.areaCardLandscape,
+                        isLandscape && isTablet && styles.areaCardLandscapeTablet
                       ]}
                     >
                       {/* Top Left - Area Label */}
@@ -765,7 +766,9 @@ export const MainScreen: React.FC = () => {
                             style={[
                               styles.playerButton,
                               area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonSelected,
-                              isTablet && styles.playerButtonTablet
+                              isTablet && styles.playerButtonTablet,
+                              isLandscape && styles.playerButtonLandscape,
+                              isLandscape && isTablet && styles.playerButtonLandscapeTablet
                             ]}
                             onPress={() => handlePlayerToggle(area.id, selectedPlayers[0].id)}
                             activeOpacity={0.7}
@@ -773,7 +776,9 @@ export const MainScreen: React.FC = () => {
                             <Text style={[
                               styles.playerButtonText,
                               area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonTextSelected,
-                              isTablet && styles.playerButtonTextTablet
+                              isTablet && styles.playerButtonTextTablet,
+                              isLandscape && styles.playerButtonTextLandscape,
+                              isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                             ]}>
                               {getPlayerInitials(selectedPlayers[0])}
                             </Text>
@@ -788,7 +793,9 @@ export const MainScreen: React.FC = () => {
                             style={[
                               styles.playerButton,
                               area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonSelected,
-                              isTablet && styles.playerButtonTablet
+                              isTablet && styles.playerButtonTablet,
+                              isLandscape && styles.playerButtonLandscape,
+                              isLandscape && isTablet && styles.playerButtonLandscapeTablet
                             ]}
                             onPress={() => handlePlayerToggle(area.id, selectedPlayers[1].id)}
                             activeOpacity={0.7}
@@ -796,7 +803,9 @@ export const MainScreen: React.FC = () => {
                             <Text style={[
                               styles.playerButtonText,
                               area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonTextSelected,
-                              isTablet && styles.playerButtonTextTablet
+                              isTablet && styles.playerButtonTextTablet,
+                              isLandscape && styles.playerButtonTextLandscape,
+                              isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                             ]}>
                               {getPlayerInitials(selectedPlayers[1])}
                             </Text>
@@ -811,7 +820,9 @@ export const MainScreen: React.FC = () => {
                             style={[
                               styles.playerButton,
                               area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonSelected,
-                              isTablet && styles.playerButtonTablet
+                              isTablet && styles.playerButtonTablet,
+                              isLandscape && styles.playerButtonLandscape,
+                              isLandscape && isTablet && styles.playerButtonLandscapeTablet
                             ]}
                             onPress={() => handlePlayerToggle(area.id, selectedPlayers[2].id)}
                             activeOpacity={0.7}
@@ -819,7 +830,9 @@ export const MainScreen: React.FC = () => {
                             <Text style={[
                               styles.playerButtonText,
                               area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonTextSelected,
-                              isTablet && styles.playerButtonTextTablet
+                              isTablet && styles.playerButtonTextTablet,
+                              isLandscape && styles.playerButtonTextLandscape,
+                              isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                             ]}>
                               {getPlayerInitials(selectedPlayers[2])}
                             </Text>
@@ -840,9 +853,13 @@ export const MainScreen: React.FC = () => {
                 <View style={[
                   styles.pointsContainer,
                   isTablet && styles.pointsContainerTablet,
-                  isLandscape && styles.pointsContainerLandscape
+                  isLandscape && styles.pointsContainerLandscape,
+                  isLandscape && isTablet && styles.pointsContainerLandscapeTablet
                 ]}>
-                  <View style={styles.pointsHeader}>
+                  <View style={[
+                    styles.pointsHeader,
+                    isLandscape && styles.pointsHeaderLandscape
+                  ]}>
                     <View style={styles.pointsHeaderTop}>
                       <View style={styles.roundNavigation}>
                         <TouchableOpacity
@@ -914,7 +931,10 @@ export const MainScreen: React.FC = () => {
                   </View>
                   
                   {/* Fixed Header */}
-                  <View style={styles.pointsTableHeader}>
+                  <View style={[
+                    styles.pointsTableHeader,
+                    isLandscape && styles.pointsTableHeaderLandscape
+                  ]}>
                     <View style={styles.pointsRow}>
                       <View style={[styles.pointsCell, styles.pointsCellHeader]}>
                         <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>Round</Text>
@@ -1255,6 +1275,20 @@ const styles = StyleSheet.create({
     minHeight: 60,
     borderRadius: 20,
   },
+  playerButtonLandscape: {
+    minWidth: 56,
+    minHeight: 56,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.md,
+    borderRadius: 18,
+  },
+  playerButtonLandscapeTablet: {
+    minWidth: 72,
+    minHeight: 72,
+    paddingHorizontal: SPACING.xl,
+    paddingVertical: SPACING.lg,
+    borderRadius: 24,
+  },
   playerButtonText: {
     color: COLORS.text,
     fontSize: 16,
@@ -1266,6 +1300,12 @@ const styles = StyleSheet.create({
   playerButtonTextTablet: {
     fontSize: 20,
   },
+  playerButtonTextLandscape: {
+    fontSize: 18,
+  },
+  playerButtonTextLandscapeTablet: {
+    fontSize: 24,
+  },
   areaCardTablet: {
     padding: SPACING.xxl,
     borderRadius: 20,
@@ -1273,6 +1313,12 @@ const styles = StyleSheet.create({
   areaCardLandscape: {
     width: '45%',
     height: '45%',
+    padding: SPACING.lg,
+  },
+  areaCardLandscapeTablet: {
+    width: '48%',
+    height: '48%',
+    padding: SPACING.xl,
   },
   areaLabel: {
     color: COLORS.primary,
@@ -1414,10 +1460,21 @@ const styles = StyleSheet.create({
   },
   pointsContainerLandscape: {
     height: '70%',
+    marginTop: SPACING.lg,
+    paddingTop: SPACING.md,
+  },
+  pointsContainerLandscapeTablet: {
+    height: '75%',
+    marginTop: SPACING.xl,
+    paddingTop: SPACING.lg,
   },
   pointsHeader: {
     marginBottom: SPACING.sm,
     flex: 0,
+  },
+  pointsHeaderLandscape: {
+    marginBottom: SPACING.md,
+    paddingBottom: SPACING.sm,
   },
   pointsTitle: {
     color: COLORS.text,
@@ -1563,6 +1620,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
     backgroundColor: COLORS.surface,
+  },
+  pointsTableHeaderLandscape: {
+    paddingVertical: SPACING.xs,
   },
   settingsButton: {
     backgroundColor: COLORS.primary,

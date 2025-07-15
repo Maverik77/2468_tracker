@@ -29,36 +29,56 @@ export const StartupScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <ResponsiveContainer>
         {/* Main Content */}
-        <View style={styles.mainContent}>
-          {/* Logo */}
-          <View style={styles.logoSection}>
-            <Image 
-              source={require('../assets/new_logo.jpg')} 
-              style={[
-                styles.logo,
-                isTablet && styles.logoTablet
-              ]}
-              resizeMode="contain"
-            />
-          </View>
+        <View style={[
+          styles.mainContent,
+          isLandscape && styles.mainContentLandscape
+        ]}>
+          {/* Logo and Title Section */}
+          <View style={[
+            styles.logoTitleSection,
+            isLandscape && styles.logoTitleSectionLandscape
+          ]}>
+            {/* Logo */}
+            <View style={[
+              styles.logoSection,
+              isLandscape && styles.logoSectionLandscape
+            ]}>
+              <Image 
+                source={require('../assets/new_logo.jpg')} 
+                style={[
+                  styles.logo,
+                  isTablet && styles.logoTablet,
+                  isLandscape && styles.logoLandscape,
+                  isLandscape && isTablet && styles.logoLandscapeTablet
+                ]}
+                resizeMode="contain"
+              />
+            </View>
 
-          {/* App Title */}
-          <View style={styles.titleSection}>
-            <View style={styles.titleContainer}>
-              <Text style={[FONTS.h1, styles.title]}>
-                2468{' '}
-              </Text>
-              <Text style={[FONTS.h1, styles.scorekeeperTitle]}>
-                Scorekeeper
+            {/* App Title */}
+            <View style={[
+              styles.titleSection,
+              isLandscape && styles.titleSectionLandscape
+            ]}>
+              <View style={styles.titleContainer}>
+                <Text style={[FONTS.h1, styles.title]}>
+                  2468{' '}
+                </Text>
+                <Text style={[FONTS.h1, styles.scorekeeperTitle]}>
+                  Scorekeeper
+                </Text>
+              </View>
+              <Text style={[FONTS.body, styles.subtitle]}>
+                Keep track of your 2468 games!
               </Text>
             </View>
-            <Text style={[FONTS.body, styles.subtitle]}>
-              Keep track of your 2468 games!
-            </Text>
           </View>
 
           {/* Game Buttons */}
-          <View style={styles.buttonSection}>
+          <View style={[
+            styles.buttonSection,
+            isLandscape && styles.buttonSectionLandscape
+          ]}>
             <TouchableOpacity 
               style={[
                 styles.newGameButton,
@@ -124,9 +144,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: SPACING.lg,
   },
+  mainContentLandscape: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingHorizontal: SPACING.xxl,
+  },
+  logoTitleSection: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoTitleSectionLandscape: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   logoSection: {
     alignItems: 'center',
     marginBottom: SPACING.lg,
+  },
+  logoSectionLandscape: {
+    marginBottom: SPACING.md,
   },
   logo: {
     width: 120,
@@ -143,9 +181,22 @@ const styles = StyleSheet.create({
     height: 160,
     borderRadius: 80,
   },
+  logoLandscape: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+  },
+  logoLandscapeTablet: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+  },
   titleSection: {
     alignItems: 'center',
     marginBottom: SPACING.xxl,
+  },
+  titleSectionLandscape: {
+    marginBottom: SPACING.lg,
   },
   title: {
     color: COLORS.primary,
@@ -161,6 +212,11 @@ const styles = StyleSheet.create({
   },
   buttonSection: {
     alignItems: 'center',
+  },
+  buttonSectionLandscape: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   newGameButton: {
     backgroundColor: COLORS.primary,
