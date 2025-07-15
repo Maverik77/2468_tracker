@@ -1462,12 +1462,12 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.lg,
   },
   pointsContainerLandscape: {
-    height: '65%',
+    height: '62%',
     marginTop: SPACING.xxl,
     paddingTop: SPACING.lg,
   },
   pointsContainerLandscapeTablet: {
-    height: '68%',
+    height: '65%',
     marginTop: 64,
     paddingTop: SPACING.xl,
   },
@@ -1476,8 +1476,8 @@ const styles = StyleSheet.create({
     flex: 0,
   },
   pointsHeaderLandscape: {
-    marginBottom: SPACING.md,
-    paddingBottom: SPACING.sm,
+    marginBottom: SPACING.lg,
+    paddingBottom: SPACING.md,
   },
   pointsTitle: {
     color: COLORS.text,
@@ -1625,7 +1625,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
   },
   pointsTableHeaderLandscape: {
-    paddingVertical: SPACING.xs,
+    paddingVertical: SPACING.sm,
+    marginTop: SPACING.sm,
   },
   settingsButton: {
     backgroundColor: COLORS.primary,
