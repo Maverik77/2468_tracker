@@ -865,10 +865,8 @@ export const MainScreen: React.FC = () => {
                   isLandscape && styles.pointsContainerLandscape,
                   isLandscape && isTablet && styles.pointsContainerLandscapeTablet
                 ]}>
-                  <View style={[
-                    styles.pointsHeader,
-                    isLandscape && styles.pointsHeaderLandscape
-                  ]}>
+                  {/* Points Header Section */}
+                  <View style={styles.pointsHeaderSection}>
                     <View style={styles.pointsHeaderTop}>
                       <View style={styles.roundNavigation}>
                         <TouchableOpacity
@@ -939,11 +937,8 @@ export const MainScreen: React.FC = () => {
                     </View>
                   </View>
                   
-                  {/* Fixed Header */}
-                  <View style={[
-                    styles.pointsTableHeader,
-                    isLandscape && styles.pointsTableHeaderLandscape
-                  ]}>
+                  {/* Table Header Section */}
+                  <View style={styles.pointsTableHeaderSection}>
                     <View style={styles.pointsRow}>
                       <View style={[styles.pointsCell, styles.pointsCellHeader]}>
                         <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>Round</Text>
@@ -958,12 +953,13 @@ export const MainScreen: React.FC = () => {
                     </View>
                   </View>
 
-                  {/* Scrollable Content */}
-                  <ScrollView 
-                    style={styles.pointsTableScroll}
-                    showsVerticalScrollIndicator={false}
-                    nestedScrollEnabled={true}
-                  >
+                  {/* Scrollable Content Section */}
+                  <View style={styles.pointsTableContentSection}>
+                    <ScrollView 
+                      style={styles.pointsTableScroll}
+                      showsVerticalScrollIndicator={false}
+                      nestedScrollEnabled={true}
+                    >
                     <View style={styles.pointsTable}>
                       {/* Historical Rounds */}
                       {Object.keys(rounds).map(roundNumber => {
@@ -1029,6 +1025,7 @@ export const MainScreen: React.FC = () => {
                       </View>
                     </View>
                   </ScrollView>
+                  </View>
                 </View>
 
                 {/* Instructions */}
@@ -1490,6 +1487,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     height: '45%',
     flex: 1,
+    flexDirection: 'column',
   },
   pointsContainerTablet: {
     padding: SPACING.lg,
@@ -1575,12 +1573,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: SPACING.sm,
   },
+  pointsHeaderSection: {
+    flexShrink: 0,
+  },
   pointsHeaderTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: SPACING.lg,
     paddingBottom: SPACING.sm,
+  },
+  pointsTableHeaderSection: {
+    flexShrink: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    backgroundColor: COLORS.surface,
+  },
+  pointsTableContentSection: {
+    flex: 1,
   },
   roundNavButton: {
     backgroundColor: COLORS.primary,
