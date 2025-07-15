@@ -1171,7 +1171,8 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   titleSectionLandscape: {
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.xl,
+    paddingBottom: SPACING.lg,
   },
   titleButtons: {
     flexDirection: 'row',
@@ -1276,18 +1277,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   playerButtonLandscape: {
-    minWidth: 56,
-    minHeight: 56,
-    paddingHorizontal: SPACING.lg,
-    paddingVertical: SPACING.md,
-    borderRadius: 18,
+    minWidth: 80,
+    minHeight: 80,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.sm,
+    borderRadius: 20,
   },
   playerButtonLandscapeTablet: {
-    minWidth: 72,
-    minHeight: 72,
-    paddingHorizontal: SPACING.xl,
-    paddingVertical: SPACING.lg,
-    borderRadius: 24,
+    minWidth: 100,
+    minHeight: 100,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.md,
+    borderRadius: 25,
   },
   playerButtonText: {
     color: COLORS.text,
@@ -1301,10 +1302,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   playerButtonTextLandscape: {
-    fontSize: 18,
+    fontSize: 24,
+    fontWeight: 'bold',
   },
   playerButtonTextLandscapeTablet: {
-    fontSize: 24,
+    fontSize: 32,
+    fontWeight: 'bold',
   },
   areaCardTablet: {
     padding: SPACING.xxl,
@@ -1459,14 +1462,14 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.lg,
   },
   pointsContainerLandscape: {
-    height: '70%',
-    marginTop: SPACING.lg,
-    paddingTop: SPACING.md,
+    height: '65%',
+    marginTop: SPACING.xxl,
+    paddingTop: SPACING.lg,
   },
   pointsContainerLandscapeTablet: {
-    height: '75%',
-    marginTop: SPACING.xl,
-    paddingTop: SPACING.lg,
+    height: '68%',
+    marginTop: 64,
+    paddingTop: SPACING.xl,
   },
   pointsHeader: {
     marginBottom: SPACING.sm,
