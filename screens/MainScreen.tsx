@@ -1337,11 +1337,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   playerButtonTextLandscape: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   playerButtonTextLandscapeTablet: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   areaCardTablet: {
