@@ -4,9 +4,13 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
+    "start:dev": "expo start --dev-client",
+    "start:debug": "expo start --dev-client --localhost",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "web:debug": "expo start --web --localhost",
+    "clear": "expo start --clear"
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
