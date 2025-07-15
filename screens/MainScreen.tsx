@@ -1241,6 +1241,8 @@ const styles = StyleSheet.create({
     gap: SPACING.xs,
   },
   topRightSectionLandscape: {
+    top: SPACING.md,
+    right: SPACING.md,
     width: '45%',
     height: '45%',
     alignItems: 'center',
@@ -1254,6 +1256,8 @@ const styles = StyleSheet.create({
     gap: SPACING.xs,
   },
   bottomLeftSectionLandscape: {
+    bottom: SPACING.md,
+    left: SPACING.md,
     width: '45%',
     height: '45%',
     alignItems: 'center',
@@ -1267,6 +1271,8 @@ const styles = StyleSheet.create({
     gap: SPACING.xs,
   },
   bottomRightSectionLandscape: {
+    bottom: SPACING.md,
+    right: SPACING.md,
     width: '45%',
     height: '45%',
     alignItems: 'center',
@@ -1304,16 +1310,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   playerButtonLandscape: {
-    width: '80%',
-    height: '80%',
+    width: '70%',
+    height: '70%',
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
     borderRadius: 12,
     aspectRatio: 1,
   },
   playerButtonLandscapeTablet: {
-    width: '85%',
-    height: '85%',
+    width: '75%',
+    height: '75%',
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
     borderRadius: 14,
