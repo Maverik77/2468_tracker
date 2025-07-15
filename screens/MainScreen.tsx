@@ -1162,7 +1162,7 @@ const styles = StyleSheet.create({
   rightSideLandscape: {
     width: '40%',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   titleSection: {
     flexDirection: 'row',
@@ -1462,14 +1462,16 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.lg,
   },
   pointsContainerLandscape: {
-    height: '62%',
-    marginTop: SPACING.xxl,
-    paddingTop: SPACING.lg,
+    height: '75%',
+    marginTop: SPACING.lg,
+    paddingTop: SPACING.sm,
+    marginBottom: SPACING.sm,
   },
   pointsContainerLandscapeTablet: {
-    height: '65%',
-    marginTop: 64,
-    paddingTop: SPACING.xl,
+    height: '80%',
+    marginTop: SPACING.xl,
+    paddingTop: SPACING.md,
+    marginBottom: SPACING.sm,
   },
   pointsHeader: {
     marginBottom: SPACING.sm,
