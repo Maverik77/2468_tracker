@@ -1488,7 +1488,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 5,
-    height: '48%',
+    height: '45%',
     flex: 1,
   },
   pointsContainerTablet: {
@@ -1509,7 +1509,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.sm,
   },
   pointsHeader: {
-    marginBottom: SPACING.xs,
+    marginBottom: SPACING.md,
     flex: 0,
   },
   pointsHeaderLandscape: {
@@ -1579,7 +1579,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: SPACING.sm,
+    marginBottom: SPACING.lg,
+    paddingBottom: SPACING.sm,
   },
   roundNavButton: {
     backgroundColor: COLORS.primary,
@@ -1660,6 +1661,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
     backgroundColor: COLORS.surface,
+    marginTop: SPACING.sm,
   },
   pointsTableHeaderLandscape: {
     paddingVertical: SPACING.sm,
