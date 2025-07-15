@@ -229,19 +229,6 @@ export const SettingsScreen: React.FC = () => {
             >
               <Text style={styles.updateButtonText}>Check for Updates</Text>
             </TouchableOpacity>
-
-            {/* Debug Info Section - Now scrollable */}
-            <View style={styles.debugSection}>
-              <Text style={[FONTS.caption, styles.debugText]}>
-                Channel: {getUpdateDebugInfo().channel}
-              </Text>
-              <Text style={[FONTS.caption, styles.debugText]}>
-                Update ID: {getUpdateDebugInfo().updateId}
-              </Text>
-              <Text style={[FONTS.caption, styles.debugText]}>
-                Version: {Constants.expoConfig?.version}
-              </Text>
-            </View>
             
             {/* Simplified Footer */}
             <View style={styles.footer}>
@@ -435,20 +422,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 12,
   },
-  debugText: {
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    fontSize: 11,
-    marginBottom: SPACING.xs,
-  },
-  debugSection: {
-    backgroundColor: COLORS.surface,
-    borderRadius: 12,
-    padding: SPACING.md,
-    marginTop: SPACING.lg,
-    marginBottom: SPACING.md,
-    alignItems: 'center',
-  },
+
   switchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
