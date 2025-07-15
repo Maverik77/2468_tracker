@@ -1488,7 +1488,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 5,
-    height: '50%',
+    height: '48%',
     flex: 1,
   },
   pointsContainerTablet: {
@@ -1509,7 +1509,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.sm,
   },
   pointsHeader: {
-    marginBottom: SPACING.sm,
+    marginBottom: SPACING.xs,
     flex: 0,
   },
   pointsHeaderLandscape: {
