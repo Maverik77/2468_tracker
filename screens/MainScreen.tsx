@@ -760,7 +760,10 @@ export const MainScreen: React.FC = () => {
                       </View>
 
                       {/* Top Right - Player Button */}
-                      <View style={styles.topRightSection}>
+                      <View style={[
+                        styles.topRightSection,
+                        isLandscape && styles.topRightSectionLandscape
+                      ]}>
                         {selectedPlayers.length > 0 && (
                           <TouchableOpacity
                             style={[
@@ -787,7 +790,10 @@ export const MainScreen: React.FC = () => {
                       </View>
 
                       {/* Bottom Left - Player Button */}
-                      <View style={styles.bottomLeftSection}>
+                      <View style={[
+                        styles.bottomLeftSection,
+                        isLandscape && styles.bottomLeftSectionLandscape
+                      ]}>
                         {selectedPlayers.length > 1 && (
                           <TouchableOpacity
                             style={[
@@ -814,7 +820,10 @@ export const MainScreen: React.FC = () => {
                       </View>
 
                       {/* Bottom Right - Player Button */}
-                      <View style={styles.bottomRightSection}>
+                      <View style={[
+                        styles.bottomRightSection,
+                        isLandscape && styles.bottomRightSectionLandscape
+                      ]}>
                         {selectedPlayers.length > 2 && (
                           <TouchableOpacity
                             style={[
@@ -1231,6 +1240,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: SPACING.xs,
   },
+  topRightSectionLandscape: {
+    width: '45%',
+    height: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   bottomLeftSection: {
     position: 'absolute',
     bottom: SPACING.sm,
@@ -1238,12 +1253,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: SPACING.xs,
   },
+  bottomLeftSectionLandscape: {
+    width: '45%',
+    height: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   bottomRightSection: {
     position: 'absolute',
     bottom: SPACING.sm,
     right: SPACING.sm,
     flexDirection: 'row',
     gap: SPACING.xs,
+  },
+  bottomRightSectionLandscape: {
+    width: '45%',
+    height: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   playerButton: {
     backgroundColor: COLORS.background,
@@ -1277,23 +1304,19 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   playerButtonLandscape: {
-    width: '35%',
-    height: '35%',
-    maxWidth: '40%',
-    maxHeight: '40%',
+    width: '80%',
+    height: '80%',
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
-    borderRadius: 8,
+    borderRadius: 12,
     aspectRatio: 1,
   },
   playerButtonLandscapeTablet: {
-    width: '38%',
-    height: '38%',
-    maxWidth: '42%',
-    maxHeight: '42%',
+    width: '85%',
+    height: '85%',
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
-    borderRadius: 10,
+    borderRadius: 14,
     aspectRatio: 1,
   },
   playerButtonText: {
@@ -1308,11 +1331,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   playerButtonTextLandscape: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   playerButtonTextLandscapeTablet: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   areaCardTablet: {
