@@ -1496,13 +1496,11 @@ const styles = StyleSheet.create({
   },
   pointsContainerLandscape: {
     height: '75%',
-    marginTop: SPACING.lg,
     paddingTop: SPACING.sm,
     marginBottom: SPACING.sm,
   },
   pointsContainerLandscapeTablet: {
     height: '80%',
-    marginTop: SPACING.xl,
     paddingTop: SPACING.md,
     marginBottom: SPACING.sm,
   },
@@ -1581,7 +1579,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: SPACING.lg,
     paddingBottom: SPACING.sm,
-    height: 40,
+    minHeight: SPACING.xxl + SPACING.sm, // 48 + 8 = 56px, enough space for 40px buttons + padding
+    paddingVertical: SPACING.sm,
   },
   pointsTableHeaderSection: {
     flexShrink: 0,
