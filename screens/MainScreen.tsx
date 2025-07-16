@@ -881,7 +881,7 @@ export const MainScreen: React.FC = () => {
                           <Text style={[
                             styles.roundNavButtonText,
                             currentRound <= 1 && styles.roundNavButtonTextDisabled
-                          ]}>←</Text>
+                          ]} adjustsFontSizeToFit numberOfLines={1}>←</Text>
                         </TouchableOpacity>
                         
                         <Text style={[FONTS.h3, styles.roundNumber]}>Rd {currentRound}</Text>
@@ -898,7 +898,7 @@ export const MainScreen: React.FC = () => {
                           <Text style={[
                             styles.roundNavButtonText,
                             !rounds[currentRound + 1] && styles.roundNavButtonTextDisabled
-                          ]}>→</Text>
+                          ]} adjustsFontSizeToFit numberOfLines={1}>→</Text>
                         </TouchableOpacity>
                       </View>
                       <View style={styles.pointsHeaderButtons}>
@@ -907,7 +907,7 @@ export const MainScreen: React.FC = () => {
                           onPress={handleSaveCurrentRound}
                           activeOpacity={0.7}
                         >
-                          <Text style={styles.saveRoundButtonText}>💾</Text>
+                          <Text style={styles.saveRoundButtonText} adjustsFontSizeToFit numberOfLines={1}>💾</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                           style={styles.payoutButton}
@@ -924,14 +924,14 @@ export const MainScreen: React.FC = () => {
                           }}
                           activeOpacity={0.7}
                         >
-                          <Text style={styles.payoutButtonText}>💰</Text>
+                          <Text style={styles.payoutButtonText} adjustsFontSizeToFit numberOfLines={1}>💰</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                           style={styles.newRoundIconButton}
                           onPress={handleNextRound}
                           activeOpacity={0.7}
                         >
-                          <Text style={styles.newRoundIconButtonText}>➕</Text>
+                          <Text style={styles.newRoundIconButtonText} adjustsFontSizeToFit numberOfLines={1}>➕</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
@@ -1603,8 +1603,8 @@ const styles = StyleSheet.create({
   },
   roundNavButton: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
     borderRadius: 8,
     width: 48,
     height: 48,
@@ -1630,8 +1630,8 @@ const styles = StyleSheet.create({
   },
   payoutButton: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
     borderRadius: 8,
     width: 48,
     height: 48,
@@ -1645,8 +1645,8 @@ const styles = StyleSheet.create({
   },
   newRoundIconButton: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
     borderRadius: 8,
     width: 48,
     height: 48,
@@ -1703,8 +1703,8 @@ const styles = StyleSheet.create({
   },
   saveRoundButton: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
     borderRadius: 8,
     width: 48,
     height: 48,
