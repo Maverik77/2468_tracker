@@ -1474,9 +1474,9 @@ const styles = StyleSheet.create({
   pointsContainer: {
     backgroundColor: COLORS.surface,
     borderRadius: 16,
-    padding: SPACING.sm,
-    marginTop: SPACING.sm,
-    marginBottom: SPACING.md,
+    padding: SPACING.xs,
+    marginTop: SPACING.xs,
+    marginBottom: SPACING.sm,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -1490,19 +1490,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   pointsContainerTablet: {
-    padding: SPACING.lg,
-    marginTop: SPACING.lg,
-    marginBottom: SPACING.lg,
+    padding: SPACING.sm,
+    marginTop: SPACING.sm,
+    marginBottom: SPACING.md,
   },
   pointsContainerLandscape: {
     height: '75%',
-    paddingTop: SPACING.sm,
-    marginBottom: SPACING.sm,
+    padding: SPACING.xs,
+    marginBottom: SPACING.xs,
   },
   pointsContainerLandscapeTablet: {
     height: '80%',
-    paddingTop: SPACING.md,
-    marginBottom: SPACING.sm,
+    padding: SPACING.sm,
+    marginBottom: SPACING.xs,
   },
   pointsHeader: {
     marginBottom: SPACING.md,
@@ -1577,10 +1577,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: SPACING.lg,
-    paddingBottom: SPACING.sm,
-    minHeight: SPACING.xxl + SPACING.sm, // 48 + 8 = 56px, enough space for 40px buttons + padding
-    paddingVertical: SPACING.sm,
+    marginBottom: SPACING.sm,
+    paddingBottom: SPACING.xs,
+    minHeight: SPACING.xxl + SPACING.lg, // 48 + 16 = 64px, enough space for 48px buttons + padding
+    paddingVertical: SPACING.xs,
   },
   pointsTableHeaderSection: {
     flexShrink: 0,
@@ -1606,8 +1606,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
     borderRadius: 8,
-    width: 40,
-    height: 40,
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1616,7 +1616,7 @@ const styles = StyleSheet.create({
   },
   roundNavButtonText: {
     color: COLORS.background,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   roundNavButtonTextDisabled: {
@@ -1625,7 +1625,7 @@ const styles = StyleSheet.create({
   roundNumber: {
     color: COLORS.text,
     fontWeight: 'bold',
-    lineHeight: 40,
+    lineHeight: 48,
     textAlignVertical: 'center',
   },
   payoutButton: {
@@ -1633,14 +1633,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
     borderRadius: 8,
-    width: 40,
-    height: 40,
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
   payoutButtonText: {
     color: COLORS.background,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   newRoundIconButton: {
@@ -1648,14 +1648,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
     borderRadius: 8,
-    width: 40,
-    height: 40,
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
   newRoundIconButtonText: {
     color: COLORS.background,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   roundCellContent: {
@@ -1706,14 +1706,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
     borderRadius: 8,
-    width: 40,
-    height: 40,
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
   saveRoundButtonText: {
     color: COLORS.background,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   },
 }); 
