@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug with React Native Debugger",
+      "type": "reactnative",
+      "request": "launch",
+      "platform": "ios",
+      "sourceMaps": true,
+      "outDir": "${workspaceRoot}/.vscode/.react"
+    },
+    {
+      "name": "Debug Android with React Native Debugger",
+      "type": "reactnative",
+      "request": "launch",
+      "platform": "android",
+      "sourceMaps": true,
+      "outDir": "${workspaceRoot}/.vscode/.react"
+    },
+    {
+      "name": "Debug Web with Browser DevTools",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:19006",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true
+    }
+  ]
+} 

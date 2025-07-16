@@ -729,7 +729,8 @@ export const MainScreen: React.FC = () => {
                       style={[
                         styles.areaCard,
                         isTablet && styles.areaCardTablet,
-                        isLandscape && styles.areaCardLandscape
+                        isLandscape && styles.areaCardLandscape,
+                        isLandscape && isTablet && styles.areaCardLandscapeTablet
                       ]}
                     >
                       {/* Top Left - Area Label */}
@@ -759,13 +760,18 @@ export const MainScreen: React.FC = () => {
                       </View>
 
                       {/* Top Right - Player Button */}
-                      <View style={styles.topRightSection}>
+                      <View style={[
+                        styles.topRightSection,
+                        isLandscape && styles.topRightSectionLandscape
+                      ]}>
                         {selectedPlayers.length > 0 && (
                           <TouchableOpacity
                             style={[
                               styles.playerButton,
                               area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonSelected,
-                              isTablet && styles.playerButtonTablet
+                              isTablet && styles.playerButtonTablet,
+                              isLandscape && styles.playerButtonLandscape,
+                              isLandscape && isTablet && styles.playerButtonLandscapeTablet
                             ]}
                             onPress={() => handlePlayerToggle(area.id, selectedPlayers[0].id)}
                             activeOpacity={0.7}
@@ -773,7 +779,9 @@ export const MainScreen: React.FC = () => {
                             <Text style={[
                               styles.playerButtonText,
                               area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonTextSelected,
-                              isTablet && styles.playerButtonTextTablet
+                              isTablet && styles.playerButtonTextTablet,
+                              isLandscape && styles.playerButtonTextLandscape,
+                              isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                             ]}>
                               {getPlayerInitials(selectedPlayers[0])}
                             </Text>
@@ -782,13 +790,18 @@ export const MainScreen: React.FC = () => {
                       </View>
 
                       {/* Bottom Left - Player Button */}
-                      <View style={styles.bottomLeftSection}>
+                      <View style={[
+                        styles.bottomLeftSection,
+                        isLandscape && styles.bottomLeftSectionLandscape
+                      ]}>
                         {selectedPlayers.length > 1 && (
                           <TouchableOpacity
                             style={[
                               styles.playerButton,
                               area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonSelected,
-                              isTablet && styles.playerButtonTablet
+                              isTablet && styles.playerButtonTablet,
+                              isLandscape && styles.playerButtonLandscape,
+                              isLandscape && isTablet && styles.playerButtonLandscapeTablet
                             ]}
                             onPress={() => handlePlayerToggle(area.id, selectedPlayers[1].id)}
                             activeOpacity={0.7}
@@ -796,7 +809,9 @@ export const MainScreen: React.FC = () => {
                             <Text style={[
                               styles.playerButtonText,
                               area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonTextSelected,
-                              isTablet && styles.playerButtonTextTablet
+                              isTablet && styles.playerButtonTextTablet,
+                              isLandscape && styles.playerButtonTextLandscape,
+                              isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                             ]}>
                               {getPlayerInitials(selectedPlayers[1])}
                             </Text>
@@ -805,13 +820,18 @@ export const MainScreen: React.FC = () => {
                       </View>
 
                       {/* Bottom Right - Player Button */}
-                      <View style={styles.bottomRightSection}>
+                      <View style={[
+                        styles.bottomRightSection,
+                        isLandscape && styles.bottomRightSectionLandscape
+                      ]}>
                         {selectedPlayers.length > 2 && (
                           <TouchableOpacity
                             style={[
                               styles.playerButton,
                               area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonSelected,
-                              isTablet && styles.playerButtonTablet
+                              isTablet && styles.playerButtonTablet,
+                              isLandscape && styles.playerButtonLandscape,
+                              isLandscape && isTablet && styles.playerButtonLandscapeTablet
                             ]}
                             onPress={() => handlePlayerToggle(area.id, selectedPlayers[2].id)}
                             activeOpacity={0.7}
@@ -819,7 +839,9 @@ export const MainScreen: React.FC = () => {
                             <Text style={[
                               styles.playerButtonText,
                               area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonTextSelected,
-                              isTablet && styles.playerButtonTextTablet
+                              isTablet && styles.playerButtonTextTablet,
+                              isLandscape && styles.playerButtonTextLandscape,
+                              isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                             ]}>
                               {getPlayerInitials(selectedPlayers[2])}
                             </Text>
@@ -840,9 +862,11 @@ export const MainScreen: React.FC = () => {
                 <View style={[
                   styles.pointsContainer,
                   isTablet && styles.pointsContainerTablet,
-                  isLandscape && styles.pointsContainerLandscape
+                  isLandscape && styles.pointsContainerLandscape,
+                  isLandscape && isTablet && styles.pointsContainerLandscapeTablet
                 ]}>
-                  <View style={styles.pointsHeader}>
+                  {/* Points Header Section */}
+                  <View style={styles.pointsHeaderSection}>
                     <View style={styles.pointsHeaderTop}>
                       <View style={styles.roundNavigation}>
                         <TouchableOpacity
@@ -857,7 +881,7 @@ export const MainScreen: React.FC = () => {
                           <Text style={[
                             styles.roundNavButtonText,
                             currentRound <= 1 && styles.roundNavButtonTextDisabled
-                          ]}>←</Text>
+                          ]} adjustsFontSizeToFit numberOfLines={1}>←</Text>
                         </TouchableOpacity>
                         
                         <Text style={[FONTS.h3, styles.roundNumber]}>Rd {currentRound}</Text>
@@ -874,7 +898,7 @@ export const MainScreen: React.FC = () => {
                           <Text style={[
                             styles.roundNavButtonText,
                             !rounds[currentRound + 1] && styles.roundNavButtonTextDisabled
-                          ]}>→</Text>
+                          ]} adjustsFontSizeToFit numberOfLines={1}>→</Text>
                         </TouchableOpacity>
                       </View>
                       <View style={styles.pointsHeaderButtons}>
@@ -883,7 +907,7 @@ export const MainScreen: React.FC = () => {
                           onPress={handleSaveCurrentRound}
                           activeOpacity={0.7}
                         >
-                          <Text style={styles.saveRoundButtonText}>💾</Text>
+                          <Text style={styles.saveRoundButtonText} adjustsFontSizeToFit numberOfLines={1}>💾</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                           style={styles.payoutButton}
@@ -900,21 +924,21 @@ export const MainScreen: React.FC = () => {
                           }}
                           activeOpacity={0.7}
                         >
-                          <Text style={styles.payoutButtonText}>💰</Text>
+                          <Text style={styles.payoutButtonText} adjustsFontSizeToFit numberOfLines={1}>💰</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                           style={styles.newRoundIconButton}
                           onPress={handleNextRound}
                           activeOpacity={0.7}
                         >
-                          <Text style={styles.newRoundIconButtonText}>➕</Text>
+                          <Text style={styles.newRoundIconButtonText} adjustsFontSizeToFit numberOfLines={1}>➕</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
                   </View>
                   
-                  {/* Fixed Header */}
-                  <View style={styles.pointsTableHeader}>
+                  {/* Table Header Section */}
+                  <View style={styles.pointsTableHeaderSection}>
                     <View style={styles.pointsRow}>
                       <View style={[styles.pointsCell, styles.pointsCellHeader]}>
                         <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>Round</Text>
@@ -929,12 +953,13 @@ export const MainScreen: React.FC = () => {
                     </View>
                   </View>
 
-                  {/* Scrollable Content */}
-                  <ScrollView 
-                    style={styles.pointsTableScroll}
-                    showsVerticalScrollIndicator={false}
-                    nestedScrollEnabled={true}
-                  >
+                  {/* Scrollable Content Section */}
+                  <View style={styles.pointsTableContentSection}>
+                    <ScrollView 
+                      style={styles.pointsTableScroll}
+                      showsVerticalScrollIndicator={false}
+                      nestedScrollEnabled={true}
+                    >
                     <View style={styles.pointsTable}>
                       {/* Historical Rounds */}
                       {Object.keys(rounds).map(roundNumber => {
@@ -1000,6 +1025,7 @@ export const MainScreen: React.FC = () => {
                       </View>
                     </View>
                   </ScrollView>
+                  </View>
                 </View>
 
                 {/* Instructions */}
@@ -1142,7 +1168,7 @@ const styles = StyleSheet.create({
   rightSideLandscape: {
     width: '40%',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   titleSection: {
     flexDirection: 'row',
@@ -1151,7 +1177,8 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   titleSectionLandscape: {
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.xl,
+    paddingBottom: SPACING.lg,
   },
   titleButtons: {
     flexDirection: 'row',
@@ -1210,6 +1237,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: SPACING.xs,
   },
+  topRightSectionLandscape: {
+    top: SPACING.md,
+    right: SPACING.md,
+    width: '45%',
+    height: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   bottomLeftSection: {
     position: 'absolute',
     bottom: SPACING.sm,
@@ -1217,12 +1252,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: SPACING.xs,
   },
+  bottomLeftSectionLandscape: {
+    bottom: SPACING.md,
+    left: SPACING.md,
+    width: '45%',
+    height: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   bottomRightSection: {
     position: 'absolute',
     bottom: SPACING.sm,
     right: SPACING.sm,
     flexDirection: 'row',
     gap: SPACING.xs,
+  },
+  bottomRightSectionLandscape: {
+    bottom: SPACING.md,
+    right: SPACING.md,
+    width: '45%',
+    height: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   playerButton: {
     backgroundColor: COLORS.background,
@@ -1255,6 +1306,22 @@ const styles = StyleSheet.create({
     minHeight: 60,
     borderRadius: 20,
   },
+  playerButtonLandscape: {
+    width: '70%',
+    height: '70%',
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    borderRadius: 12,
+    aspectRatio: 1,
+  },
+  playerButtonLandscapeTablet: {
+    width: '75%',
+    height: '75%',
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    borderRadius: 14,
+    aspectRatio: 1,
+  },
   playerButtonText: {
     color: COLORS.text,
     fontSize: 16,
@@ -1266,6 +1333,14 @@ const styles = StyleSheet.create({
   playerButtonTextTablet: {
     fontSize: 20,
   },
+  playerButtonTextLandscape: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  playerButtonTextLandscapeTablet: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   areaCardTablet: {
     padding: SPACING.xxl,
     borderRadius: 20,
@@ -1273,6 +1348,12 @@ const styles = StyleSheet.create({
   areaCardLandscape: {
     width: '45%',
     height: '45%',
+    padding: SPACING.lg,
+  },
+  areaCardLandscapeTablet: {
+    width: '48%',
+    height: '48%',
+    padding: SPACING.xl,
   },
   areaLabel: {
     color: COLORS.primary,
@@ -1393,9 +1474,9 @@ const styles = StyleSheet.create({
   pointsContainer: {
     backgroundColor: COLORS.surface,
     borderRadius: 16,
-    padding: SPACING.sm,
-    marginTop: SPACING.sm,
-    marginBottom: SPACING.md,
+    padding: SPACING.xs,
+    marginTop: SPACING.xs,
+    marginBottom: SPACING.sm,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -1404,20 +1485,32 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 5,
-    height: '50%',
+    height: '45%',
     flex: 1,
+    flexDirection: 'column',
   },
   pointsContainerTablet: {
-    padding: SPACING.lg,
-    marginTop: SPACING.lg,
-    marginBottom: SPACING.lg,
+    padding: SPACING.sm,
+    marginTop: SPACING.sm,
+    marginBottom: SPACING.md,
   },
   pointsContainerLandscape: {
-    height: '70%',
+    height: '75%',
+    padding: SPACING.xs,
+    marginBottom: SPACING.xs,
+  },
+  pointsContainerLandscapeTablet: {
+    height: '80%',
+    padding: SPACING.sm,
+    marginBottom: SPACING.xs,
   },
   pointsHeader: {
-    marginBottom: SPACING.sm,
+    marginBottom: SPACING.md,
     flex: 0,
+  },
+  pointsHeaderLandscape: {
+    marginBottom: SPACING.lg,
+    paddingBottom: SPACING.md,
   },
   pointsTitle: {
     color: COLORS.text,
@@ -1474,22 +1567,47 @@ const styles = StyleSheet.create({
   },
   roundNavigation: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: SPACING.sm,
+    gap: SPACING.sm,
+  },
+  pointsHeaderSection: {
+    flexShrink: 0,
   },
   pointsHeaderTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: SPACING.sm,
+    paddingBottom: SPACING.xs,
+    minHeight: SPACING.xxl + SPACING.lg, // 48 + 16 = 64px, enough space for 48px buttons + padding
+    paddingVertical: SPACING.xs,
   },
-  roundNavButton: {
+  pointsTableHeaderSection: {
+    flexShrink: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    backgroundColor: COLORS.surface,
+  },
+  pointsTableContentSection: {
+    flex: 1,
+  },
+  pointsHeaderButton: {
     backgroundColor: COLORS.primary,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
     borderRadius: 8,
-    minWidth: 40,
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  roundNavButton: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    borderRadius: 8,
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1498,7 +1616,7 @@ const styles = StyleSheet.create({
   },
   roundNavButtonText: {
     color: COLORS.background,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   roundNavButtonTextDisabled: {
@@ -1507,34 +1625,37 @@ const styles = StyleSheet.create({
   roundNumber: {
     color: COLORS.text,
     fontWeight: 'bold',
-    marginHorizontal: SPACING.sm,
+    lineHeight: 48,
+    textAlignVertical: 'center',
   },
   payoutButton: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
     borderRadius: 8,
-    minWidth: 40,
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
   payoutButtonText: {
     color: COLORS.background,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   newRoundIconButton: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
     borderRadius: 8,
-    minWidth: 40,
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
   newRoundIconButtonText: {
     color: COLORS.background,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   roundCellContent: {
@@ -1563,6 +1684,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
     backgroundColor: COLORS.surface,
+    marginTop: SPACING.sm,
+  },
+  pointsTableHeaderLandscape: {
+    paddingVertical: SPACING.sm,
+    marginTop: SPACING.sm,
   },
   settingsButton: {
     backgroundColor: COLORS.primary,
@@ -1577,16 +1703,17 @@ const styles = StyleSheet.create({
   },
   saveRoundButton: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
     borderRadius: 8,
-    minWidth: 40,
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
   },
   saveRoundButtonText: {
     color: COLORS.background,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
 }); 
