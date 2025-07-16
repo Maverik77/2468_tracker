@@ -1616,7 +1616,7 @@ const styles = StyleSheet.create({
   },
   roundNavButtonText: {
     color: COLORS.background,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   roundNavButtonTextDisabled: {
@@ -1640,7 +1640,7 @@ const styles = StyleSheet.create({
   },
   payoutButtonText: {
     color: COLORS.background,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   newRoundIconButton: {
@@ -1655,7 +1655,7 @@ const styles = StyleSheet.create({
   },
   newRoundIconButtonText: {
     color: COLORS.background,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   roundCellContent: {
@@ -1713,7 +1713,7 @@ const styles = StyleSheet.create({
   },
   saveRoundButtonText: {
     color: COLORS.background,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
   },
 }); 
