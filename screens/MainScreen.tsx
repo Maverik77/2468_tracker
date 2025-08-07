@@ -1616,64 +1616,64 @@ export const MainScreen: React.FC = () => {
 
                   {/* Expanded Points Table - All Rounds (only when expanded) */}
                   {isPointsExpanded && (
-                    <View style={styles.pointsTableExpanded}>
-                      {/* Scrollable Historical Rounds Table */}
-                      <View style={styles.expandedTableContainer}>
-                        <ScrollView
-                          style={styles.pointsTableScroll}
-                          showsVerticalScrollIndicator={true}
-                        >
-                          <View style={styles.pointsTable}>
-                            {/* Header Row for expanded table */}
-                            <View style={styles.pointsRow}>
-                              <View style={[styles.pointsCell, styles.pointsCellHeader]}>
-                                <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>Round</Text>
-                              </View>
-                              {selectedPlayers.map((player) => (
-                                <View key={player.id} style={[styles.pointsCell, styles.pointsCellHeader]}>
-                                  <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>
-                                    {getPlayerInitials(player)}
-                                  </Text>
-                                </View>
-                              ))}
-                            </View>
-
-                            {/* Historical Rounds */}
-                            {Object.keys(rounds).map(roundNumber => {
-                              const round = parseInt(roundNumber);
-                              const roundState = rounds[round];
-                              return (
-                                <View key={round} style={styles.pointsRow}>
-                                  <View style={styles.pointsCell}>
-                                    <View style={styles.roundCellContent}>
-                                      <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
-                                        {round}
-                                      </Text>
-                                      <TouchableOpacity
-                                        style={styles.deleteButton}
-                                        onPress={() => handleDeleteRound(round)}
-                                        activeOpacity={0.7}
-                                      >
-                                        <Text style={styles.deleteButtonText}>🗑️</Text>
-                                      </TouchableOpacity>
-                                    </View>
-                                  </View>
-                                  {selectedPlayers.map((player) => (
-                                    <View key={player.id} style={styles.pointsCell}>
-                                      <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.pointsText]}>
-                                        {roundState.points[player.id] || 0}
-                                      </Text>
-                                    </View>
-                                  ))}
-                                </View>
-                              );
-                            })}
+                    <View style={styles.pointsExpandedLayout}>
+                      {/* Fixed Header Section */}
+                      <View style={styles.expandedHeaderSection}>
+                        <View style={styles.pointsRow}>
+                          <View style={[styles.pointsCell, styles.pointsCellHeader]}>
+                            <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>Round</Text>
                           </View>
+                          {selectedPlayers.map((player) => (
+                            <View key={player.id} style={[styles.pointsCell, styles.pointsCellHeader]}>
+                              <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>
+                                {getPlayerInitials(player)}
+                              </Text>
+                            </View>
+                          ))}
+                        </View>
+                      </View>
+
+                      {/* Flexible Middle Section - Historical Rounds */}
+                      <View style={styles.expandedMiddleSection}>
+                        <ScrollView
+                          style={styles.expandedScrollView}
+                          showsVerticalScrollIndicator={true}
+                          contentContainerStyle={styles.expandedScrollContent}
+                        >
+                          {Object.keys(rounds).map(roundNumber => {
+                            const round = parseInt(roundNumber);
+                            const roundState = rounds[round];
+                            return (
+                              <View key={round} style={styles.pointsRow}>
+                                <View style={styles.pointsCell}>
+                                  <View style={styles.roundCellContent}>
+                                    <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
+                                      {round}
+                                    </Text>
+                                    <TouchableOpacity
+                                      style={styles.deleteButton}
+                                      onPress={() => handleDeleteRound(round)}
+                                      activeOpacity={0.7}
+                                    >
+                                      <Text style={styles.deleteButtonText}>🗑️</Text>
+                                    </TouchableOpacity>
+                                  </View>
+                                </View>
+                                {selectedPlayers.map((player) => (
+                                  <View key={player.id} style={styles.pointsCell}>
+                                    <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.pointsText]}>
+                                      {roundState.points[player.id] || 0}
+                                    </Text>
+                                  </View>
+                                ))}
+                              </View>
+                            );
+                          })}
                         </ScrollView>
                       </View>
 
-                      {/* Fixed Totals Section at Bottom */}
-                      <View style={styles.expandedTotalsSection}>
+                      {/* Fixed Footer Section - Totals */}
+                      <View style={styles.expandedFooterSection}>
                         <View style={[styles.pointsRow, styles.totalRow]}>
                           <View style={styles.pointsCell}>
                             <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
@@ -2554,7 +2554,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md,
     paddingBottom: SPACING.sm,
   },
-  pointsTableExpanded: {
+  pointsExpandedLayout: {
     flex: 1,
     paddingHorizontal: SPACING.md,
   },
@@ -2563,11 +2563,25 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontWeight: 'bold',
   },
-  expandedTableContainer: {
-    height: '65%', // Fixed height of 65% of parent container
+  expandedHeaderSection: {
+    backgroundColor: COLORS.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+  },
+  expandedMiddleSection: {
+    flex: 1,
     marginBottom: SPACING.sm,
   },
-  expandedTotalsSection: {
+  expandedScrollView: {
+    flex: 1,
+  },
+  expandedScrollContent: {
+    paddingHorizontal: SPACING.md,
+    paddingBottom: SPACING.sm,
+  },
+  expandedFooterSection: {
     backgroundColor: COLORS.surface,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
