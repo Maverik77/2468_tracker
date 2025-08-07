@@ -258,9 +258,21 @@ export const MainScreen: React.FC = () => {
       selectedPlayers.forEach((player: Player) => {
         let wonAllFour = true;
         areas.forEach((area: Area) => {
-          // Check if this player is the ONLY player selected in this area
-          if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
-            wonAllFour = false;
+          if (area.isDualHandMode && area.dualHandConditions) {
+            // For dual hand mode (8-point area), check if player won BOTH high and low hands ALONE
+            const wonHighHand = area.dualHandConditions.highHand.selectedPlayers.length === 1 && 
+                               area.dualHandConditions.highHand.selectedPlayers.includes(player.id);
+            const wonLowHand = area.dualHandConditions.lowHand.selectedPlayers.length === 1 && 
+                              area.dualHandConditions.lowHand.selectedPlayers.includes(player.id);
+            
+            if (!(wonHighHand && wonLowHand)) {
+              wonAllFour = false;
+            }
+          } else {
+            // Standard single-selection logic: check if this player is the ONLY player selected in this area
+            if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
+              wonAllFour = false;
+            }
           }
         });
         
@@ -479,9 +491,21 @@ export const MainScreen: React.FC = () => {
       selectedPlayers.forEach((player: Player) => {
         let wonAllFour = true;
         areas.forEach((area: Area) => {
-          // Check if this player is the ONLY player selected in this area
-          if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
-            wonAllFour = false;
+          if (area.isDualHandMode && area.dualHandConditions) {
+            // For dual hand mode (8-point area), check if player won BOTH high and low hands ALONE
+            const wonHighHand = area.dualHandConditions.highHand.selectedPlayers.length === 1 && 
+                               area.dualHandConditions.highHand.selectedPlayers.includes(player.id);
+            const wonLowHand = area.dualHandConditions.lowHand.selectedPlayers.length === 1 && 
+                              area.dualHandConditions.lowHand.selectedPlayers.includes(player.id);
+            
+            if (!(wonHighHand && wonLowHand)) {
+              wonAllFour = false;
+            }
+          } else {
+            // Standard single-selection logic: check if this player is the ONLY player selected in this area
+            if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
+              wonAllFour = false;
+            }
           }
         });
         
@@ -556,9 +580,21 @@ export const MainScreen: React.FC = () => {
           selectedPlayers.forEach((player: Player) => {
             let wonAllFour = true;
             areas.forEach((area: Area) => {
-              // Check if this player is the ONLY player selected in this area
-              if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
-                wonAllFour = false;
+              if (area.isDualHandMode && area.dualHandConditions) {
+                // For dual hand mode (8-point area), check if player won BOTH high and low hands ALONE
+                const wonHighHand = area.dualHandConditions.highHand.selectedPlayers.length === 1 && 
+                                   area.dualHandConditions.highHand.selectedPlayers.includes(player.id);
+                const wonLowHand = area.dualHandConditions.lowHand.selectedPlayers.length === 1 && 
+                                  area.dualHandConditions.lowHand.selectedPlayers.includes(player.id);
+                
+                if (!(wonHighHand && wonLowHand)) {
+                  wonAllFour = false;
+                }
+              } else {
+                // Standard single-selection logic: check if this player is the ONLY player selected in this area
+                if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
+                  wonAllFour = false;
+                }
               }
             });
             
@@ -633,9 +669,21 @@ export const MainScreen: React.FC = () => {
           selectedPlayers.forEach((player: Player) => {
             let wonAllFour = true;
             areas.forEach((area: Area) => {
-              // Check if this player is the ONLY player selected in this area
-              if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
-                wonAllFour = false;
+              if (area.isDualHandMode && area.dualHandConditions) {
+                // For dual hand mode (8-point area), check if player won BOTH high and low hands ALONE
+                const wonHighHand = area.dualHandConditions.highHand.selectedPlayers.length === 1 && 
+                                   area.dualHandConditions.highHand.selectedPlayers.includes(player.id);
+                const wonLowHand = area.dualHandConditions.lowHand.selectedPlayers.length === 1 && 
+                                  area.dualHandConditions.lowHand.selectedPlayers.includes(player.id);
+                
+                if (!(wonHighHand && wonLowHand)) {
+                  wonAllFour = false;
+                }
+              } else {
+                // Standard single-selection logic: check if this player is the ONLY player selected in this area
+                if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
+                  wonAllFour = false;
+                }
               }
             });
             
@@ -704,9 +752,21 @@ export const MainScreen: React.FC = () => {
       selectedPlayers.forEach((player: Player) => {
         let wonAllFour = true;
         areas.forEach((area: Area) => {
-          // Check if this player is the ONLY player selected in this area
-          if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
-            wonAllFour = false;
+          if (area.isDualHandMode && area.dualHandConditions) {
+            // For dual hand mode (8-point area), check if player won BOTH high and low hands ALONE
+            const wonHighHand = area.dualHandConditions.highHand.selectedPlayers.length === 1 && 
+                               area.dualHandConditions.highHand.selectedPlayers.includes(player.id);
+            const wonLowHand = area.dualHandConditions.lowHand.selectedPlayers.length === 1 && 
+                              area.dualHandConditions.lowHand.selectedPlayers.includes(player.id);
+            
+            if (!(wonHighHand && wonLowHand)) {
+              wonAllFour = false;
+            }
+          } else {
+            // Standard single-selection logic: check if this player is the ONLY player selected in this area
+            if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
+              wonAllFour = false;
+            }
           }
         });
         
