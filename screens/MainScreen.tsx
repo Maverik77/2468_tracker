@@ -2656,7 +2656,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   specialFourthRow: {
-    borderBottomWidth: 6,
+    borderBottomWidth: 12,
     borderBottomColor: COLORS.primary,
   },
   splitToggleTouchArea: {
