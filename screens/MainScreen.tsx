@@ -15,7 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ResponsiveContainer } from '../components/ResponsiveContainer';
 import { FixedModal } from '../components/FixedModal';
 import { useResponsive } from '../hooks/useResponsive';
-import { COLORS, FONTS, SPACING } from '../constants/theme';
+import { COLORS, FONTS, SPACING, RESPONSIVE } from '../constants/theme';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/AppNavigator';
@@ -2348,8 +2348,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
     borderRadius: 8,
-    width: 48,
-    height: 48,
+    width: RESPONSIVE.buttonSizeMedium,
+    height: RESPONSIVE.buttonSizeMedium,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -2375,8 +2375,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
     borderRadius: 8,
-    width: 48,
-    height: 48,
+    width: RESPONSIVE.buttonSizeMedium,
+    height: RESPONSIVE.buttonSizeMedium,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -2390,8 +2390,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
     borderRadius: 8,
-    width: 48,
-    height: 48,
+    width: RESPONSIVE.buttonSizeMedium,
+    height: RESPONSIVE.buttonSizeMedium,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -2448,8 +2448,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
     borderRadius: 8,
-    width: 48,
-    height: 48,
+    width: RESPONSIVE.buttonSizeMedium,
+    height: RESPONSIVE.buttonSizeMedium,
     alignItems: 'center',
     justifyContent: 'center',
   },

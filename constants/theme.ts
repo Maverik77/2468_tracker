@@ -62,4 +62,17 @@ export const LAYOUT = {
   containerPadding: SPACING.lg,
   cardPadding: SPACING.md,
   borderRadius: 12,
+};
+
+// Responsive sizing helpers for React Native
+export const RESPONSIVE = {
+  // Button sizes that scale with screen size
+  buttonSizeSmall: Math.min(screenWidth, screenHeight) * 0.08, // ~40-48px on most devices
+  buttonSizeMedium: Math.min(screenWidth, screenHeight) * 0.1,  // ~48-60px on most devices
+  buttonSizeLarge: Math.min(screenWidth, screenHeight) * 0.12,  // ~60-72px on most devices
+  
+  // Icon sizes that scale with screen
+  iconSmall: Math.min(screenWidth, screenHeight) * 0.04,  // ~20-24px
+  iconMedium: Math.min(screenWidth, screenHeight) * 0.05, // ~24-30px
+  iconLarge: Math.min(screenWidth, screenHeight) * 0.06,  // ~30-36px
 }; 
