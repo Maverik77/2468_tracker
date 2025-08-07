@@ -1481,7 +1481,7 @@ export const MainScreen: React.FC = () => {
                 {/* Compact/Expandable Points Section */}
                 <View style={[
                   styles.pointsBottomSection,
-                  isPointsExpanded && styles.pointsBottomSectionExpanded
+                  isPointsExpanded ? styles.pointsBottomSectionExpanded : styles.pointsBottomSectionCompact
                 ]}>
                   {/* Points Header - Always Visible */}
                   <TouchableOpacity
@@ -2526,12 +2526,14 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
-    maxHeight: '30%', // 30% of screen height for compact state (responsive)
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
+  },
+  pointsBottomSectionCompact: {
+    maxHeight: '30%',
   },
   pointsBottomSectionExpanded: {
     flex: 1, // Take all remaining space below title bar
@@ -2571,19 +2573,14 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.sm,
   },
   expandedMiddleSection: {
-    flex: 1,
+    flexShrink: 1,
     marginBottom: SPACING.sm,
-    backgroundColor: '#f0f0f0', // Debug: Light gray background to see the area
-    minHeight: 200, // Debug: Ensure minimum height
   },
   expandedScrollView: {
-    flex: 1,
-    backgroundColor: '#e0e0e0', // Debug: Slightly darker gray for ScrollView
   },
   expandedScrollContent: {
     paddingHorizontal: SPACING.md,
     paddingBottom: SPACING.sm,
-    flexGrow: 1, // Ensure content grows to fill available space
   },
   expandedFooterSection: {
     backgroundColor: COLORS.surface,
