@@ -145,7 +145,7 @@ export const GamesScreen: React.FC = () => {
                       key={game.id}
                       style={[
                         styles.gameCard,
-                        isTablet && styles.gameCardTablet
+                        
                       ]}
                       onPress={() => handleGamePress(game)}
                       activeOpacity={0.7}

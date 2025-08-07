@@ -10,7 +10,7 @@ interface SwipeablePlayerItemProps {
   onToggle: (playerId: string) => void;
   onDelete: (playerId: string) => void;
   onEdit: (player: Player) => void;
-  isTablet?: boolean;
+  
 }
 
 export const SwipeablePlayerItem: React.FC<SwipeablePlayerItemProps> = ({
@@ -18,7 +18,6 @@ export const SwipeablePlayerItem: React.FC<SwipeablePlayerItemProps> = ({
   onToggle,
   onDelete,
   onEdit,
-  isTablet = false,
 }) => {
   const swipeableRef = useRef<Swipeable>(null);
 
@@ -63,7 +62,7 @@ export const SwipeablePlayerItem: React.FC<SwipeablePlayerItemProps> = ({
           style={[
             styles.playerItem,
             player.selected && styles.playerItemSelected,
-            isTablet && styles.playerItemTablet,
+            
             {
               transform: [{ translateX: 0 }], // This Animated.Value is no longer needed
             },
@@ -78,7 +77,7 @@ export const SwipeablePlayerItem: React.FC<SwipeablePlayerItemProps> = ({
               FONTS.body,
               styles.playerName,
               player.selected && styles.playerNameSelected,
-              isTablet && styles.playerNameTablet
+              
             ]}>
               {player.firstName} {player.lastName}
             </Text>

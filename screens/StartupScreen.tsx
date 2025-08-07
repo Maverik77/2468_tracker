@@ -82,7 +82,7 @@ export const StartupScreen: React.FC = () => {
             <TouchableOpacity 
               style={[
                 styles.newGameButton,
-                isTablet && styles.newGameButtonTablet
+                
               ]}
               onPress={handleNewGame}
               activeOpacity={0.8}
@@ -90,7 +90,7 @@ export const StartupScreen: React.FC = () => {
               <Text style={[
                 FONTS.h2, 
                 styles.newGameButtonText,
-                isTablet && styles.newGameButtonTextTablet
+                
               ]}>
                 New Game
               </Text>
@@ -99,7 +99,7 @@ export const StartupScreen: React.FC = () => {
             <TouchableOpacity 
               style={[
                 styles.savedGamesButton,
-                isTablet && styles.savedGamesButtonTablet
+                
               ]}
               onPress={handleSavedGames}
               activeOpacity={0.8}
@@ -107,7 +107,7 @@ export const StartupScreen: React.FC = () => {
               <Text style={[
                 FONTS.h2, 
                 styles.savedGamesButtonText,
-                isTablet && styles.savedGamesButtonTextTablet
+                
               ]}>
                 Saved Games
               </Text>

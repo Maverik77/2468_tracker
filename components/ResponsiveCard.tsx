@@ -16,11 +16,11 @@ export const ResponsiveCard: React.FC<ResponsiveCardProps> = ({
   style,
   variant = 'default',
 }) => {
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape } = useResponsive();
 
   const getCardStyle = () => {
     const baseStyle = {
-      padding: isTablet ? SPACING.lg : SPACING.md,
+      padding: SPACING.md,
       borderRadius: LAYOUT.borderRadius,
       margin: isLandscape ? SPACING.sm : SPACING.md,
       flex: isLandscape ? 1 : undefined,

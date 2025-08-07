@@ -672,6 +672,14 @@ export const MainScreen: React.FC = () => {
     }
   };
 
+  const handleSaveRound = async () => {
+    await handleSaveCurrentRound();
+  };
+
+  const handleNewRound = async () => {
+    await handleNextRound();
+  };
+
   const handleSaveCurrentRound = async () => {
     // Load settings to check if "winning all four pays double" is enabled
     let settings;
@@ -1268,7 +1276,8 @@ export const MainScreen: React.FC = () => {
                   </Text>
                 </View>
               </View>
-            ) : (
+            </View>
+          ) : (
               /* Portrait Mode - New Vertical Layout */
               <View style={styles.portraitContainer}>
                 {/* Fixed Title Bar */}
@@ -1521,19 +1530,19 @@ export const MainScreen: React.FC = () => {
                         >
                           <Text style={styles.saveRoundButtonText} adjustsFontSizeToFit numberOfLines={1}>💾</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                          style={styles.payoutButton}
-                          onPress={() => {
-                            const finalTotals = selectedPlayers.reduce((acc, player) => {
-                              acc[player.id] = totalPoints[player.id] || 0;
-                              return acc;
-                            }, {} as PlayerPoints);
-                            
-                            navigation.navigate('Cashout', {
-                              players: selectedPlayers,
-                              totals: finalTotals
-                            });
-                          }}
+                                                 <TouchableOpacity
+                           style={styles.payoutButton}
+                           onPress={() => {
+                             // Create current game state from current data
+                             const currentGameState: Game = {
+                               id: gameId,
+                               players: selectedPlayers,
+                               createdAt: currentGame?.createdAt || new Date().toISOString(),
+                               rounds: rounds,
+                               currentRound: currentRound,
+                             };
+                             navigation.navigate('Cashout', { game: currentGameState });
+                           }}
                           activeOpacity={0.7}
                         >
                           <Text style={styles.payoutButtonText} adjustsFontSizeToFit numberOfLines={1}>💰</Text>
