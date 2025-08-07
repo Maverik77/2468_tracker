@@ -2,7 +2,7 @@
   "expo": {
     "name": "2468 Scorekeeper (Lite)",
     "slug": "2468_counter",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,8 +14,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "tracker.twofoursixeight.com",
-      "buildNumber": "6",
+      "bundleIdentifier": "com.erikwagner.2468scorekeeperLite",
+      "buildNumber": "2",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -43,8 +43,9 @@
       "fallbackToCacheTimeout": 0,
       "checkAutomatically": "ON_LOAD",
       "requestHeaders": {
-        "expo-channel-name": "preview"
+        "expo-channel-name": "production"
       }
-    }
+    },
+    "owner": "maverik77"
   }
 }

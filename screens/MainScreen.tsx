@@ -24,12 +24,24 @@ import { storage, Game } from '../utils/storage';
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Main'>;
 type MainRouteProp = RouteProp<RootStackParamList, 'Main'>;
 
+interface DualHandCondition {
+  name: string;
+  value: number;
+  selectedPlayers: string[];
+}
+
 interface Area {
   id: string;
   baseValue: number;
   multiplier: number;
   label: string;
   selectedPlayers: string[];
+  // For 8-point area dual hand support
+  isDualHandMode?: boolean;
+  dualHandConditions?: {
+    highHand: DualHandCondition;
+    lowHand: DualHandCondition;
+  };
 }
 
 interface Player {
@@ -79,10 +91,10 @@ export const MainScreen: React.FC = () => {
         // Initialize areas with default multiplier if no current game or no areas
         if (!currentGame || !currentGame.rounds[currentGame.currentRound]?.areas) {
           const initialAreas = [
-            { id: '1', baseValue: 2, multiplier: settings.defaultMultiplier, label: (2 * settings.defaultMultiplier).toString(), selectedPlayers: [] },
-            { id: '2', baseValue: 4, multiplier: settings.defaultMultiplier, label: (4 * settings.defaultMultiplier).toString(), selectedPlayers: [] },
-            { id: '3', baseValue: 6, multiplier: settings.defaultMultiplier, label: (6 * settings.defaultMultiplier).toString(), selectedPlayers: [] },
-            { id: '4', baseValue: 8, multiplier: settings.defaultMultiplier, label: (8 * settings.defaultMultiplier).toString(), selectedPlayers: [] },
+            createArea('1', 2, settings.defaultMultiplier),
+            createArea('2', 4, settings.defaultMultiplier),
+            createArea('3', 6, settings.defaultMultiplier),
+            createArea('4', 8, settings.defaultMultiplier),
           ];
           setAreas(initialAreas);
         } else {
@@ -92,10 +104,10 @@ export const MainScreen: React.FC = () => {
         console.error('Error loading default multiplier:', error);
         // Fallback to default areas with multiplier 1
         const fallbackAreas = [
-          { id: '1', baseValue: 2, multiplier: 1, label: '2', selectedPlayers: [] },
-          { id: '2', baseValue: 4, multiplier: 1, label: '4', selectedPlayers: [] },
-          { id: '3', baseValue: 6, multiplier: 1, label: '6', selectedPlayers: [] },
-          { id: '4', baseValue: 8, multiplier: 1, label: '8', selectedPlayers: [] },
+          createArea('1', 2, 1),
+          createArea('2', 4, 1),
+          createArea('3', 6, 1),
+          createArea('4', 8, 1),
         ];
         setAreas(fallbackAreas);
       }
@@ -118,6 +130,39 @@ export const MainScreen: React.FC = () => {
     }
   }, [currentGame, currentRound]);
 
+  // Helper function to create dual hand conditions for 8-point area
+  const createDualHandConditions = (multiplier: number): { highHand: DualHandCondition; lowHand: DualHandCondition } => ({
+    highHand: {
+      name: "High Hand",
+      value: (4 * multiplier), // Half of 8 points
+      selectedPlayers: []
+    },
+    lowHand: {
+      name: "Low Hand", 
+      value: (4 * multiplier), // Half of 8 points
+      selectedPlayers: []
+    }
+  });
+
+  // Helper function to initialize area with dual hand support
+  const createArea = (id: string, baseValue: number, multiplier: number): Area => {
+    const area: Area = {
+      id,
+      baseValue,
+      multiplier,
+      label: (baseValue * multiplier).toString(),
+      selectedPlayers: [],
+      isDualHandMode: false
+    };
+    
+    // Add dual hand conditions for 8-point area
+    if (baseValue === 8) {
+      area.dualHandConditions = createDualHandConditions(multiplier);
+    }
+    
+    return area;
+  };
+
   // Calculate current points based on area selections
   const currentPoints = useMemo(() => {
     const points: PlayerPoints = {};
@@ -129,23 +174,49 @@ export const MainScreen: React.FC = () => {
     
     // Calculate points from current area selections
     areas.forEach(area => {
-      const areaValue = area.baseValue * area.multiplier;
-      const selectedCount = area.selectedPlayers.length;
-      const totalPlayers = selectedPlayers.length;
-      
-      // If all players are selected, nobody gets points (bust)
-      if (selectedCount === totalPlayers) {
-        return; // Skip this area
-      }
-      
-      // If some players are selected, they share the points equally
-      if (selectedCount > 0) {
-        const pointsPerPlayer = areaValue / selectedCount;
-        area.selectedPlayers.forEach(playerId => {
-          if (points[playerId] !== undefined) {
-            points[playerId] += pointsPerPlayer;
-          }
-        });
+      // Handle dual hand mode for 8-point area
+      if (area.isDualHandMode && area.dualHandConditions) {
+        // Calculate points for High Hand
+        const highHandCount = area.dualHandConditions.highHand.selectedPlayers.length;
+        if (highHandCount > 0 && highHandCount < selectedPlayers.length) {
+          const pointsPerPlayer = area.dualHandConditions.highHand.value / highHandCount;
+          area.dualHandConditions.highHand.selectedPlayers.forEach(playerId => {
+            if (points[playerId] !== undefined) {
+              points[playerId] += pointsPerPlayer;
+            }
+          });
+        }
+        
+        // Calculate points for Low Hand
+        const lowHandCount = area.dualHandConditions.lowHand.selectedPlayers.length;
+        if (lowHandCount > 0 && lowHandCount < selectedPlayers.length) {
+          const pointsPerPlayer = area.dualHandConditions.lowHand.value / lowHandCount;
+          area.dualHandConditions.lowHand.selectedPlayers.forEach(playerId => {
+            if (points[playerId] !== undefined) {
+              points[playerId] += pointsPerPlayer;
+            }
+          });
+        }
+      } else {
+        // Standard single-selection logic
+        const areaValue = area.baseValue * area.multiplier;
+        const selectedCount = area.selectedPlayers.length;
+        const totalPlayers = selectedPlayers.length;
+        
+        // If all players are selected, nobody gets points (bust)
+        if (selectedCount === totalPlayers) {
+          return; // Skip this area
+        }
+        
+        // If some players are selected, they share the points equally
+        if (selectedCount > 0) {
+          const pointsPerPlayer = areaValue / selectedCount;
+          area.selectedPlayers.forEach(playerId => {
+            if (points[playerId] !== undefined) {
+              points[playerId] += pointsPerPlayer;
+            }
+          });
+        }
       }
     });
     
@@ -293,6 +364,71 @@ export const MainScreen: React.FC = () => {
         return {
           ...area,
           selectedPlayers: updatedSelectedPlayers
+        };
+      }
+      return area;
+    });
+    
+    setAreas(updatedAreas);
+  };
+
+  // Toggle dual hand mode for 8-point area
+  const handleDualHandToggle = (areaId: string) => {
+    const updatedAreas = areas.map(area => {
+      if (area.id === areaId && area.baseValue === 8) {
+        const newDualHandMode = !area.isDualHandMode;
+        
+        // If switching to dual hand mode, clear standard selections
+        // If switching from dual hand mode, clear dual hand selections
+        if (newDualHandMode) {
+          return {
+            ...area,
+            isDualHandMode: true,
+            selectedPlayers: [], // Clear standard selections
+            dualHandConditions: area.dualHandConditions ? {
+              ...area.dualHandConditions,
+              highHand: { ...area.dualHandConditions.highHand, selectedPlayers: [] },
+              lowHand: { ...area.dualHandConditions.lowHand, selectedPlayers: [] }
+            } : createDualHandConditions(area.multiplier)
+          };
+        } else {
+          return {
+            ...area,
+            isDualHandMode: false,
+            selectedPlayers: [], // Clear standard selections
+            dualHandConditions: area.dualHandConditions ? {
+              ...area.dualHandConditions,
+              highHand: { ...area.dualHandConditions.highHand, selectedPlayers: [] },
+              lowHand: { ...area.dualHandConditions.lowHand, selectedPlayers: [] }
+            } : area.dualHandConditions
+          };
+        }
+      }
+      return area;
+    });
+    
+    setAreas(updatedAreas);
+  };
+
+  // Handle dual hand player selection
+  const handleDualHandPlayerToggle = (areaId: string, handType: 'highHand' | 'lowHand', playerId: string) => {
+    const updatedAreas = areas.map(area => {
+      if (area.id === areaId && area.dualHandConditions) {
+        const currentHand = area.dualHandConditions[handType];
+        const isPlayerSelected = currentHand.selectedPlayers.includes(playerId);
+        const updatedSelectedPlayers = isPlayerSelected
+          ? currentHand.selectedPlayers.filter(id => id !== playerId)
+          : [...currentHand.selectedPlayers, playerId];
+        
+        return {
+          ...area,
+          dualHandConditions: {
+            ...area.dualHandConditions,
+            [handType]: {
+              ...currentHand,
+              selectedPlayers: updatedSelectedPlayers
+            }
+          }
         };
       }
       return area;
@@ -735,119 +871,209 @@ export const MainScreen: React.FC = () => {
                     >
                       {/* Top Left - Area Label */}
                       <View style={styles.topLeftSection}>
-                        <TouchableOpacity
-                          style={styles.areaLabelButton}
-                          onPress={() => handleAreaPress(area)}
-                          activeOpacity={0.8}
-                        >
-                          <Text style={[
-                            FONTS.h1,
-                            styles.areaLabel,
-                            isTablet && styles.areaLabelTablet
-                          ]}>
-                            {area.label}
-                          </Text>
-                          {area.multiplier > 1 && (
+                        <View style={styles.areaLabelContainer}>
+                          <TouchableOpacity
+                            style={styles.areaLabelButton}
+                            onPress={() => handleAreaPress(area)}
+                            activeOpacity={0.8}
+                          >
                             <Text style={[
-                              FONTS.caption,
-                              styles.multiplierText,
-                              isTablet && styles.multiplierTextTablet
+                              FONTS.h1,
+                              styles.areaLabel,
+                              isTablet && styles.areaLabelTablet
                             ]}>
-                              ×{area.multiplier}
+                              {area.label}
                             </Text>
+                            {area.multiplier > 1 && (
+                              <Text style={[
+                                FONTS.caption,
+                                styles.multiplierText,
+                                isTablet && styles.multiplierTextTablet
+                              ]}>
+                                ×{area.multiplier}
+                              </Text>
+                            )}
+                          </TouchableOpacity>
+                          
+                          {/* Dual Hand Toggle for 8-point area */}
+                          {area.baseValue === 8 && (
+                            <TouchableOpacity
+                              style={styles.dualHandToggle}
+                              onPress={() => handleDualHandToggle(area.id)}
+                              activeOpacity={0.7}
+                            >
+                              <Text style={styles.dualHandToggleIcon}>
+                                {area.isDualHandMode ? '⚡' : '↕️'}
+                              </Text>
+                            </TouchableOpacity>
                           )}
-                        </TouchableOpacity>
+                        </View>
                       </View>
 
-                      {/* Top Right - Player Button */}
-                      <View style={[
-                        styles.topRightSection,
-                        isLandscape && styles.topRightSectionLandscape
-                      ]}>
-                        {selectedPlayers.length > 0 && (
-                          <TouchableOpacity
-                            style={[
-                              styles.playerButton,
-                              area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonSelected,
-                              isTablet && styles.playerButtonTablet,
-                              isLandscape && styles.playerButtonLandscape,
-                              isLandscape && isTablet && styles.playerButtonLandscapeTablet
-                            ]}
-                            onPress={() => handlePlayerToggle(area.id, selectedPlayers[0].id)}
-                            activeOpacity={0.7}
-                          >
-                            <Text style={[
-                              styles.playerButtonText,
-                              area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonTextSelected,
-                              isTablet && styles.playerButtonTextTablet,
-                              isLandscape && styles.playerButtonTextLandscape,
-                              isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
-                            ]}>
-                              {getPlayerInitials(selectedPlayers[0])}
-                            </Text>
-                          </TouchableOpacity>
-                        )}
-                      </View>
+                      {/* Conditional rendering: Dual Hand Mode vs Standard Mode */}
+                      {area.isDualHandMode && area.dualHandConditions ? (
+                        /* Dual Hand Mode - High Hand and Low Hand sections */
+                        <>
+                                                     {/* High Hand Section (Top Half) */}
+                           <View style={[styles.dualHandSection, styles.dualHandSectionTop]}>
+                             <View style={styles.dualHandHeader}>
+                               <Text style={styles.dualHandLabel}>↑</Text>
+                             </View>
+                             <View style={styles.dualHandPlayers}>
+                              {selectedPlayers.slice(0, 3).map((player, index) => (
+                                <TouchableOpacity
+                                  key={`high-${player.id}`}
+                                  style={[
+                                    styles.dualHandPlayerButton,
+                                    area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
+                                    isTablet && styles.dualHandPlayerButtonTablet,
+                                    isLandscape && styles.dualHandPlayerButtonLandscape,
+                                    isLandscape && isTablet && styles.dualHandPlayerButtonLandscapeTablet
+                                  ]}
+                                  onPress={() => handleDualHandPlayerToggle(area.id, 'highHand', player.id)}
+                                  activeOpacity={0.7}
+                                >
+                                  <Text style={[
+                                    styles.dualHandPlayerButtonText,
+                                    area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
+                                    isTablet && styles.dualHandPlayerButtonTextTablet,
+                                    isLandscape && styles.dualHandPlayerButtonTextLandscape,
+                                    isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
+                                  ]}>
+                                    {getPlayerInitials(player)}
+                                  </Text>
+                                </TouchableOpacity>
+                              ))}
+                            </View>
+                          </View>
 
-                      {/* Bottom Left - Player Button */}
-                      <View style={[
-                        styles.bottomLeftSection,
-                        isLandscape && styles.bottomLeftSectionLandscape
-                      ]}>
-                        {selectedPlayers.length > 1 && (
-                          <TouchableOpacity
-                            style={[
-                              styles.playerButton,
-                              area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonSelected,
-                              isTablet && styles.playerButtonTablet,
-                              isLandscape && styles.playerButtonLandscape,
-                              isLandscape && isTablet && styles.playerButtonLandscapeTablet
-                            ]}
-                            onPress={() => handlePlayerToggle(area.id, selectedPlayers[1].id)}
-                            activeOpacity={0.7}
-                          >
-                            <Text style={[
-                              styles.playerButtonText,
-                              area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonTextSelected,
-                              isTablet && styles.playerButtonTextTablet,
-                              isLandscape && styles.playerButtonTextLandscape,
-                              isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
-                            ]}>
-                              {getPlayerInitials(selectedPlayers[1])}
-                            </Text>
-                          </TouchableOpacity>
-                        )}
-                      </View>
+                                                     {/* Low Hand Section (Bottom Half) */}
+                           <View style={[styles.dualHandSection, styles.dualHandSectionBottom]}>
+                             <View style={styles.dualHandHeader}>
+                               <Text style={styles.dualHandLabel}>↓</Text>
+                             </View>
+                             <View style={styles.dualHandPlayers}>
+                              {selectedPlayers.slice(0, 3).map((player, index) => (
+                                <TouchableOpacity
+                                  key={`low-${player.id}`}
+                                  style={[
+                                    styles.dualHandPlayerButton,
+                                    area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
+                                    isTablet && styles.dualHandPlayerButtonTablet,
+                                    isLandscape && styles.dualHandPlayerButtonLandscape,
+                                    isLandscape && isTablet && styles.dualHandPlayerButtonLandscapeTablet
+                                  ]}
+                                  onPress={() => handleDualHandPlayerToggle(area.id, 'lowHand', player.id)}
+                                  activeOpacity={0.7}
+                                >
+                                  <Text style={[
+                                    styles.dualHandPlayerButtonText,
+                                    area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
+                                    isTablet && styles.dualHandPlayerButtonTextTablet,
+                                    isLandscape && styles.dualHandPlayerButtonTextLandscape,
+                                    isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
+                                  ]}>
+                                    {getPlayerInitials(player)}
+                                  </Text>
+                                </TouchableOpacity>
+                              ))}
+                            </View>
+                          </View>
+                        </>
+                      ) : (
+                        /* Standard Mode - Corner positioned player buttons */
+                        <>
+                          {/* Top Right - Player Button */}
+                          <View style={[
+                            styles.topRightSection,
+                            isLandscape && styles.topRightSectionLandscape
+                          ]}>
+                            {selectedPlayers.length > 0 && (
+                              <TouchableOpacity
+                                style={[
+                                  styles.playerButton,
+                                  area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonSelected,
+                                  isTablet && styles.playerButtonTablet,
+                                  isLandscape && styles.playerButtonLandscape,
+                                  isLandscape && isTablet && styles.playerButtonLandscapeTablet
+                                ]}
+                                onPress={() => handlePlayerToggle(area.id, selectedPlayers[0].id)}
+                                activeOpacity={0.7}
+                              >
+                                <Text style={[
+                                  styles.playerButtonText,
+                                  area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonTextSelected,
+                                  isTablet && styles.playerButtonTextTablet,
+                                  isLandscape && styles.playerButtonTextLandscape,
+                                  isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
+                                ]}>
+                                  {getPlayerInitials(selectedPlayers[0])}
+                                </Text>
+                              </TouchableOpacity>
+                            )}
+                          </View>
 
-                      {/* Bottom Right - Player Button */}
-                      <View style={[
-                        styles.bottomRightSection,
-                        isLandscape && styles.bottomRightSectionLandscape
-                      ]}>
-                        {selectedPlayers.length > 2 && (
-                          <TouchableOpacity
-                            style={[
-                              styles.playerButton,
-                              area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonSelected,
-                              isTablet && styles.playerButtonTablet,
-                              isLandscape && styles.playerButtonLandscape,
-                              isLandscape && isTablet && styles.playerButtonLandscapeTablet
-                            ]}
-                            onPress={() => handlePlayerToggle(area.id, selectedPlayers[2].id)}
-                            activeOpacity={0.7}
-                          >
-                            <Text style={[
-                              styles.playerButtonText,
-                              area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonTextSelected,
-                              isTablet && styles.playerButtonTextTablet,
-                              isLandscape && styles.playerButtonTextLandscape,
-                              isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
-                            ]}>
-                              {getPlayerInitials(selectedPlayers[2])}
-                            </Text>
-                          </TouchableOpacity>
-                        )}
-                      </View>
+                          {/* Bottom Left - Player Button */}
+                          <View style={[
+                            styles.bottomLeftSection,
+                            isLandscape && styles.bottomLeftSectionLandscape
+                          ]}>
+                            {selectedPlayers.length > 1 && (
+                              <TouchableOpacity
+                                style={[
+                                  styles.playerButton,
+                                  area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonSelected,
+                                  isTablet && styles.playerButtonTablet,
+                                  isLandscape && styles.playerButtonLandscape,
+                                  isLandscape && isTablet && styles.playerButtonLandscapeTablet
+                                ]}
+                                onPress={() => handlePlayerToggle(area.id, selectedPlayers[1].id)}
+                                activeOpacity={0.7}
+                              >
+                                <Text style={[
+                                  styles.playerButtonText,
+                                  area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonTextSelected,
+                                  isTablet && styles.playerButtonTextTablet,
+                                  isLandscape && styles.playerButtonTextLandscape,
+                                  isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
+                                ]}>
+                                  {getPlayerInitials(selectedPlayers[1])}
+                                </Text>
+                              </TouchableOpacity>
+                            )}
+                          </View>
+
+                          {/* Bottom Right - Player Button */}
+                          <View style={[
+                            styles.bottomRightSection,
+                            isLandscape && styles.bottomRightSectionLandscape
+                          ]}>
+                            {selectedPlayers.length > 2 && (
+                              <TouchableOpacity
+                                style={[
+                                  styles.playerButton,
+                                  area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonSelected,
+                                  isTablet && styles.playerButtonTablet,
+                                  isLandscape && styles.playerButtonLandscape,
+                                  isLandscape && isTablet && styles.playerButtonLandscapeTablet
+                                ]}
+                                onPress={() => handlePlayerToggle(area.id, selectedPlayers[2].id)}
+                                activeOpacity={0.7}
+                              >
+                                <Text style={[
+                                  styles.playerButtonText,
+                                  area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonTextSelected,
+                                  isTablet && styles.playerButtonTextTablet,
+                                  isLandscape && styles.playerButtonTextLandscape,
+                                  isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
+                                ]}>
+                                  {getPlayerInitials(selectedPlayers[2])}
+                                </Text>
+                              </TouchableOpacity>
+                            )}
+                          </View>
+                        </>
+                      )}
                     </View>
                   ))}
                 </View>
@@ -1226,9 +1452,113 @@ const styles = StyleSheet.create({
     left: SPACING.sm,
     zIndex: 1,
   },
+  areaLabelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACING.xs,
+  },
   areaLabelButton: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  dualHandToggle: {
+    backgroundColor: COLORS.surface,
+    borderRadius: 12,
+    width: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  dualHandToggleIcon: {
+    fontSize: 12,
+    color: COLORS.primary,
+  },
+  dualHandSection: {
+    position: 'absolute',
+    width: '100%',
+    height: '45%',
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.xs,
+  },
+  dualHandSectionTop: {
+    top: SPACING.sm,
+  },
+  dualHandSectionBottom: {
+    bottom: SPACING.sm,
+  },
+  dualHandHeader: {
+    alignItems: 'center',
+    marginBottom: SPACING.xs,
+  },
+  dualHandLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: COLORS.primary,
+  },
+  dualHandPlayers: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flex: 1,
+  },
+  dualHandPlayerButton: {
+    backgroundColor: COLORS.background,
+    borderWidth: 2,
+    borderColor: COLORS.border,
+    borderRadius: 12,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    minWidth: 36,
+    minHeight: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  dualHandPlayerButtonTablet: {
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.sm,
+    minWidth: 48,
+    minHeight: 48,
+    borderRadius: 16,
+  },
+  dualHandPlayerButtonLandscape: {
+    minWidth: 32,
+    minHeight: 32,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    borderRadius: 10,
+  },
+  dualHandPlayerButtonLandscapeTablet: {
+    minWidth: 40,
+    minHeight: 40,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.sm,
+    borderRadius: 12,
+  },
+  dualHandPlayerButtonText: {
+    color: COLORS.text,
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  dualHandPlayerButtonTextTablet: {
+    fontSize: 16,
+  },
+  dualHandPlayerButtonTextLandscape: {
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
+  dualHandPlayerButtonTextLandscapeTablet: {
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   topRightSection: {
     position: 'absolute',

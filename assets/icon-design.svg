@@ -1,0 +1,46 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#007AFF" stroke="#ffffff" stroke-width="8"/>
+  
+  <!-- Card backgrounds -->
+  <!-- Top left card (2) -->
+  <rect x="80" y="80" width="120" height="160" rx="12" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+  
+  <!-- Top right card (4) -->
+  <rect x="312" y="80" width="120" height="160" rx="12" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+  
+  <!-- Bottom left card (6) -->
+  <rect x="80" y="272" width="120" height="160" rx="12" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+  
+  <!-- Bottom right card (8) -->
+  <rect x="312" y="272" width="120" height="160" rx="12" fill="#ffffff" stroke="#333333" stroke-width="2"/>
+  
+  <!-- Card numbers -->
+  <text x="140" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#333333">2</text>
+  <text x="372" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#333333">4</text>
+  <text x="140" y="372" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#333333">6</text>
+  <text x="372" y="372" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#333333">8</text>
+  
+  <!-- Card suits (small decorative elements) -->
+  <!-- Spades on 2 -->
+  <path d="M140 200 L132 215 L148 215 Z" fill="#333333"/>
+  <rect x="138" y="215" width="4" height="8" fill="#333333"/>
+  
+  <!-- Hearts on 4 -->
+  <path d="M372 200 C368 196, 360 196, 360 204 C360 196, 352 196, 348 200 C348 208, 360 220, 372 200 Z" fill="#FF3B30"/>
+  
+  <!-- Diamonds on 6 -->
+  <path d="M140 392 L132 400 L140 408 L148 400 Z" fill="#FF3B30"/>
+  
+  <!-- Clubs on 8 -->
+  <circle cx="368" cy="392" r="4" fill="#333333"/>
+  <circle cx="376" cy="392" r="4" fill="#333333"/>
+  <circle cx="372" cy="400" r="4" fill="#333333"/>
+  <rect x="370" y="404" width="4" height="8" fill="#333333"/>
+  
+  <!-- Center highlight circle -->
+  <circle cx="256" cy="256" r="60" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  
+  <!-- Center "2468" text -->
+  <text x="256" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">2468</text>
+</svg> 
