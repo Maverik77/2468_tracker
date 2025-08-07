@@ -10,7 +10,7 @@ import { RootStackParamList } from '../navigation/AppNavigator';
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Startup'>;
 
 export const StartupScreen: React.FC = () => {
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape } = useResponsive();
   const navigation = useNavigation<NavigationProp>();
 
   const handleNewGame = () => {
@@ -47,7 +47,7 @@ export const StartupScreen: React.FC = () => {
                 source={require('../assets/new_logo.jpg')} 
                 style={[
                   styles.logo,
-                  isTablet && styles.logoTablet,
+                  
                   isLandscape && styles.logoLandscape,
                   isLandscape && isTablet && styles.logoLandscapeTablet
                 ]}

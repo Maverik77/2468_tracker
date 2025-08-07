@@ -23,7 +23,7 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Player'>;
 
 export const PlayerScreen: React.FC = () => {
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape  } = useResponsive();
   const navigation = useNavigation<NavigationProp>();
   const [players, setPlayers] = useState<Player[]>([]);
   const [searchText, setSearchText] = useState('');

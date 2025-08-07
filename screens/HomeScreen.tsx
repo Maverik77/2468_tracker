@@ -6,7 +6,7 @@ import { useResponsive } from '../hooks/useResponsive';
 import { COLORS, FONTS, SPACING } from '../constants/theme';
 
 export const HomeScreen: React.FC = () => {
-  const { isLandscape, isTablet, width, height, orientation } = useResponsive();
+  const { isLandscape , width, height, orientation } = useResponsive();
 
   return (
     <ResponsiveContainer>

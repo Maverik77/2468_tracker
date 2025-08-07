@@ -62,7 +62,7 @@ interface RoundState {
 }
 
 export const MainScreen: React.FC = () => {
-  const { isLandscape } = useResponsive();
+  const { isLandscape, isTablet } = useResponsive();
   const navigation = useNavigation<NavigationProp>();
   const route = useRoute<MainRouteProp>();
   
@@ -865,9 +865,9 @@ export const MainScreen: React.FC = () => {
                       key={area.id}
                       style={[
                         styles.areaCard,
-                        
+                        isTablet && styles.areaCardTablet,
                         isLandscape && styles.areaCardLandscape,
-                        
+                        isLandscape && isTablet && styles.areaCardLandscapeTablet
                       ]}
                     >
                       {/* Top Left - Area Label */}
@@ -882,9 +882,9 @@ export const MainScreen: React.FC = () => {
                               <Text style={[
                                 FONTS.h1,
                                 styles.areaLabel,
-                                
+                                isTablet && styles.areaLabelTablet,
                                 isLandscape && styles.areaLabelLandscape,
-                                
+                                isLandscape && isTablet && styles.areaLabelLandscapeTablet
                               ]}>
                                 {area.label}
                               </Text>
@@ -892,9 +892,9 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[
                                   FONTS.caption,
                                   styles.multiplierText,
-                                  
+                                  isTablet && styles.multiplierTextTablet,
                                   isLandscape && styles.multiplierTextLandscape,
-                                  
+                                  isLandscape && isTablet && styles.multiplierTextLandscapeTablet
                                 ]}>
                                   ×{area.multiplier}
                                 </Text>
@@ -923,7 +923,7 @@ export const MainScreen: React.FC = () => {
                         <View style={[
                           styles.dualHandContainer,
                           isLandscape && styles.dualHandContainerLandscape,
-                          
+                          isLandscape && isTablet && styles.dualHandContainerLandscapeTablet
                         ]}>
                           {/* High Hand Section (Top Half) */}
                           <View style={styles.dualHandSection}>
@@ -934,9 +934,9 @@ export const MainScreen: React.FC = () => {
                                   style={[
                                     styles.dualHandPlayerButton,
                                     area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
-                                    
+                                    isTablet && styles.dualHandPlayerButtonTablet,
                                     isLandscape && styles.dualHandPlayerButtonLandscape,
-                                    
+                                    isLandscape && isTablet && styles.dualHandPlayerButtonLandscapeTablet
                                   ]}
                                   onPress={() => handleDualHandPlayerToggle(area.id, 'highHand', player.id)}
                                   activeOpacity={0.7}
@@ -945,9 +945,9 @@ export const MainScreen: React.FC = () => {
                                     style={[
                                       styles.dualHandPlayerButtonText,
                                       area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
-                                      
+                                      isTablet && styles.dualHandPlayerButtonTextTablet,
                                       isLandscape && styles.dualHandPlayerButtonTextLandscape,
-                                      
+                                      isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
                                     ]}
                                     adjustsFontSizeToFit
                                     numberOfLines={1}
@@ -968,9 +968,9 @@ export const MainScreen: React.FC = () => {
                                   style={[
                                     styles.dualHandPlayerButton,
                                     area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
-                                    
+                                    isTablet && styles.dualHandPlayerButtonTablet,
                                     isLandscape && styles.dualHandPlayerButtonLandscape,
-                                    
+                                    isLandscape && isTablet && styles.dualHandPlayerButtonLandscapeTablet
                                   ]}
                                   onPress={() => handleDualHandPlayerToggle(area.id, 'lowHand', player.id)}
                                   activeOpacity={0.7}
@@ -979,9 +979,9 @@ export const MainScreen: React.FC = () => {
                                     style={[
                                       styles.dualHandPlayerButtonText,
                                       area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
-                                      
+                                      isTablet && styles.dualHandPlayerButtonTextTablet,
                                       isLandscape && styles.dualHandPlayerButtonTextLandscape,
-                                      
+                                      isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
                                     ]}
                                     adjustsFontSizeToFit
                                     numberOfLines={1}
@@ -1006,9 +1006,9 @@ export const MainScreen: React.FC = () => {
                                 style={[
                                   styles.playerButton,
                                   area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonSelected,
-                                  
+                                  isTablet && styles.playerButtonTablet,
                                   isLandscape && styles.playerButtonLandscape,
-                                  
+                                  isLandscape && isTablet && styles.playerButtonLandscapeTablet
                                 ]}
                                 onPress={() => handlePlayerToggle(area.id, selectedPlayers[0].id)}
                                 activeOpacity={0.7}
@@ -1016,9 +1016,9 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[
                                   styles.playerButtonText,
                                   area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonTextSelected,
-                                  
+                                  isTablet && styles.playerButtonTextTablet,
                                   isLandscape && styles.playerButtonTextLandscape,
-                                  
+                                  isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                                 ]}>
                                   {getPlayerInitials(selectedPlayers[0])}
                                 </Text>
@@ -1036,9 +1036,9 @@ export const MainScreen: React.FC = () => {
                                 style={[
                                   styles.playerButton,
                                   area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonSelected,
-                                  
+                                  isTablet && styles.playerButtonTablet,
                                   isLandscape && styles.playerButtonLandscape,
-                                  
+                                  isLandscape && isTablet && styles.playerButtonLandscapeTablet
                                 ]}
                                 onPress={() => handlePlayerToggle(area.id, selectedPlayers[1].id)}
                                 activeOpacity={0.7}
@@ -1046,9 +1046,9 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[
                                   styles.playerButtonText,
                                   area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonTextSelected,
-                                  
+                                  isTablet && styles.playerButtonTextTablet,
                                   isLandscape && styles.playerButtonTextLandscape,
-                                  
+                                  isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                                 ]}>
                                   {getPlayerInitials(selectedPlayers[1])}
                                 </Text>
@@ -1066,9 +1066,9 @@ export const MainScreen: React.FC = () => {
                                 style={[
                                   styles.playerButton,
                                   area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonSelected,
-                                  
+                                  isTablet && styles.playerButtonTablet,
                                   isLandscape && styles.playerButtonLandscape,
-                                  
+                                  isLandscape && isTablet && styles.playerButtonLandscapeTablet
                                 ]}
                                 onPress={() => handlePlayerToggle(area.id, selectedPlayers[2].id)}
                                 activeOpacity={0.7}
@@ -1076,9 +1076,9 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[
                                   styles.playerButtonText,
                                   area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonTextSelected,
-                                  
+                                  isTablet && styles.playerButtonTextTablet,
                                   isLandscape && styles.playerButtonTextLandscape,
-                                  
+                                  isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                                 ]}>
                                   {getPlayerInitials(selectedPlayers[2])}
                                 </Text>
@@ -1100,9 +1100,9 @@ export const MainScreen: React.FC = () => {
                 {/* Points Tracking Section */}
                 <View style={[
                   styles.pointsContainer,
-                  
+                  isTablet && styles.pointsContainerTablet,
                   isLandscape && styles.pointsContainerLandscape,
-                  
+                  isLandscape && isTablet && styles.pointsContainerLandscapeTablet
                 ]}>
                   {/* Points Header Section */}
                   <View style={styles.pointsHeaderSection}>
@@ -1291,7 +1291,10 @@ export const MainScreen: React.FC = () => {
               <View style={styles.inputGroup}>
                 <Text style={[FONTS.caption, styles.inputLabel]}>Multiplier</Text>
                 <TextInput
-                  style={styles.modalInput}
+                  style={[
+                    styles.modalInput,
+                    isTablet && styles.modalInputTablet
+                  ]}
                   value={multiplierInput}
                   onChangeText={setMultiplierInput}
                   placeholder="Enter multiplier (e.g., 5)"
@@ -1502,6 +1505,9 @@ const styles = StyleSheet.create({
   dualHandContainerLandscape: {
     top: '30%', // More space for landscape labels
   },
+  dualHandContainerLandscapeTablet: {
+    top: '35%', // Even more space for tablet landscape
+  },
   dualHandSection: {
     flex: 1,
     justifyContent: 'center',
@@ -1547,11 +1553,23 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
+  dualHandPlayerButtonTablet: {
+    minWidth: 44,
+    minHeight: 44,
+    maxWidth: 72,
+    borderRadius: 16,
+  },
   dualHandPlayerButtonLandscape: {
     minWidth: 32,
     minHeight: 32,
     maxWidth: 56,
     borderRadius: 10,
+  },
+  dualHandPlayerButtonLandscapeTablet: {
+    minWidth: 40,
+    minHeight: 40,
+    maxWidth: 64,
+    borderRadius: 14,
   },
   dualHandPlayerButtonText: {
     color: COLORS.text,
@@ -1559,8 +1577,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  dualHandPlayerButtonTextTablet: {
+    fontSize: 16,
+  },
   dualHandPlayerButtonTextLandscape: {
     fontSize: 10,
+  },
+  dualHandPlayerButtonTextLandscapeTablet: {
+    fontSize: 14,
   },
   topRightSection: {
     position: 'absolute',
@@ -1631,12 +1655,27 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     borderColor: COLORS.primary,
   },
+  playerButtonTablet: {
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.md,
+    minWidth: 60,
+    minHeight: 60,
+    borderRadius: 20,
+  },
   playerButtonLandscape: {
     width: '70%',
     height: '70%',
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
     borderRadius: 12,
+    aspectRatio: 1,
+  },
+  playerButtonLandscapeTablet: {
+    width: '75%',
+    height: '75%',
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    borderRadius: 14,
     aspectRatio: 1,
   },
   playerButtonText: {
@@ -1647,28 +1686,56 @@ const styles = StyleSheet.create({
   playerButtonTextSelected: {
     color: COLORS.background,
   },
+  playerButtonTextTablet: {
+    fontSize: 20,
+  },
   playerButtonTextLandscape: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  playerButtonTextLandscapeTablet: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  areaCardTablet: {
+    padding: SPACING.xxl,
+    borderRadius: 20,
   },
   areaCardLandscape: {
     width: '45%',
     height: '45%',
     padding: SPACING.lg,
   },
+  areaCardLandscapeTablet: {
+    width: '48%',
+    height: '48%',
+    padding: SPACING.xl,
+  },
   areaLabel: {
     color: COLORS.primary,
     fontWeight: 'bold',
   },
+  areaLabelTablet: {
+    fontSize: 48,
+  },
   areaLabelLandscape: {
     fontSize: 28, // Smaller font in landscape to reduce height
+  },
+  areaLabelLandscapeTablet: {
+    fontSize: 36, // Smaller for tablet landscape
   },
   multiplierText: {
     color: COLORS.textSecondary,
     fontSize: 16,
   },
+  multiplierTextTablet: {
+    fontSize: 18,
+  },
   multiplierTextLandscape: {
     fontSize: 12, // Smaller multiplier text in landscape
+  },
+  multiplierTextLandscapeTablet: {
+    fontSize: 14, // Smaller for tablet landscape
   },
   instructionsContainer: {
     alignItems: 'center',
@@ -1710,6 +1777,10 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     fontSize: 16,
     color: COLORS.text,
+  },
+  modalInputTablet: {
+    paddingVertical: SPACING.md,
+    fontSize: 18,
   },
   previewContainer: {
     backgroundColor: COLORS.surface,
@@ -1786,9 +1857,19 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
+  pointsContainerTablet: {
+    padding: SPACING.sm,
+    marginTop: SPACING.sm,
+    marginBottom: SPACING.md,
+  },
   pointsContainerLandscape: {
     height: '75%',
     padding: SPACING.xs,
+    marginBottom: SPACING.xs,
+  },
+  pointsContainerLandscapeTablet: {
+    height: '80%',
+    padding: SPACING.sm,
     marginBottom: SPACING.xs,
   },
   pointsHeader: {

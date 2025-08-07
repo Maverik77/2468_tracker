@@ -13,7 +13,7 @@ type NavigationProp = any;
 
 export const SettingsScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape  } = useResponsive();
   const [settings, setSettings] = useState<Settings>({ defaultMultiplier: 1, winningAllFourPaysDouble: false });
   const [defaultMultiplierInput, setDefaultMultiplierInput] = useState('1');
   const [updateModalVisible, setUpdateModalVisible] = useState(false);
