@@ -1617,43 +1617,78 @@ export const MainScreen: React.FC = () => {
                   {/* Expanded Points Table - All Rounds (only when expanded) */}
                   {isPointsExpanded && (
                     <View style={styles.pointsTableExpanded}>
-                      <ScrollView
-                        style={styles.pointsTableScroll}
-                        showsVerticalScrollIndicator={true}
-                      >
-                        <View style={styles.pointsTable}>
-                          {/* Historical Rounds */}
-                          {Object.keys(rounds).map(roundNumber => {
-                            const round = parseInt(roundNumber);
-                            const roundState = rounds[round];
-                            return (
-                              <View key={round} style={styles.pointsRow}>
-                                <View style={styles.pointsCell}>
-                                  <View style={styles.roundCellContent}>
-                                    <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
-                                      {round}
-                                    </Text>
-                                    <TouchableOpacity
-                                      style={styles.deleteButton}
-                                      onPress={() => handleDeleteRound(round)}
-                                      activeOpacity={0.7}
-                                    >
-                                      <Text style={styles.deleteButtonText}>🗑️</Text>
-                                    </TouchableOpacity>
-                                  </View>
-                                </View>
-                                {selectedPlayers.map((player) => (
-                                  <View key={player.id} style={styles.pointsCell}>
-                                    <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.pointsText]}>
-                                      {roundState.points[player.id] || 0}
-                                    </Text>
-                                  </View>
-                                ))}
+                      {/* Scrollable Historical Rounds Table */}
+                      <View style={styles.expandedTableContainer}>
+                        <ScrollView
+                          style={styles.pointsTableScroll}
+                          showsVerticalScrollIndicator={true}
+                        >
+                          <View style={styles.pointsTable}>
+                            {/* Header Row for expanded table */}
+                            <View style={styles.pointsRow}>
+                              <View style={[styles.pointsCell, styles.pointsCellHeader]}>
+                                <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>Round</Text>
                               </View>
-                            );
-                          })}
+                              {selectedPlayers.map((player) => (
+                                <View key={player.id} style={[styles.pointsCell, styles.pointsCellHeader]}>
+                                  <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>
+                                    {getPlayerInitials(player)}
+                                  </Text>
+                                </View>
+                              ))}
+                            </View>
+
+                            {/* Historical Rounds */}
+                            {Object.keys(rounds).map(roundNumber => {
+                              const round = parseInt(roundNumber);
+                              const roundState = rounds[round];
+                              return (
+                                <View key={round} style={styles.pointsRow}>
+                                  <View style={styles.pointsCell}>
+                                    <View style={styles.roundCellContent}>
+                                      <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
+                                        {round}
+                                      </Text>
+                                      <TouchableOpacity
+                                        style={styles.deleteButton}
+                                        onPress={() => handleDeleteRound(round)}
+                                        activeOpacity={0.7}
+                                      >
+                                        <Text style={styles.deleteButtonText}>🗑️</Text>
+                                      </TouchableOpacity>
+                                    </View>
+                                  </View>
+                                  {selectedPlayers.map((player) => (
+                                    <View key={player.id} style={styles.pointsCell}>
+                                      <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.pointsText]}>
+                                        {roundState.points[player.id] || 0}
+                                      </Text>
+                                    </View>
+                                  ))}
+                                </View>
+                              );
+                            })}
+                          </View>
+                        </ScrollView>
+                      </View>
+
+                      {/* Fixed Totals Section at Bottom */}
+                      <View style={styles.expandedTotalsSection}>
+                        <View style={[styles.pointsRow, styles.totalRow]}>
+                          <View style={styles.pointsCell}>
+                            <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
+                              Total
+                            </Text>
+                          </View>
+                          {selectedPlayers.map((player) => (
+                            <View key={player.id} style={styles.pointsCell}>
+                              <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
+                                {totalPoints[player.id] || 0}
+                              </Text>
+                            </View>
+                          ))}
                         </View>
-                      </ScrollView>
+                      </View>
                     </View>
                   )}
                 </View>
@@ -2527,5 +2562,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: COLORS.primary,
     fontWeight: 'bold',
+  },
+  expandedTableContainer: {
+    maxHeight: '65%', // Limit table to 65% of available space
+    marginBottom: SPACING.sm,
+  },
+  expandedTotalsSection: {
+    backgroundColor: COLORS.surface,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
   },
 }); 
