@@ -2573,13 +2573,17 @@ const styles = StyleSheet.create({
   expandedMiddleSection: {
     flex: 1,
     marginBottom: SPACING.sm,
+    backgroundColor: '#f0f0f0', // Debug: Light gray background to see the area
+    minHeight: 200, // Debug: Ensure minimum height
   },
   expandedScrollView: {
     flex: 1,
+    backgroundColor: '#e0e0e0', // Debug: Slightly darker gray for ScrollView
   },
   expandedScrollContent: {
     paddingHorizontal: SPACING.md,
     paddingBottom: SPACING.sm,
+    flexGrow: 1, // Ensure content grows to fill available space
   },
   expandedFooterSection: {
     backgroundColor: COLORS.surface,
