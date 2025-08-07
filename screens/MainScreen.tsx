@@ -877,22 +877,24 @@ export const MainScreen: React.FC = () => {
                             onPress={() => handleAreaPress(area)}
                             activeOpacity={0.8}
                           >
-                            <Text style={[
-                              FONTS.h1,
-                              styles.areaLabel,
-                              isTablet && styles.areaLabelTablet
-                            ]}>
-                              {area.label}
-                            </Text>
-                            {area.multiplier > 1 && (
+                            <View style={styles.areaLabelRow}>
                               <Text style={[
-                                FONTS.caption,
-                                styles.multiplierText,
-                                isTablet && styles.multiplierTextTablet
+                                FONTS.h1,
+                                styles.areaLabel,
+                                isTablet && styles.areaLabelTablet
                               ]}>
-                                ×{area.multiplier}
+                                {area.label}
                               </Text>
-                            )}
+                              {area.multiplier > 1 && (
+                                <Text style={[
+                                  FONTS.caption,
+                                  styles.multiplierText,
+                                  isTablet && styles.multiplierTextTablet
+                                ]}>
+                                  ×{area.multiplier}
+                                </Text>
+                              )}
+                            </View>
                           </TouchableOpacity>
                           
                           {/* Dual Hand Toggle for 8-point area */}
@@ -916,9 +918,6 @@ export const MainScreen: React.FC = () => {
                         <>
                                                      {/* High Hand Section (Top Half) */}
                            <View style={[styles.dualHandSection, styles.dualHandSectionTop]}>
-                             <View style={styles.dualHandHeader}>
-                               <Text style={styles.dualHandLabel}>↑</Text>
-                             </View>
                              <View style={styles.dualHandPlayers}>
                               {selectedPlayers.slice(0, 3).map((player, index) => (
                                 <TouchableOpacity
@@ -948,10 +947,7 @@ export const MainScreen: React.FC = () => {
                           </View>
 
                                                      {/* Low Hand Section (Bottom Half) */}
-                           <View style={[styles.dualHandSection, styles.dualHandSectionBottom]}>
-                             <View style={styles.dualHandHeader}>
-                               <Text style={styles.dualHandLabel}>↓</Text>
-                             </View>
+                           <View style={[styles.dualHandSection, styles.dualHandSectionBottom, styles.dualHandSectionLowBackground]}>
                              <View style={styles.dualHandPlayers}>
                               {selectedPlayers.slice(0, 3).map((player, index) => (
                                 <TouchableOpacity
@@ -1455,11 +1451,17 @@ const styles = StyleSheet.create({
   areaLabelContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: SPACING.xs,
+    justifyContent: 'center',
+    gap: SPACING.sm,
   },
   areaLabelButton: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  areaLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    gap: SPACING.xs,
   },
   dualHandToggle: {
     backgroundColor: COLORS.surface,
@@ -1479,8 +1481,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: '45%',
-    paddingHorizontal: SPACING.sm,
+    paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   dualHandSectionTop: {
     top: SPACING.sm,
@@ -1488,30 +1492,29 @@ const styles = StyleSheet.create({
   dualHandSectionBottom: {
     bottom: SPACING.sm,
   },
-  dualHandHeader: {
-    alignItems: 'center',
-    marginBottom: SPACING.xs,
+  dualHandSectionLowBackground: {
+    backgroundColor: COLORS.border, // Slightly different grey for low hand
+    borderRadius: 12,
   },
-  dualHandLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: COLORS.primary,
-  },
+
   dualHandPlayers: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    flex: 1,
+    width: '100%',
+    height: '100%',
+    gap: SPACING.xs,
+    paddingHorizontal: SPACING.xs,
   },
   dualHandPlayerButton: {
     backgroundColor: COLORS.background,
     borderWidth: 2,
     borderColor: COLORS.border,
-    borderRadius: 12,
-    paddingHorizontal: SPACING.xs,
-    paddingVertical: SPACING.xs,
-    minWidth: 36,
-    minHeight: 36,
+    borderRadius: 16,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.sm,
+    minWidth: 48,
+    minHeight: 48,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
@@ -1522,42 +1525,48 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
+    flex: 1,
+    maxWidth: 60,
+    aspectRatio: 1,
   },
   dualHandPlayerButtonTablet: {
-    paddingHorizontal: SPACING.sm,
-    paddingVertical: SPACING.sm,
-    minWidth: 48,
-    minHeight: 48,
-    borderRadius: 16,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.md,
+    minWidth: 60,
+    minHeight: 60,
+    maxWidth: 80,
+    borderRadius: 20,
   },
   dualHandPlayerButtonLandscape: {
-    minWidth: 32,
-    minHeight: 32,
-    paddingHorizontal: SPACING.xs,
-    paddingVertical: SPACING.xs,
-    borderRadius: 10,
-  },
-  dualHandPlayerButtonLandscapeTablet: {
     minWidth: 40,
     minHeight: 40,
+    maxWidth: 50,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    borderRadius: 12,
+  },
+  dualHandPlayerButtonLandscapeTablet: {
+    minWidth: 50,
+    minHeight: 50,
+    maxWidth: 65,
     paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.sm,
-    borderRadius: 12,
+    borderRadius: 16,
   },
   dualHandPlayerButtonText: {
     color: COLORS.text,
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 'bold',
   },
   dualHandPlayerButtonTextTablet: {
-    fontSize: 16,
+    fontSize: 18,
   },
   dualHandPlayerButtonTextLandscape: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: 'bold',
   },
   dualHandPlayerButtonTextLandscapeTablet: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   topRightSection: {
@@ -1694,7 +1703,7 @@ const styles = StyleSheet.create({
   },
   multiplierText: {
     color: COLORS.textSecondary,
-    marginTop: SPACING.xs,
+    fontSize: 16,
   },
   multiplierTextTablet: {
     fontSize: 18,
