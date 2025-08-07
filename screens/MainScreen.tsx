@@ -1487,34 +1487,28 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
   dualHandContainer: {
-    position: 'absolute',
-    top: '25%',
-    left: 0,
-    right: 0,
-    bottom: 0,
+    flex: 1, // Take remaining space after label
     flexDirection: 'column',
+    marginTop: SPACING.sm, // Fixed spacing from label
   },
   dualHandContainerLandscape: {
-    top: '40%', // Even more space needed in landscape mode
+    marginTop: SPACING.md, // More space in landscape
   },
   dualHandContainerLandscapeTablet: {
-    top: '35%', // Tablets also need more space
+    marginTop: SPACING.sm, // Balanced for tablets
   },
   dualHandSection: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
+    minHeight: 40, // Ensure minimum height for each section
+    marginVertical: SPACING.xs, // Add vertical separation between sections
     ...(Platform.OS === 'ios' && {
       width: '100%',
       minWidth: '100%',
     }),
   },
-  dualHandSectionTop: {
-    // Remove absolute positioning to prevent overlap
-  },
-  dualHandSectionBottom: {
-    // Remove absolute positioning to prevent overlap
-  },
+
   dualHandSectionLowBackground: {
     backgroundColor: COLORS.border,
     borderBottomLeftRadius: 16,
