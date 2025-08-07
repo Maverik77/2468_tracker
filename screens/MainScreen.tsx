@@ -2488,7 +2488,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
-    maxHeight: 120, // Compact height
+    maxHeight: '30%', // 30% of screen height for compact state (responsive)
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
