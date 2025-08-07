@@ -1480,21 +1480,22 @@ const styles = StyleSheet.create({
   dualHandSection: {
     position: 'absolute',
     width: '100%',
-    height: '45%',
-    paddingHorizontal: SPACING.xs,
-    paddingVertical: SPACING.xs,
+    height: '50%',
+    left: 0,
+    right: 0,
     justifyContent: 'center',
     alignItems: 'center',
   },
   dualHandSectionTop: {
-    top: SPACING.sm,
+    top: '25%', // Start after the label area (roughly 25% from top)
   },
   dualHandSectionBottom: {
-    bottom: SPACING.sm,
+    bottom: 0, // Fill to bottom edge
   },
   dualHandSectionLowBackground: {
     backgroundColor: COLORS.border, // Slightly different grey for low hand
-    borderRadius: 12,
+    borderBottomLeftRadius: 16, // Match area card border radius
+    borderBottomRightRadius: 16, // Match area card border radius
   },
 
   dualHandPlayers: {
@@ -1503,18 +1504,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    gap: SPACING.xs,
-    paddingHorizontal: SPACING.xs,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.xs,
   },
   dualHandPlayerButton: {
     backgroundColor: COLORS.background,
     borderWidth: 2,
     borderColor: COLORS.border,
-    borderRadius: 16,
-    paddingHorizontal: SPACING.sm,
-    paddingVertical: SPACING.sm,
-    minWidth: 48,
-    minHeight: 48,
+    borderRadius: 12,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    width: 44,
+    height: 44,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
@@ -1525,48 +1526,42 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
-    flex: 1,
-    maxWidth: 60,
-    aspectRatio: 1,
   },
   dualHandPlayerButtonTablet: {
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.md,
-    minWidth: 60,
-    minHeight: 60,
-    maxWidth: 80,
-    borderRadius: 20,
-  },
-  dualHandPlayerButtonLandscape: {
-    minWidth: 40,
-    minHeight: 40,
-    maxWidth: 50,
-    paddingHorizontal: SPACING.xs,
-    paddingVertical: SPACING.xs,
-    borderRadius: 12,
-  },
-  dualHandPlayerButtonLandscapeTablet: {
-    minWidth: 50,
-    minHeight: 50,
-    maxWidth: 65,
     paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.sm,
+    width: 56,
+    height: 56,
     borderRadius: 16,
+  },
+  dualHandPlayerButtonLandscape: {
+    width: 36,
+    height: 36,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    borderRadius: 10,
+  },
+  dualHandPlayerButtonLandscapeTablet: {
+    width: 48,
+    height: 48,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.sm,
+    borderRadius: 14,
   },
   dualHandPlayerButtonText: {
     color: COLORS.text,
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  dualHandPlayerButtonTextTablet: {
-    fontSize: 18,
-  },
-  dualHandPlayerButtonTextLandscape: {
     fontSize: 12,
     fontWeight: 'bold',
   },
-  dualHandPlayerButtonTextLandscapeTablet: {
+  dualHandPlayerButtonTextTablet: {
     fontSize: 16,
+  },
+  dualHandPlayerButtonTextLandscape: {
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
+  dualHandPlayerButtonTextLandscapeTablet: {
+    fontSize: 14,
     fontWeight: 'bold',
   },
   topRightSection: {
