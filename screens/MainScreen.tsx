@@ -62,7 +62,7 @@ interface RoundState {
 }
 
 export const MainScreen: React.FC = () => {
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape } = useResponsive();
   const navigation = useNavigation<NavigationProp>();
   const route = useRoute<MainRouteProp>();
   
@@ -78,6 +78,7 @@ export const MainScreen: React.FC = () => {
   const [selectedArea, setSelectedArea] = useState<Area | null>(null);
   const [showMultiplierModal, setShowMultiplierModal] = useState(false);
   const [multiplierInput, setMultiplierInput] = useState('');
+  const [isPointsExpanded, setIsPointsExpanded] = useState(false);
   const [applyToAll, setApplyToAll] = useState(false);
   const [currentRound, setCurrentRound] = useState(currentGame?.currentRound || 1);
   const [rounds, setRounds] = useState<{ [roundNumber: number]: RoundState }>(currentGame?.rounds || {});
@@ -865,7 +866,7 @@ export const MainScreen: React.FC = () => {
                       key={area.id}
                       style={[
                         styles.areaCard,
-                        isTablet && styles.areaCardTablet,
+                        
                         isLandscape && styles.areaCardLandscape,
                         isLandscape && isTablet && styles.areaCardLandscapeTablet
                       ]}
@@ -882,7 +883,7 @@ export const MainScreen: React.FC = () => {
                               <Text style={[
                                 FONTS.h1,
                                 styles.areaLabel,
-                                isTablet && styles.areaLabelTablet,
+                                
                                 isLandscape && styles.areaLabelLandscape,
                                 isLandscape && isTablet && styles.areaLabelLandscapeTablet
                               ]}>
@@ -892,7 +893,7 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[
                                   FONTS.caption,
                                   styles.multiplierText,
-                                  isTablet && styles.multiplierTextTablet,
+                                  
                                   isLandscape && styles.multiplierTextLandscape,
                                   isLandscape && isTablet && styles.multiplierTextLandscapeTablet
                                 ]}>
@@ -934,7 +935,7 @@ export const MainScreen: React.FC = () => {
                                   style={[
                                     styles.dualHandPlayerButton,
                                     area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
-                                    isTablet && styles.dualHandPlayerButtonTablet,
+                                    
                                     isLandscape && styles.dualHandPlayerButtonLandscape,
                                     isLandscape && isTablet && styles.dualHandPlayerButtonLandscapeTablet
                                   ]}
@@ -945,7 +946,7 @@ export const MainScreen: React.FC = () => {
                                     style={[
                                       styles.dualHandPlayerButtonText,
                                       area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
-                                      isTablet && styles.dualHandPlayerButtonTextTablet,
+                                      
                                       isLandscape && styles.dualHandPlayerButtonTextLandscape,
                                       isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
                                     ]}
@@ -968,7 +969,7 @@ export const MainScreen: React.FC = () => {
                                   style={[
                                     styles.dualHandPlayerButton,
                                     area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
-                                    isTablet && styles.dualHandPlayerButtonTablet,
+                                    
                                     isLandscape && styles.dualHandPlayerButtonLandscape,
                                     isLandscape && isTablet && styles.dualHandPlayerButtonLandscapeTablet
                                   ]}
@@ -979,7 +980,7 @@ export const MainScreen: React.FC = () => {
                                     style={[
                                       styles.dualHandPlayerButtonText,
                                       area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
-                                      isTablet && styles.dualHandPlayerButtonTextTablet,
+                                      
                                       isLandscape && styles.dualHandPlayerButtonTextLandscape,
                                       isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
                                     ]}
@@ -1006,7 +1007,7 @@ export const MainScreen: React.FC = () => {
                                 style={[
                                   styles.playerButton,
                                   area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonSelected,
-                                  isTablet && styles.playerButtonTablet,
+                                  
                                   isLandscape && styles.playerButtonLandscape,
                                   isLandscape && isTablet && styles.playerButtonLandscapeTablet
                                 ]}
@@ -1016,7 +1017,7 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[
                                   styles.playerButtonText,
                                   area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonTextSelected,
-                                  isTablet && styles.playerButtonTextTablet,
+                                  
                                   isLandscape && styles.playerButtonTextLandscape,
                                   isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                                 ]}>
@@ -1036,7 +1037,7 @@ export const MainScreen: React.FC = () => {
                                 style={[
                                   styles.playerButton,
                                   area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonSelected,
-                                  isTablet && styles.playerButtonTablet,
+                                  
                                   isLandscape && styles.playerButtonLandscape,
                                   isLandscape && isTablet && styles.playerButtonLandscapeTablet
                                 ]}
@@ -1046,7 +1047,7 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[
                                   styles.playerButtonText,
                                   area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonTextSelected,
-                                  isTablet && styles.playerButtonTextTablet,
+                                  
                                   isLandscape && styles.playerButtonTextLandscape,
                                   isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                                 ]}>
@@ -1066,7 +1067,7 @@ export const MainScreen: React.FC = () => {
                                 style={[
                                   styles.playerButton,
                                   area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonSelected,
-                                  isTablet && styles.playerButtonTablet,
+                                  
                                   isLandscape && styles.playerButtonLandscape,
                                   isLandscape && isTablet && styles.playerButtonLandscapeTablet
                                 ]}
@@ -1076,7 +1077,7 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[
                                   styles.playerButtonText,
                                   area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonTextSelected,
-                                  isTablet && styles.playerButtonTextTablet,
+                                  
                                   isLandscape && styles.playerButtonTextLandscape,
                                   isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
                                 ]}>
@@ -1100,7 +1101,7 @@ export const MainScreen: React.FC = () => {
                 {/* Points Tracking Section */}
                 <View style={[
                   styles.pointsContainer,
-                  isTablet && styles.pointsContainerTablet,
+                  
                   isLandscape && styles.pointsContainerLandscape,
                   isLandscape && isTablet && styles.pointsContainerLandscapeTablet
                 ]}>
