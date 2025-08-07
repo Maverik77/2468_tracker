@@ -822,39 +822,29 @@ export const MainScreen: React.FC = () => {
       <PanGestureHandler onGestureEvent={handleSwipeGesture}>
         <View style={{ flex: 1 }}>
           <ResponsiveContainer>
-            {/* Main Content - Title, Areas and Points */}
-            <View style={[
-              styles.mainContent,
-              isLandscape && styles.mainContentLandscape
-            ]}>
-              {/* Left Side - Title and Areas */}
-              <View style={[
-                styles.leftSide,
-                isLandscape && styles.leftSideLandscape
-              ]}>
-                {/* Title Section */}
-                <View style={[
-                  styles.titleSection,
-                  isLandscape && styles.titleSectionLandscape
-                ]}>
-                  <Text style={[FONTS.h1, styles.title]}>2468</Text>
-                  <View style={styles.titleButtons}>
-                    <TouchableOpacity 
-                      style={styles.homeButton}
-                      onPress={handleGoHome}
-                      activeOpacity={0.7}
-                    >
-                      <Text style={styles.homeButtonText}>🏠</Text>
-                    </TouchableOpacity>
-                                      <TouchableOpacity 
-                    style={styles.settingsButton}
-                    onPress={() => navigation.navigate('Settings')}
-                    activeOpacity={0.7}
-                  >
-                      <Text style={styles.settingsButtonText}>⚙️</Text>
-                    </TouchableOpacity>
+            {isLandscape ? (
+              /* Landscape Mode - Keep existing layout */
+              <View style={styles.mainContentLandscape}>
+                <View style={styles.leftSideLandscape}>
+                  <View style={styles.titleSectionLandscape}>
+                    <Text style={[FONTS.h1, styles.title]}>2468</Text>
+                    <View style={styles.titleButtons}>
+                      <TouchableOpacity 
+                        style={styles.homeButton}
+                        onPress={handleGoHome}
+                        activeOpacity={0.7}
+                      >
+                        <Text style={styles.homeButtonText}>🏠</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity 
+                        style={styles.settingsButton}
+                        onPress={() => navigation.navigate('Settings')}
+                        activeOpacity={0.7}
+                      >
+                        <Text style={styles.settingsButtonText}>⚙️</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                </View>
 
                 {/* Areas Grid */}
                 <View style={[
@@ -868,7 +858,7 @@ export const MainScreen: React.FC = () => {
                         styles.areaCard,
                         
                         isLandscape && styles.areaCardLandscape,
-                        isLandscape && isTablet && styles.areaCardLandscapeTablet
+                        
                       ]}
                     >
                       {/* Top Left - Area Label */}
@@ -885,7 +875,7 @@ export const MainScreen: React.FC = () => {
                                 styles.areaLabel,
                                 
                                 isLandscape && styles.areaLabelLandscape,
-                                isLandscape && isTablet && styles.areaLabelLandscapeTablet
+                                
                               ]}>
                                 {area.label}
                               </Text>
@@ -895,7 +885,7 @@ export const MainScreen: React.FC = () => {
                                   styles.multiplierText,
                                   
                                   isLandscape && styles.multiplierTextLandscape,
-                                  isLandscape && isTablet && styles.multiplierTextLandscapeTablet
+                                  
                                 ]}>
                                   ×{area.multiplier}
                                 </Text>
@@ -924,7 +914,7 @@ export const MainScreen: React.FC = () => {
                         <View style={[
                           styles.dualHandContainer,
                           isLandscape && styles.dualHandContainerLandscape,
-                          isLandscape && isTablet && styles.dualHandContainerLandscapeTablet
+                          
                         ]}>
                           {/* High Hand Section (Top Half) */}
                           <View style={styles.dualHandSection}>
@@ -937,7 +927,7 @@ export const MainScreen: React.FC = () => {
                                     area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
                                     
                                     isLandscape && styles.dualHandPlayerButtonLandscape,
-                                    isLandscape && isTablet && styles.dualHandPlayerButtonLandscapeTablet
+                                    
                                   ]}
                                   onPress={() => handleDualHandPlayerToggle(area.id, 'highHand', player.id)}
                                   activeOpacity={0.7}
@@ -948,7 +938,7 @@ export const MainScreen: React.FC = () => {
                                       area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
                                       
                                       isLandscape && styles.dualHandPlayerButtonTextLandscape,
-                                      isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
+                                      
                                     ]}
                                     adjustsFontSizeToFit
                                     numberOfLines={1}
@@ -971,7 +961,7 @@ export const MainScreen: React.FC = () => {
                                     area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
                                     
                                     isLandscape && styles.dualHandPlayerButtonLandscape,
-                                    isLandscape && isTablet && styles.dualHandPlayerButtonLandscapeTablet
+                                    
                                   ]}
                                   onPress={() => handleDualHandPlayerToggle(area.id, 'lowHand', player.id)}
                                   activeOpacity={0.7}
@@ -982,7 +972,7 @@ export const MainScreen: React.FC = () => {
                                       area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
                                       
                                       isLandscape && styles.dualHandPlayerButtonTextLandscape,
-                                      isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
+                                      
                                     ]}
                                     adjustsFontSizeToFit
                                     numberOfLines={1}
@@ -1009,7 +999,7 @@ export const MainScreen: React.FC = () => {
                                   area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonSelected,
                                   
                                   isLandscape && styles.playerButtonLandscape,
-                                  isLandscape && isTablet && styles.playerButtonLandscapeTablet
+                                  
                                 ]}
                                 onPress={() => handlePlayerToggle(area.id, selectedPlayers[0].id)}
                                 activeOpacity={0.7}
@@ -1019,7 +1009,7 @@ export const MainScreen: React.FC = () => {
                                   area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonTextSelected,
                                   
                                   isLandscape && styles.playerButtonTextLandscape,
-                                  isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
+                                  
                                 ]}>
                                   {getPlayerInitials(selectedPlayers[0])}
                                 </Text>
@@ -1039,7 +1029,7 @@ export const MainScreen: React.FC = () => {
                                   area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonSelected,
                                   
                                   isLandscape && styles.playerButtonLandscape,
-                                  isLandscape && isTablet && styles.playerButtonLandscapeTablet
+                                  
                                 ]}
                                 onPress={() => handlePlayerToggle(area.id, selectedPlayers[1].id)}
                                 activeOpacity={0.7}
@@ -1049,7 +1039,7 @@ export const MainScreen: React.FC = () => {
                                   area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonTextSelected,
                                   
                                   isLandscape && styles.playerButtonTextLandscape,
-                                  isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
+                                  
                                 ]}>
                                   {getPlayerInitials(selectedPlayers[1])}
                                 </Text>
@@ -1069,7 +1059,7 @@ export const MainScreen: React.FC = () => {
                                   area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonSelected,
                                   
                                   isLandscape && styles.playerButtonLandscape,
-                                  isLandscape && isTablet && styles.playerButtonLandscapeTablet
+                                  
                                 ]}
                                 onPress={() => handlePlayerToggle(area.id, selectedPlayers[2].id)}
                                 activeOpacity={0.7}
@@ -1079,7 +1069,7 @@ export const MainScreen: React.FC = () => {
                                   area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonTextSelected,
                                   
                                   isLandscape && styles.playerButtonTextLandscape,
-                                  isLandscape && isTablet && styles.playerButtonTextLandscapeTablet
+                                  
                                 ]}>
                                   {getPlayerInitials(selectedPlayers[2])}
                                 </Text>
@@ -1103,7 +1093,7 @@ export const MainScreen: React.FC = () => {
                   styles.pointsContainer,
                   
                   isLandscape && styles.pointsContainerLandscape,
-                  isLandscape && isTablet && styles.pointsContainerLandscapeTablet
+                  
                 ]}>
                   {/* Points Header Section */}
                   <View style={styles.pointsHeaderSection}>
@@ -1278,7 +1268,384 @@ export const MainScreen: React.FC = () => {
                   </Text>
                 </View>
               </View>
-            </View>
+            ) : (
+              /* Portrait Mode - New Vertical Layout */
+              <View style={styles.portraitContainer}>
+                {/* Fixed Title Bar */}
+                <View style={styles.titleBarFixed}>
+                  <Text style={[FONTS.h1, styles.title]}>2468</Text>
+                  <View style={styles.titleButtons}>
+                    <TouchableOpacity 
+                      style={styles.homeButton}
+                      onPress={handleGoHome}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={styles.homeButtonText}>🏠</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                      style={styles.settingsButton}
+                      onPress={() => navigation.navigate('Settings')}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={styles.settingsButtonText}>⚙️</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                {/* Flexible Areas Grid */}
+                <View style={styles.areasFlexContainer}>
+                  <View style={styles.areasContainer}>
+                    {areas.map((area) => (
+                      <View
+                        key={area.id}
+                        style={styles.areaCard}
+                      >
+                        {/* Same area content as landscape but without landscape styles */}
+                        <View style={styles.topLeftSection}>
+                          <View style={styles.areaLabelContainer}>
+                            <TouchableOpacity
+                              style={styles.areaLabelButton}
+                              onPress={() => handleAreaPress(area)}
+                              activeOpacity={0.8}
+                            >
+                              <View style={styles.areaLabelRow}>
+                                <Text style={[FONTS.h1, styles.areaLabel]}>
+                                  {area.label}
+                                </Text>
+                                {area.multiplier > 1 && (
+                                  <Text style={[FONTS.caption, styles.multiplierText]}>
+                                    ×{area.multiplier}
+                                  </Text>
+                                )}
+                              </View>
+                            </TouchableOpacity>
+                            
+                            {/* Dual Hand Toggle for 8-point area */}
+                            {area.baseValue === 8 && (
+                              <TouchableOpacity
+                                style={styles.dualHandToggle}
+                                onPress={() => handleDualHandToggle(area.id)}
+                                activeOpacity={0.7}
+                              >
+                                <Text style={styles.dualHandToggleIcon}>
+                                  {area.isDualHandMode ? '⚡' : '↕️'}
+                                </Text>
+                              </TouchableOpacity>
+                            )}
+                          </View>
+                        </View>
+
+                        {/* Dual Hand vs Standard Mode */}
+                        {area.isDualHandMode && area.dualHandConditions ? (
+                          /* Dual Hand Mode */
+                          <View style={styles.dualHandContainer}>
+                            {/* High Hand Section */}
+                            <View style={styles.dualHandSection}>
+                              <View style={styles.dualHandPlayers}>
+                                {selectedPlayers.slice(0, 3).map((player, index) => (
+                                  <TouchableOpacity
+                                    key={`high-${player.id}`}
+                                    style={[
+                                      styles.dualHandPlayerButton,
+                                      area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
+                                    ]}
+                                    onPress={() => handleDualHandPlayerToggle(area.id, 'highHand', player.id)}
+                                    activeOpacity={0.7}
+                                  >
+                                    <Text 
+                                      style={[
+                                        styles.dualHandPlayerButtonText,
+                                        area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
+                                      ]}
+                                      adjustsFontSizeToFit
+                                      numberOfLines={1}
+                                    >
+                                      {getPlayerInitials(player)}
+                                    </Text>
+                                  </TouchableOpacity>
+                                ))}
+                              </View>
+                            </View>
+
+                            {/* Low Hand Section */}
+                            <View style={[styles.dualHandSection, styles.dualHandSectionLowBackground]}>
+                              <View style={styles.dualHandPlayers}>
+                                {selectedPlayers.slice(0, 3).map((player, index) => (
+                                  <TouchableOpacity
+                                    key={`low-${player.id}`}
+                                    style={[
+                                      styles.dualHandPlayerButton,
+                                      area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonSelected,
+                                    ]}
+                                    onPress={() => handleDualHandPlayerToggle(area.id, 'lowHand', player.id)}
+                                    activeOpacity={0.7}
+                                  >
+                                    <Text 
+                                      style={[
+                                        styles.dualHandPlayerButtonText,
+                                        area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
+                                      ]}
+                                      adjustsFontSizeToFit
+                                      numberOfLines={1}
+                                    >
+                                      {getPlayerInitials(player)}
+                                    </Text>
+                                  </TouchableOpacity>
+                                ))}
+                              </View>
+                            </View>
+                          </View>
+                        ) : (
+                          /* Standard Mode */
+                          <>
+                            {/* Top Right - Player Button */}
+                            <View style={styles.topRightSection}>
+                              {selectedPlayers.length > 0 && (
+                                <TouchableOpacity
+                                  style={[
+                                    styles.playerButton,
+                                    area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonSelected,
+                                  ]}
+                                  onPress={() => handlePlayerToggle(area.id, selectedPlayers[0].id)}
+                                  activeOpacity={0.7}
+                                >
+                                  <Text style={[
+                                    styles.playerButtonText,
+                                    area.selectedPlayers.includes(selectedPlayers[0].id) && styles.playerButtonTextSelected,
+                                  ]}>
+                                    {getPlayerInitials(selectedPlayers[0])}
+                                  </Text>
+                                </TouchableOpacity>
+                              )}
+                            </View>
+
+                            {/* Bottom Left - Player Button */}
+                            <View style={styles.bottomLeftSection}>
+                              {selectedPlayers.length > 1 && (
+                                <TouchableOpacity
+                                  style={[
+                                    styles.playerButton,
+                                    area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonSelected,
+                                  ]}
+                                  onPress={() => handlePlayerToggle(area.id, selectedPlayers[1].id)}
+                                  activeOpacity={0.7}
+                                >
+                                  <Text style={[
+                                    styles.playerButtonText,
+                                    area.selectedPlayers.includes(selectedPlayers[1].id) && styles.playerButtonTextSelected,
+                                  ]}>
+                                    {getPlayerInitials(selectedPlayers[1])}
+                                  </Text>
+                                </TouchableOpacity>
+                              )}
+                            </View>
+
+                            {/* Bottom Right - Player Button */}
+                            <View style={styles.bottomRightSection}>
+                              {selectedPlayers.length > 2 && (
+                                <TouchableOpacity
+                                  style={[
+                                    styles.playerButton,
+                                    area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonSelected,
+                                  ]}
+                                  onPress={() => handlePlayerToggle(area.id, selectedPlayers[2].id)}
+                                  activeOpacity={0.7}
+                                >
+                                  <Text style={[
+                                    styles.playerButtonText,
+                                    area.selectedPlayers.includes(selectedPlayers[2].id) && styles.playerButtonTextSelected,
+                                  ]}>
+                                    {getPlayerInitials(selectedPlayers[2])}
+                                  </Text>
+                                </TouchableOpacity>
+                              )}
+                            </View>
+                          </>
+                        )}
+                      </View>
+                    ))}
+                  </View>
+                </View>
+
+                {/* Compact/Expandable Points Section */}
+                <View style={[
+                  styles.pointsBottomSection,
+                  isPointsExpanded && styles.pointsBottomSectionExpanded
+                ]}>
+                  {/* Points Header - Always Visible */}
+                  <TouchableOpacity
+                    style={styles.pointsToggleHeader}
+                    onPress={() => setIsPointsExpanded(!isPointsExpanded)}
+                    activeOpacity={0.7}
+                  >
+                    <View style={styles.pointsHeaderCompact}>
+                      <View style={styles.roundNavigationCompact}>
+                        <TouchableOpacity
+                          style={[
+                            styles.roundNavButton,
+                            currentRound <= 1 && styles.roundNavButtonDisabled
+                          ]}
+                          onPress={handlePreviousRound}
+                          disabled={currentRound <= 1}
+                          activeOpacity={0.7}
+                        >
+                          <Text style={[
+                            styles.roundNavButtonText,
+                            currentRound <= 1 && styles.roundNavButtonTextDisabled
+                          ]} adjustsFontSizeToFit numberOfLines={1}>←</Text>
+                        </TouchableOpacity>
+                        
+                        <Text style={[FONTS.h3, styles.roundNumber]}>Rd {currentRound}</Text>
+                        
+                        <TouchableOpacity
+                          style={[
+                            styles.roundNavButton,
+                            !rounds[currentRound + 1] && styles.roundNavButtonDisabled
+                          ]}
+                          onPress={handleNextRound}
+                          disabled={!rounds[currentRound + 1]}
+                          activeOpacity={0.7}
+                        >
+                          <Text style={[
+                            styles.roundNavButtonText,
+                            !rounds[currentRound + 1] && styles.roundNavButtonTextDisabled
+                          ]} adjustsFontSizeToFit numberOfLines={1}>→</Text>
+                        </TouchableOpacity>
+                      </View>
+
+                      <View style={styles.pointsHeaderButtons}>
+                        <TouchableOpacity
+                          style={styles.saveRoundButton}
+                          onPress={handleSaveRound}
+                          activeOpacity={0.7}
+                        >
+                          <Text style={styles.saveRoundButtonText} adjustsFontSizeToFit numberOfLines={1}>💾</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.payoutButton}
+                          onPress={() => {
+                            const finalTotals = selectedPlayers.reduce((acc, player) => {
+                              acc[player.id] = totalPoints[player.id] || 0;
+                              return acc;
+                            }, {} as PlayerPoints);
+                            
+                            navigation.navigate('Cashout', {
+                              players: selectedPlayers,
+                              totals: finalTotals
+                            });
+                          }}
+                          activeOpacity={0.7}
+                        >
+                          <Text style={styles.payoutButtonText} adjustsFontSizeToFit numberOfLines={1}>💰</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.newRoundIconButton}
+                          onPress={handleNewRound}
+                          activeOpacity={0.7}
+                        >
+                          <Text style={styles.newRoundIconButtonText} adjustsFontSizeToFit numberOfLines={1}>➕</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.expandIcon}>
+                          {isPointsExpanded ? '▼' : '▲'}
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+
+                  {/* Compact Points Table - Current Round + Totals */}
+                  <View style={styles.pointsTableCompact}>
+                    {/* Header Row */}
+                    <View style={styles.pointsRow}>
+                      <View style={[styles.pointsCell, styles.pointsCellHeader]}>
+                        <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>Round</Text>
+                      </View>
+                      {selectedPlayers.map((player) => (
+                        <View key={player.id} style={[styles.pointsCell, styles.pointsCellHeader]}>
+                          <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>
+                            {getPlayerInitials(player)}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+
+                    {/* Current Round Row */}
+                    <View style={styles.pointsRow}>
+                      <View style={styles.pointsCell}>
+                        <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
+                          {currentRound}
+                        </Text>
+                      </View>
+                      {selectedPlayers.map((player) => (
+                        <View key={player.id} style={styles.pointsCell}>
+                          <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.pointsText]}>
+                            {currentPointsWithDoubling[player.id] || 0}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+
+                    {/* Total Row */}
+                    <View style={[styles.pointsRow, styles.totalRow]}>
+                      <View style={styles.pointsCell}>
+                        <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
+                          Total
+                        </Text>
+                      </View>
+                      {selectedPlayers.map((player) => (
+                        <View key={player.id} style={styles.pointsCell}>
+                          <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
+                            {totalPoints[player.id] || 0}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  </View>
+
+                  {/* Expanded Points Table - All Rounds (only when expanded) */}
+                  {isPointsExpanded && (
+                    <View style={styles.pointsTableExpanded}>
+                      <ScrollView
+                        style={styles.pointsTableScroll}
+                        showsVerticalScrollIndicator={true}
+                      >
+                        <View style={styles.pointsTable}>
+                          {/* Historical Rounds */}
+                          {Object.keys(rounds).map(roundNumber => {
+                            const round = parseInt(roundNumber);
+                            const roundState = rounds[round];
+                            return (
+                              <View key={round} style={styles.pointsRow}>
+                                <View style={styles.pointsCell}>
+                                  <View style={styles.roundCellContent}>
+                                    <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
+                                      {round}
+                                    </Text>
+                                    <TouchableOpacity
+                                      style={styles.deleteButton}
+                                      onPress={() => handleDeleteRound(round)}
+                                      activeOpacity={0.7}
+                                    >
+                                      <Text style={styles.deleteButtonText}>🗑️</Text>
+                                    </TouchableOpacity>
+                                  </View>
+                                </View>
+                                {selectedPlayers.map((player) => (
+                                  <View key={player.id} style={styles.pointsCell}>
+                                    <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.pointsText]}>
+                                      {roundState.points[player.id] || 0}
+                                    </Text>
+                                  </View>
+                                ))}
+                              </View>
+                            );
+                          })}
+                        </View>
+                      </ScrollView>
+                    </View>
+                  )}
+                </View>
+              </View>
+            )}
 
             {/* Multiplier Modal */}
             <FixedModal
@@ -1292,10 +1659,7 @@ export const MainScreen: React.FC = () => {
               <View style={styles.inputGroup}>
                 <Text style={[FONTS.caption, styles.inputLabel]}>Multiplier</Text>
                 <TextInput
-                  style={[
-                    styles.modalInput,
-                    isTablet && styles.modalInputTablet
-                  ]}
+                  style={styles.modalInput}
                   value={multiplierInput}
                   onChangeText={setMultiplierInput}
                   placeholder="Enter multiplier (e.g., 5)"
@@ -2083,6 +2447,73 @@ const styles = StyleSheet.create({
   saveRoundButtonText: {
     color: COLORS.background,
     fontSize: 16,
+    fontWeight: 'bold',
+  },
+
+  // New Portrait Mode Styles
+  portraitContainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  titleBarFixed: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+    backgroundColor: COLORS.background,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  areasFlexContainer: {
+    flex: 1,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+  },
+  pointsBottomSection: {
+    backgroundColor: COLORS.surface,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    maxHeight: 120, // Compact height
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  },
+  pointsBottomSectionExpanded: {
+    maxHeight: '80%', // Expand to most of screen
+  },
+  pointsToggleHeader: {
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+  },
+  pointsHeaderCompact: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  roundNavigationCompact: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACING.sm,
+  },
+  pointsTableCompact: {
+    paddingHorizontal: SPACING.md,
+    paddingBottom: SPACING.sm,
+  },
+  pointsTableExpanded: {
+    flex: 1,
+    paddingHorizontal: SPACING.md,
+  },
+  expandIcon: {
+    fontSize: 16,
+    color: COLORS.primary,
     fontWeight: 'bold',
   },
 }); 

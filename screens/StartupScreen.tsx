@@ -49,7 +49,7 @@ export const StartupScreen: React.FC = () => {
                   styles.logo,
                   
                   isLandscape && styles.logoLandscape,
-                  isLandscape && isTablet && styles.logoLandscapeTablet
+                  
                 ]}
                 resizeMode="contain"
               />
