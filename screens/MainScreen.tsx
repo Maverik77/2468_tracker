@@ -8,7 +8,8 @@ import {
   TextInput,
   ScrollView,
   Alert,
-  Switch
+  Switch,
+  Platform
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ResponsiveContainer } from '../components/ResponsiveContainer';
@@ -1479,13 +1480,14 @@ const styles = StyleSheet.create({
   },
   dualHandSection: {
     position: 'absolute',
-    width: '100%',
-    height: '50%',
     left: 0,
     right: 0,
+    height: '50%',
     justifyContent: 'center',
     alignItems: 'stretch',
-    paddingHorizontal: 0, // Remove any horizontal padding that could constrain width
+    ...(Platform.OS === 'ios' && {
+      width: '100%', // iOS needs explicit width
+    }),
   },
   dualHandSectionTop: {
     top: '25%', // Start after the label area (roughly 25% from top)
@@ -1494,21 +1496,30 @@ const styles = StyleSheet.create({
     bottom: 0, // Fill to bottom edge
   },
   dualHandSectionLowBackground: {
-    backgroundColor: COLORS.border, // Slightly different grey for low hand
-    borderBottomLeftRadius: 16, // Match area card border radius
-    borderBottomRightRadius: 16, // Match area card border radius
-    width: '100%',
+    backgroundColor: COLORS.border,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    position: 'absolute',
     left: 0,
-    right: 0, // Ensure it spans the full width
+    right: 0,
+    top: 0,
+    bottom: 0,
+    ...(Platform.OS === 'ios' && {
+      width: '100%', // Explicit width for iOS
+      minWidth: '100%', // Ensure minimum width on iOS
+    }),
   },
 
   dualHandPlayers: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // Spread to edges
+    justifyContent: 'space-between',
     alignItems: 'center',
-    flex: 1,
-    width: '100%',
-    paddingHorizontal: SPACING.sm, // Add back some padding for edge spacing
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.xs,
   },
   dualHandPlayerButton: {
