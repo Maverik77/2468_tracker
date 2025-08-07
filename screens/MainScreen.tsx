@@ -1564,53 +1564,55 @@ export const MainScreen: React.FC = () => {
                   </TouchableOpacity>
 
                   {/* Compact Points Table - Current Round + Totals */}
-                  <View style={styles.pointsTableCompact}>
-                    {/* Header Row */}
-                    <View style={styles.pointsRow}>
-                      <View style={[styles.pointsCell, styles.pointsCellHeader]}>
-                        <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>Round</Text>
+                  {!isPointsExpanded && (
+                    <View style={styles.pointsTableCompact}>
+                      {/* Header Row */}
+                      <View style={styles.pointsRow}>
+                        <View style={[styles.pointsCell, styles.pointsCellHeader]}>
+                          <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>Round</Text>
+                        </View>
+                        {selectedPlayers.map((player) => (
+                          <View key={player.id} style={[styles.pointsCell, styles.pointsCellHeader]}>
+                            <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>
+                              {getPlayerInitials(player)}
+                            </Text>
+                          </View>
+                        ))}
                       </View>
-                      {selectedPlayers.map((player) => (
-                        <View key={player.id} style={[styles.pointsCell, styles.pointsCellHeader]}>
-                          <Text style={[FONTS.caption, styles.pointsCellTextSmall]}>
-                            {getPlayerInitials(player)}
+
+                      {/* Current Round Row */}
+                      <View style={styles.pointsRow}>
+                        <View style={styles.pointsCell}>
+                          <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
+                            {currentRound}
                           </Text>
                         </View>
-                      ))}
-                    </View>
-
-                    {/* Current Round Row */}
-                    <View style={styles.pointsRow}>
-                      <View style={styles.pointsCell}>
-                        <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
-                          {currentRound}
-                        </Text>
+                        {selectedPlayers.map((player) => (
+                          <View key={player.id} style={styles.pointsCell}>
+                            <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.pointsText]}>
+                              {currentPointsWithDoubling[player.id] || 0}
+                            </Text>
+                          </View>
+                        ))}
                       </View>
-                      {selectedPlayers.map((player) => (
-                        <View key={player.id} style={styles.pointsCell}>
-                          <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.pointsText]}>
-                            {currentPointsWithDoubling[player.id] || 0}
-                          </Text>
-                        </View>
-                      ))}
-                    </View>
 
-                    {/* Total Row */}
-                    <View style={[styles.pointsRow, styles.totalRow]}>
-                      <View style={styles.pointsCell}>
-                        <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
-                          Total
-                        </Text>
-                      </View>
-                      {selectedPlayers.map((player) => (
-                        <View key={player.id} style={styles.pointsCell}>
+                      {/* Total Row */}
+                      <View style={[styles.pointsRow, styles.totalRow]}>
+                        <View style={styles.pointsCell}>
                           <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
-                            {totalPoints[player.id] || 0}
+                            Total
                           </Text>
                         </View>
-                      ))}
+                        {selectedPlayers.map((player) => (
+                          <View key={player.id} style={styles.pointsCell}>
+                            <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
+                              {totalPoints[player.id] || 0}
+                            </Text>
+                          </View>
+                        ))}
+                      </View>
                     </View>
-                  </View>
+                  )}
 
                   {/* Expanded Points Table - All Rounds (only when expanded) */}
                   {isPointsExpanded && (
@@ -2417,7 +2419,6 @@ const styles = StyleSheet.create({
   },
   pointsTableScroll: {
     flex: 1,
-    maxHeight: '100%',
   },
   pointsCellTextSmall: {
     color: COLORS.textSecondary,
