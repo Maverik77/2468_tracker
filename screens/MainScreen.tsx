@@ -941,13 +941,17 @@ export const MainScreen: React.FC = () => {
                                   onPress={() => handleDualHandPlayerToggle(area.id, 'highHand', player.id)}
                                   activeOpacity={0.7}
                                 >
-                                  <Text style={[
-                                    styles.dualHandPlayerButtonText,
-                                    area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
-                                    isTablet && styles.dualHandPlayerButtonTextTablet,
-                                    isLandscape && styles.dualHandPlayerButtonTextLandscape,
-                                    isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
-                                  ]}>
+                                  <Text 
+                                    style={[
+                                      styles.dualHandPlayerButtonText,
+                                      area.dualHandConditions!.highHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
+                                      isTablet && styles.dualHandPlayerButtonTextTablet,
+                                      isLandscape && styles.dualHandPlayerButtonTextLandscape,
+                                      isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
+                                    ]}
+                                    adjustsFontSizeToFit
+                                    numberOfLines={1}
+                                  >
                                     {getPlayerInitials(player)}
                                   </Text>
                                 </TouchableOpacity>
@@ -971,13 +975,17 @@ export const MainScreen: React.FC = () => {
                                   onPress={() => handleDualHandPlayerToggle(area.id, 'lowHand', player.id)}
                                   activeOpacity={0.7}
                                 >
-                                  <Text style={[
-                                    styles.dualHandPlayerButtonText,
-                                    area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
-                                    isTablet && styles.dualHandPlayerButtonTextTablet,
-                                    isLandscape && styles.dualHandPlayerButtonTextLandscape,
-                                    isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
-                                  ]}>
+                                  <Text 
+                                    style={[
+                                      styles.dualHandPlayerButtonText,
+                                      area.dualHandConditions!.lowHand.selectedPlayers.includes(player.id) && styles.playerButtonTextSelected,
+                                      isTablet && styles.dualHandPlayerButtonTextTablet,
+                                      isLandscape && styles.dualHandPlayerButtonTextLandscape,
+                                      isLandscape && isTablet && styles.dualHandPlayerButtonTextLandscapeTablet
+                                    ]}
+                                    adjustsFontSizeToFit
+                                    numberOfLines={1}
+                                  >
                                     {getPlayerInitials(player)}
                                   </Text>
                                 </TouchableOpacity>
@@ -1487,31 +1495,30 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
   dualHandContainer: {
-    flex: 1,
+    position: 'absolute',
+    top: '25%', // Responsive positioning - 25% for label, 75% for content
+    left: SPACING.md,
+    right: SPACING.md,
+    bottom: SPACING.md,
     flexDirection: 'column',
-    marginTop: 8, // Small fixed margin to prevent overlap
-    paddingHorizontal: 0, // No horizontal padding to allow full width
   },
   dualHandContainerLandscape: {
-    marginTop: 12, // More space for landscape
+    top: '30%', // More space for landscape labels
   },
   dualHandContainerLandscapeTablet: {
-    marginTop: 16, // Even more space for landscape tablet
+    top: '35%', // Even more space for tablet landscape
   },
   dualHandSection: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    marginHorizontal: 0, // Ensure no horizontal margin
-    paddingHorizontal: 0, // Ensure no horizontal padding
+    minHeight: '40%', // Ensure minimum usable height
   },
 
   dualHandSectionLowBackground: {
     backgroundColor: COLORS.border,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
-    marginHorizontal: -16, // Extend beyond card padding to edges
-    paddingHorizontal: 16, // Add back padding for content
   },
 
   dualHandPlayers: {
@@ -1521,9 +1528,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.xs,
-    marginHorizontal: 0, // No horizontal margin
-    width: '100%', // Force full width
-    alignSelf: 'stretch', // Stretch to parent
+    gap: SPACING.xs, // Responsive gap between players
   },
   dualHandPlayerButton: {
     backgroundColor: COLORS.background,
@@ -1532,8 +1537,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
-    width: 44,
-    height: 44,
+    minWidth: 36,
+    minHeight: 36,
+    flex: 1,
+    maxWidth: 60, // Prevent buttons from getting too large
+    aspectRatio: 1, // Keep buttons square
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
@@ -1544,47 +1552,39 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
-    flexShrink: 0, // Prevent buttons from shrinking
   },
   dualHandPlayerButtonTablet: {
-    paddingHorizontal: SPACING.sm,
-    paddingVertical: SPACING.sm,
-    width: 56,
-    height: 56,
+    minWidth: 44,
+    minHeight: 44,
+    maxWidth: 72,
     borderRadius: 16,
-    flexShrink: 0,
   },
   dualHandPlayerButtonLandscape: {
-    width: 36,
-    height: 36,
-    paddingHorizontal: SPACING.xs,
-    paddingVertical: SPACING.xs,
+    minWidth: 32,
+    minHeight: 32,
+    maxWidth: 56,
     borderRadius: 10,
-    flexShrink: 0,
   },
   dualHandPlayerButtonLandscapeTablet: {
-    width: 48,
-    height: 48,
-    paddingHorizontal: SPACING.sm,
-    paddingVertical: SPACING.sm,
+    minWidth: 40,
+    minHeight: 40,
+    maxWidth: 64,
     borderRadius: 14,
-    flexShrink: 0,
   },
   dualHandPlayerButtonText: {
     color: COLORS.text,
     fontSize: 12,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   dualHandPlayerButtonTextTablet: {
     fontSize: 16,
   },
   dualHandPlayerButtonTextLandscape: {
     fontSize: 10,
-    fontWeight: 'bold',
   },
   dualHandPlayerButtonTextLandscapeTablet: {
     fontSize: 14,
-    fontWeight: 'bold',
   },
   topRightSection: {
     position: 'absolute',

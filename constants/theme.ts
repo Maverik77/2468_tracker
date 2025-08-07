@@ -16,12 +16,21 @@ export const COLORS = {
 };
 
 export const SPACING = {
-  xs: 4,
+  xs: 4,  // Keep numeric for React Native compatibility, but use responsively
   sm: 8,
   md: 16,
   lg: 24,
   xl: 32,
   xxl: 48,
+};
+
+// Responsive spacing helpers for scalable layouts
+export const FLUID_SPACING = {
+  xs: 'clamp(0.25rem, 1vw, 0.5rem)',    // 4-8px fluid
+  sm: 'clamp(0.5rem, 2vw, 1rem)',      // 8-16px fluid  
+  md: 'clamp(1rem, 3vw, 2rem)',        // 16-32px fluid
+  lg: 'clamp(1.5rem, 4vw, 3rem)',      // 24-48px fluid
+  xl: 'clamp(2rem, 5vw, 4rem)',        // 32-64px fluid
 };
 
 export const BREAKPOINTS = {
