@@ -913,13 +913,13 @@ export const MainScreen: React.FC = () => {
                         </View>
                       </View>
 
-                      {/* Conditional rendering: Dual Hand Mode vs Standard Mode */}
+                                            {/* Conditional rendering: Dual Hand Mode vs Standard Mode */}
                       {area.isDualHandMode && area.dualHandConditions ? (
                         /* Dual Hand Mode - High Hand and Low Hand sections */
-                        <>
-                                                     {/* High Hand Section (Top Half) */}
-                           <View style={[styles.dualHandSection, styles.dualHandSectionTop]}>
-                             <View style={styles.dualHandPlayers}>
+                        <View style={styles.dualHandContainer}>
+                          {/* High Hand Section (Top Half) */}
+                          <View style={styles.dualHandSection}>
+                            <View style={styles.dualHandPlayers}>
                               {selectedPlayers.slice(0, 3).map((player, index) => (
                                 <TouchableOpacity
                                   key={`high-${player.id}`}
@@ -947,9 +947,9 @@ export const MainScreen: React.FC = () => {
                             </View>
                           </View>
 
-                                                     {/* Low Hand Section (Bottom Half) */}
-                           <View style={[styles.dualHandSection, styles.dualHandSectionBottom, styles.dualHandSectionLowBackground]}>
-                             <View style={styles.dualHandPlayers}>
+                                                                               {/* Low Hand Section (Bottom Half) */}
+                          <View style={[styles.dualHandSection, styles.dualHandSectionLowBackground]}>
+                            <View style={styles.dualHandPlayers}>
                               {selectedPlayers.slice(0, 3).map((player, index) => (
                                 <TouchableOpacity
                                   key={`low-${player.id}`}
@@ -976,7 +976,7 @@ export const MainScreen: React.FC = () => {
                               ))}
                             </View>
                           </View>
-                        </>
+                        </View>
                       ) : (
                         /* Standard Mode - Corner positioned player buttons */
                         <>
@@ -1478,35 +1478,38 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.primary,
   },
-  dualHandSection: {
+  dualHandContainer: {
     position: 'absolute',
+    top: '25%',
     left: 0,
     right: 0,
-    height: '50%',
+    bottom: 0,
+    flexDirection: 'column',
+  },
+  dualHandSection: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
     ...(Platform.OS === 'ios' && {
-      width: '100%', // iOS needs explicit width
+      width: '100%',
+      minWidth: '100%',
     }),
   },
   dualHandSectionTop: {
-    top: '25%', // Start after the label area (roughly 25% from top)
+    // Remove absolute positioning to prevent overlap
   },
   dualHandSectionBottom: {
-    bottom: 0, // Fill to bottom edge
+    // Remove absolute positioning to prevent overlap
   },
   dualHandSectionLowBackground: {
     backgroundColor: COLORS.border,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
     ...(Platform.OS === 'ios' && {
-      width: '100%', // Explicit width for iOS
-      minWidth: '100%', // Ensure minimum width on iOS
+      width: '100%',
+      minWidth: '100%',
+      left: 0,
+      right: 0,
     }),
   },
 
@@ -1514,13 +1517,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
+    flex: 1,
     paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.xs,
+    ...(Platform.OS === 'ios' && {
+      width: '100%',
+      minWidth: '100%',
+    }),
   },
   dualHandPlayerButton: {
     backgroundColor: COLORS.background,
