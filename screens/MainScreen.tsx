@@ -1484,7 +1484,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch', // Allow children to stretch to full width
   },
   dualHandSectionTop: {
     top: '25%', // Start after the label area (roughly 25% from top)
@@ -1496,14 +1496,14 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.border, // Slightly different grey for low hand
     borderBottomLeftRadius: 16, // Match area card border radius
     borderBottomRightRadius: 16, // Match area card border radius
+    width: '100%', // Ensure full width background
   },
 
   dualHandPlayers: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
+    flex: 1, // Take full available space
     paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.xs,
   },
@@ -1526,6 +1526,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
+    flexShrink: 0, // Prevent buttons from shrinking
   },
   dualHandPlayerButtonTablet: {
     paddingHorizontal: SPACING.sm,
@@ -1533,6 +1534,7 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 16,
+    flexShrink: 0,
   },
   dualHandPlayerButtonLandscape: {
     width: 36,
@@ -1540,6 +1542,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
     borderRadius: 10,
+    flexShrink: 0,
   },
   dualHandPlayerButtonLandscapeTablet: {
     width: 48,
@@ -1547,6 +1550,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.sm,
     borderRadius: 14,
+    flexShrink: 0,
   },
   dualHandPlayerButtonText: {
     color: COLORS.text,
