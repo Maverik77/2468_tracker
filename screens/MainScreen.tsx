@@ -2564,8 +2564,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   expandedTableContainer: {
-    flex: 1, // Take available space
-    maxHeight: '65%', // But don't exceed 65% of parent
+    height: '65%', // Fixed height of 65% of parent container
     marginBottom: SPACING.sm,
   },
   expandedTotalsSection: {
