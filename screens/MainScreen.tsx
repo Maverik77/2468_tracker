@@ -1487,34 +1487,29 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
   dualHandContainer: {
-    flex: 1, // Take remaining space after label
+    position: 'absolute',
+    top: '25%', // Start below the label area
+    left: 0,
+    right: 0,
+    bottom: 0,
     flexDirection: 'column',
-    marginTop: SPACING.sm, // Fixed spacing from label
-    width: '100%', // Ensure full width
-    alignSelf: 'stretch', // Stretch to container width
   },
   dualHandContainerLandscape: {
-    marginTop: SPACING.md, // More space in landscape
+    top: '30%', // More space for landscape
   },
   dualHandContainerLandscapeTablet: {
-    marginTop: SPACING.sm, // Balanced for tablets
+    top: '28%', // Optimized for landscape tablet
   },
   dualHandSection: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    minHeight: 40, // Ensure minimum height for each section
-    marginVertical: SPACING.xs, // Add vertical separation between sections
-    width: '100%', // Full width for all platforms
-    alignSelf: 'stretch', // Stretch to parent width
   },
 
   dualHandSectionLowBackground: {
     backgroundColor: COLORS.border,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
-    width: '100%', // Full width background
-    alignSelf: 'stretch', // Stretch to fill
   },
 
   dualHandPlayers: {
@@ -1522,8 +1517,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flex: 1,
-    width: '100%', // Full width
-    alignSelf: 'stretch', // Stretch to parent
     paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.xs,
   },
