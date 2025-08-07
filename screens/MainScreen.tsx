@@ -1390,7 +1390,17 @@ export const MainScreen: React.FC = () => {
                                 onPress={() => handleDualHandToggle(area.id)} 
                                 activeOpacity={0.7} 
                                 style={styles.splitToggleTouchArea} 
-                              />
+                              >
+                                <View style={styles.arrowPatternContainer}>
+                                  {/* Up arrows pattern for dual mode (merge) */}
+                                  <View style={[styles.arrowUp, { left: '10%' }]} />
+                                  <View style={[styles.arrowUp, { left: '25%' }]} />
+                                  <View style={[styles.arrowUp, { left: '40%' }]} />
+                                  <View style={[styles.arrowUp, { left: '55%' }]} />
+                                  <View style={[styles.arrowUp, { left: '70%' }]} />
+                                  <View style={[styles.arrowUp, { left: '85%' }]} />
+                                </View>
+                              </TouchableOpacity>
                             </>
                           ) : (
                             // Standard single row
@@ -1473,7 +1483,17 @@ export const MainScreen: React.FC = () => {
                               onPress={() => handleDualHandToggle(area.id)} 
                               activeOpacity={0.7} 
                               style={styles.splitToggleTouchArea} 
-                            />
+                            >
+                              <View style={styles.arrowPatternContainer}>
+                                {/* Down arrows pattern for single mode (split) */}
+                                <View style={[styles.arrowDown, { left: '10%' }]} />
+                                <View style={[styles.arrowDown, { left: '25%' }]} />
+                                <View style={[styles.arrowDown, { left: '40%' }]} />
+                                <View style={[styles.arrowDown, { left: '55%' }]} />
+                                <View style={[styles.arrowDown, { left: '70%' }]} />
+                                <View style={[styles.arrowDown, { left: '85%' }]} />
+                              </View>
+                            </TouchableOpacity>
                           )}
                         </View>
                       ))}
@@ -2666,5 +2686,36 @@ const styles = StyleSheet.create({
     bottom: -36,
     height: 36,
     zIndex: 1,
+  },
+  arrowPatternContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingHorizontal: SPACING.xs,
+  },
+  arrowUp: {
+    position: 'absolute',
+    width: 0,
+    height: 0,
+    borderLeftWidth: 8,
+    borderRightWidth: 8,
+    borderBottomWidth: 12,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: COLORS.surface,
+    top: '25%',
+  },
+  arrowDown: {
+    position: 'absolute',
+    width: 0,
+    height: 0,
+    borderLeftWidth: 8,
+    borderRightWidth: 8,
+    borderTopWidth: 12,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderTopColor: COLORS.surface,
+    bottom: '25%',
   },
 }); 
