@@ -1384,6 +1384,13 @@ export const MainScreen: React.FC = () => {
                                   ))}
                                 </View>
                               </View>
+
+                              {/* Clickable bottom border to merge/split */}
+                              <TouchableOpacity 
+                                onPress={() => handleDualHandToggle(area.id)} 
+                                activeOpacity={0.7} 
+                                style={styles.splitToggleTouchArea} 
+                              />
                             </>
                           ) : (
                             // Standard single row
@@ -1458,6 +1465,15 @@ export const MainScreen: React.FC = () => {
                                 )}
                               </View>
                             </View>
+                          )}
+                          
+                          {/* Clickable bottom border for 8-point area when not in dual mode */}
+                          {area.baseValue === 8 && !area.isDualHandMode && (
+                            <TouchableOpacity 
+                              onPress={() => handleDualHandToggle(area.id)} 
+                              activeOpacity={0.7} 
+                              style={styles.splitToggleTouchArea} 
+                            />
                           )}
                         </View>
                       ))}
@@ -1885,7 +1901,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: SPACING.sm,
     flexShrink: 1,
-    flex: 1,
+    width: '30%',
     minWidth: 0,
   },
   areaLabelColumn: {
@@ -1900,7 +1916,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: SPACING.sm,
-    width: '48%',
+    flex: 1,
     flexShrink: 0,
   },
   handTag: {
@@ -2640,7 +2656,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   specialFourthRow: {
-    borderBottomWidth: 3,
+    borderBottomWidth: 6,
     borderBottomColor: COLORS.primary,
   },
   splitToggleTouchArea: {
@@ -2648,7 +2664,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: SPACING.lg,
+    height: SPACING.xxl,
     zIndex: 1,
   },
 }); 
