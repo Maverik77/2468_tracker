@@ -1317,24 +1317,16 @@ export const MainScreen: React.FC = () => {
                                     onPress={() => handleAreaPress(area)}
                                     activeOpacity={0.8}
                                   >
-                                    <View style={styles.areaLabelRow}>
-                                      <Text style={[FONTS.h1, styles.areaLabel]}>{area.label}</Text>
-                                      {area.multiplier > 1 && (
-                                        <Text style={[FONTS.caption, styles.multiplierText]}>×{area.multiplier}</Text>
-                                      )}
-                                      <Text style={styles.handTag}>High</Text>
+                                    <View style={styles.areaLabelColumn}>
+                                      <View style={styles.areaLabelRow}>
+                                        <Text style={[FONTS.h1, styles.areaLabel]}>{((area.baseValue / 2) * (area.multiplier || 1))}</Text>
+                                        {area.multiplier > 1 && (
+                                          <Text style={[FONTS.caption, styles.multiplierText]}>×{area.multiplier}</Text>
+                                        )}
+                                      </View>
+                                      <Text style={styles.handSubLabel}>High</Text>
                                     </View>
                                   </TouchableOpacity>
-                                  {/* Center narrow toggle bar */}
-                                  <View style={styles.areaMiddle}>
-                                    <TouchableOpacity
-                                      style={styles.splitToggleBarButton}
-                                      onPress={() => handleDualHandToggle(area.id)}
-                                      activeOpacity={0.8}
-                                    >
-                                      <Text style={styles.splitToggleBarText}>Merge</Text>
-                                    </TouchableOpacity>
-                                  </View>
                                 </View>
                                 <View style={styles.areaRightButtons}>
                                   {selectedPlayers.slice(0,3).map((player) => (
@@ -1361,16 +1353,16 @@ export const MainScreen: React.FC = () => {
                               {/* Low hand row */}
                               <View style={[styles.areaRow, styles.dualLowRow]}>
                                 <View style={styles.areaLeft}>
-                                  <View style={styles.areaLabelRow}>
-                                    <Text style={[FONTS.h1, styles.areaLabel]}>{area.label}</Text>
-                                    {area.multiplier > 1 && (
-                                      <Text style={[FONTS.caption, styles.multiplierText]}>×{area.multiplier}</Text>
-                                    )}
-                                    <Text style={styles.handTag}>Low</Text>
+                                  <View style={styles.areaLabelColumn}>
+                                    <View style={styles.areaLabelRow}>
+                                      <Text style={[FONTS.h1, styles.areaLabel]}>{((area.baseValue / 2) * (area.multiplier || 1))}</Text>
+                                      {area.multiplier > 1 && (
+                                        <Text style={[FONTS.caption, styles.multiplierText]}>×{area.multiplier}</Text>
+                                      )}
+                                    </View>
+                                    <Text style={styles.handSubLabel}>Low</Text>
                                   </View>
                                 </View>
-                                {/* Keep middle empty to align with high row */}
-                                <View style={styles.areaMiddle} />
                                 <View style={styles.areaRightButtons}>
                                   {selectedPlayers.slice(0,3).map((player) => (
                                     <TouchableOpacity
@@ -1402,24 +1394,15 @@ export const MainScreen: React.FC = () => {
                                   onPress={() => handleAreaPress(area)}
                                   activeOpacity={0.8}
                                 >
-                                  <View style={styles.areaLabelRow}>
-                                    <Text style={[FONTS.h1, styles.areaLabel]}>{area.label}</Text>
-                                    {area.multiplier > 1 && (
-                                      <Text style={[FONTS.caption, styles.multiplierText]}>×{area.multiplier}</Text>
-                                    )}
+                                  <View style={styles.areaLabelColumn}>
+                                    <View style={styles.areaLabelRow}>
+                                      <Text style={[FONTS.h1, styles.areaLabel]}>{(area.baseValue * (area.multiplier || 1))}</Text>
+                                      {area.multiplier > 1 && (
+                                        <Text style={[FONTS.caption, styles.multiplierText]}>×{area.multiplier}</Text>
+                                      )}
+                                    </View>
                                   </View>
                                 </TouchableOpacity>
-                                {area.baseValue === 8 && (
-                                  <View style={styles.areaMiddle}>
-                                    <TouchableOpacity
-                                      style={styles.splitToggleBarButton}
-                                      onPress={() => handleDualHandToggle(area.id)}
-                                      activeOpacity={0.8}
-                                    >
-                                      <Text style={styles.splitToggleBarText}>Split High/Low</Text>
-                                    </TouchableOpacity>
-                                  </View>
-                                )}
                               </View>
                               <View style={styles.areaRightButtons}>
                                 {selectedPlayers[0] && (
@@ -1889,25 +1872,36 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 5,
+    position: 'relative',
   },
   areaRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: SPACING.md,
+    gap: SPACING.sm,
   },
   areaLeft: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: SPACING.sm,
     flexShrink: 1,
+    flex: 1,
+    minWidth: 0,
+  },
+  areaLabelColumn: {
+    flexDirection: 'column',
+  },
+  handSubLabel: {
+    color: COLORS.textSecondary,
+    fontSize: 12,
   },
   areaRightButtons: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     gap: SPACING.sm,
-    flexGrow: 1,
+    width: '48%',
+    flexShrink: 0,
   },
   handTag: {
     color: COLORS.textSecondary,
@@ -1994,21 +1988,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     borderWidth: 2,
     borderColor: COLORS.border,
-    borderRadius: 12,
-    paddingHorizontal: SPACING.xs,
-    paddingVertical: SPACING.xs,
-    minWidth: 36,
-    minHeight: 36,
-    flex: 1,
-    maxWidth: 60, // Prevent buttons from getting too large
-    aspectRatio: 1, // Keep buttons square
+    borderRadius: 16,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+    minWidth: 48,
+    minHeight: 48,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
@@ -2103,10 +2091,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
@@ -2657,5 +2642,13 @@ const styles = StyleSheet.create({
   specialFourthRow: {
     borderBottomWidth: 3,
     borderBottomColor: COLORS.primary,
+  },
+  splitToggleTouchArea: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: SPACING.lg,
+    zIndex: 1,
   },
 }); 
