@@ -33,41 +33,33 @@ export const FLUID_SPACING = {
   xl: 'clamp(2rem, 5vw, 4rem)',        // 32-64px fluid
 };
 
-export const BREAKPOINTS = {
-  phone: 480,
-  tablet: 768,
-  desktop: 1024,
-};
-
-export const isPhone = screenWidth < BREAKPOINTS.phone;
-export const isTablet = screenWidth >= BREAKPOINTS.phone && screenWidth < BREAKPOINTS.tablet;
-export const isDesktop = screenWidth >= BREAKPOINTS.tablet;
+// Simplified responsive system - only orientation matters now
 
 export const FONTS = {
   h1: {
-    fontSize: isPhone ? 24 : isTablet ? 32 : 40,
+    fontSize: 28, // Simplified - one size fits all
     fontWeight: 'bold' as const,
   },
   h2: {
-    fontSize: isPhone ? 20 : isTablet ? 28 : 32,
+    fontSize: 24,
     fontWeight: 'bold' as const,
   },
   h3: {
-    fontSize: isPhone ? 18 : isTablet ? 24 : 28,
+    fontSize: 20,
     fontWeight: '600' as const,
   },
   body: {
-    fontSize: isPhone ? 16 : isTablet ? 18 : 20,
+    fontSize: 16,
     fontWeight: 'normal' as const,
   },
   caption: {
-    fontSize: isPhone ? 14 : isTablet ? 16 : 18,
+    fontSize: 14,
     fontWeight: 'normal' as const,
   },
 };
 
 export const LAYOUT = {
-  containerPadding: isPhone ? SPACING.md : isTablet ? SPACING.lg : SPACING.xl,
-  cardPadding: isPhone ? SPACING.sm : isTablet ? SPACING.md : SPACING.lg,
-  borderRadius: isPhone ? 8 : isTablet ? 12 : 16,
+  containerPadding: SPACING.lg,
+  cardPadding: SPACING.md,
+  borderRadius: 12,
 }; 

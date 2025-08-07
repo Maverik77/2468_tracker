@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Dimensions, ScaledSize, Platform } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import * as Device from 'expo-device';
 
 export interface ResponsiveState {
   width: number;
   height: number;
   orientation: 'portrait' | 'landscape';
-  isTablet: boolean;
-  isPhone: boolean;
   isLandscape: boolean;
   isPortrait: boolean;
 }
@@ -57,8 +54,6 @@ export const useResponsive = (): ResponsiveState => {
     return () => subscription?.remove();
   }, [dimensions.width, dimensions.height]);
 
-  const isTablet = Device.deviceType === Device.DeviceType.TABLET;
-  const isPhone = Device.deviceType === Device.DeviceType.PHONE;
   const isLandscape = orientation === 'landscape';
   const isPortrait = orientation === 'portrait';
 
@@ -66,8 +61,6 @@ export const useResponsive = (): ResponsiveState => {
     width: dimensions.width,
     height: dimensions.height,
     orientation,
-    isTablet,
-    isPhone,
     isLandscape,
     isPortrait,
   };
