@@ -1487,29 +1487,31 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
   },
   dualHandContainer: {
-    position: 'absolute',
-    top: '25%', // Start below the label area
-    left: 0,
-    right: 0,
-    bottom: 0,
+    flex: 1,
     flexDirection: 'column',
+    marginTop: 8, // Small fixed margin to prevent overlap
+    paddingHorizontal: 0, // No horizontal padding to allow full width
   },
   dualHandContainerLandscape: {
-    top: '30%', // More space for landscape
+    marginTop: 12, // More space for landscape
   },
   dualHandContainerLandscapeTablet: {
-    top: '28%', // Optimized for landscape tablet
+    marginTop: 16, // Even more space for landscape tablet
   },
   dualHandSection: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
+    marginHorizontal: 0, // Ensure no horizontal margin
+    paddingHorizontal: 0, // Ensure no horizontal padding
   },
 
   dualHandSectionLowBackground: {
     backgroundColor: COLORS.border,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
+    marginHorizontal: -16, // Extend beyond card padding to edges
+    paddingHorizontal: 16, // Add back padding for content
   },
 
   dualHandPlayers: {
@@ -1519,6 +1521,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.xs,
+    marginHorizontal: 0, // No horizontal margin
+    width: '100%', // Force full width
+    alignSelf: 'stretch', // Stretch to parent
   },
   dualHandPlayerButton: {
     backgroundColor: COLORS.background,
