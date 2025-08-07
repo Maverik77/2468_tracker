@@ -1306,7 +1306,7 @@ export const MainScreen: React.FC = () => {
                   <View style={styles.areasFlexContainer}>
                     <View style={styles.areasList}>
                       {areas.map((area) => (
-                        <View key={area.id} style={styles.areaRowCard}>
+                        <View key={area.id} style={[styles.areaRowCard, area.baseValue === 8 && styles.specialFourthRow]}>
                           {area.baseValue === 8 && area.isDualHandMode && area.dualHandConditions ? (
                             <>
                               {/* High hand row */}
@@ -1325,14 +1325,16 @@ export const MainScreen: React.FC = () => {
                                       <Text style={styles.handTag}>High</Text>
                                     </View>
                                   </TouchableOpacity>
-                                  {/* Split toggle visible on the first row */}
-                                  <TouchableOpacity
-                                    style={styles.dualHandToggle}
-                                    onPress={() => handleDualHandToggle(area.id)}
-                                    activeOpacity={0.7}
-                                  >
-                                    <Text style={styles.dualHandToggleIcon}>↕️</Text>
-                                  </TouchableOpacity>
+                                  {/* Center narrow toggle bar */}
+                                  <View style={styles.areaMiddle}>
+                                    <TouchableOpacity
+                                      style={styles.splitToggleBarButton}
+                                      onPress={() => handleDualHandToggle(area.id)}
+                                      activeOpacity={0.8}
+                                    >
+                                      <Text style={styles.splitToggleBarText}>Merge</Text>
+                                    </TouchableOpacity>
+                                  </View>
                                 </View>
                                 <View style={styles.areaRightButtons}>
                                   {selectedPlayers.slice(0,3).map((player) => (
@@ -1367,6 +1369,8 @@ export const MainScreen: React.FC = () => {
                                     <Text style={styles.handTag}>Low</Text>
                                   </View>
                                 </View>
+                                {/* Keep middle empty to align with high row */}
+                                <View style={styles.areaMiddle} />
                                 <View style={styles.areaRightButtons}>
                                   {selectedPlayers.slice(0,3).map((player) => (
                                     <TouchableOpacity
@@ -1406,13 +1410,15 @@ export const MainScreen: React.FC = () => {
                                   </View>
                                 </TouchableOpacity>
                                 {area.baseValue === 8 && (
-                                  <TouchableOpacity
-                                    style={styles.dualHandToggle}
-                                    onPress={() => handleDualHandToggle(area.id)}
-                                    activeOpacity={0.7}
-                                  >
-                                    <Text style={styles.dualHandToggleIcon}>{area.isDualHandMode ? '⚡' : '↕️'}</Text>
-                                  </TouchableOpacity>
+                                  <View style={styles.areaMiddle}>
+                                    <TouchableOpacity
+                                      style={styles.splitToggleBarButton}
+                                      onPress={() => handleDualHandToggle(area.id)}
+                                      activeOpacity={0.8}
+                                    >
+                                      <Text style={styles.splitToggleBarText}>Split High/Low</Text>
+                                    </TouchableOpacity>
+                                  </View>
                                 )}
                               </View>
                               <View style={styles.areaRightButtons}>
@@ -2629,5 +2635,27 @@ const styles = StyleSheet.create({
     borderTopColor: COLORS.border,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
+  },
+  areaMiddle: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  splitToggleBarButton: {
+    alignSelf: 'stretch',
+    borderWidth: 1,
+    borderColor: COLORS.primary,
+    borderRadius: 999,
+    paddingVertical: SPACING.xs,
+    paddingHorizontal: SPACING.sm,
+    backgroundColor: 'transparent',
+  },
+  splitToggleBarText: {
+    color: COLORS.primary,
+    textAlign: 'center',
+  },
+  specialFourthRow: {
+    borderBottomWidth: 3,
+    borderBottomColor: COLORS.primary,
   },
 }); 
