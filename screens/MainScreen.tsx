@@ -882,7 +882,9 @@ export const MainScreen: React.FC = () => {
                               <Text style={[
                                 FONTS.h1,
                                 styles.areaLabel,
-                                isTablet && styles.areaLabelTablet
+                                isTablet && styles.areaLabelTablet,
+                                isLandscape && styles.areaLabelLandscape,
+                                isLandscape && isTablet && styles.areaLabelLandscapeTablet
                               ]}>
                                 {area.label}
                               </Text>
@@ -890,7 +892,9 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[
                                   FONTS.caption,
                                   styles.multiplierText,
-                                  isTablet && styles.multiplierTextTablet
+                                  isTablet && styles.multiplierTextTablet,
+                                  isLandscape && styles.multiplierTextLandscape,
+                                  isLandscape && isTablet && styles.multiplierTextLandscapeTablet
                                 ]}>
                                   ×{area.multiplier}
                                 </Text>
@@ -1491,10 +1495,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   dualHandContainerLandscape: {
-    top: '35%', // More space needed in landscape mode
+    top: '40%', // Even more space needed in landscape mode
   },
   dualHandContainerLandscapeTablet: {
-    top: '30%', // Tablets can use slightly less space
+    top: '35%', // Tablets also need more space
   },
   dualHandSection: {
     flex: 1,
@@ -1728,12 +1732,24 @@ const styles = StyleSheet.create({
   areaLabelTablet: {
     fontSize: 48,
   },
+  areaLabelLandscape: {
+    fontSize: 28, // Smaller font in landscape to reduce height
+  },
+  areaLabelLandscapeTablet: {
+    fontSize: 36, // Smaller for tablet landscape
+  },
   multiplierText: {
     color: COLORS.textSecondary,
     fontSize: 16,
   },
   multiplierTextTablet: {
     fontSize: 18,
+  },
+  multiplierTextLandscape: {
+    fontSize: 12, // Smaller multiplier text in landscape
+  },
+  multiplierTextLandscapeTablet: {
+    fontSize: 14, // Smaller for tablet landscape
   },
   instructionsContainer: {
     alignItems: 'center',
