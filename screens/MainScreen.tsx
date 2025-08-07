@@ -178,10 +178,14 @@ export const MainScreen: React.FC = () => {
     areas.forEach(area => {
       // Handle dual hand mode for 8-point area
       if (area.isDualHandMode && area.dualHandConditions) {
+        // Calculate current values using the area's current multiplier
+        const currentHighHandValue = (area.baseValue / 2) * area.multiplier; // Half of base value * multiplier
+        const currentLowHandValue = (area.baseValue / 2) * area.multiplier;  // Half of base value * multiplier
+        
         // Calculate points for High Hand
         const highHandCount = area.dualHandConditions.highHand.selectedPlayers.length;
         if (highHandCount > 0 && highHandCount < selectedPlayers.length) {
-          const pointsPerPlayer = area.dualHandConditions.highHand.value / highHandCount;
+          const pointsPerPlayer = currentHighHandValue / highHandCount;
           area.dualHandConditions.highHand.selectedPlayers.forEach(playerId => {
             if (points[playerId] !== undefined) {
               points[playerId] += pointsPerPlayer;
@@ -192,7 +196,7 @@ export const MainScreen: React.FC = () => {
         // Calculate points for Low Hand
         const lowHandCount = area.dualHandConditions.lowHand.selectedPlayers.length;
         if (lowHandCount > 0 && lowHandCount < selectedPlayers.length) {
-          const pointsPerPlayer = area.dualHandConditions.lowHand.value / lowHandCount;
+          const pointsPerPlayer = currentLowHandValue / lowHandCount;
           area.dualHandConditions.lowHand.selectedPlayers.forEach(playerId => {
             if (points[playerId] !== undefined) {
               points[playerId] += pointsPerPlayer;
