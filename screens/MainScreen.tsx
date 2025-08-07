@@ -645,83 +645,189 @@ export const MainScreen: React.FC = () => {
     }
   };
 
-  const handleNextRoundNav = async () => {
-    if (rounds[currentRound + 1]) {
-      // Load settings to check if "winning all four pays double" is enabled
-      let settings;
-      try {
-        settings = await storage.loadSettings();
-      } catch (error) {
-        console.error('Error loading settings:', error);
-        settings = { winningAllFourPaysDouble: false };
-      }
+  const handleJumpToRound = async (targetRound: number) => {
+    if (targetRound === currentRound) return; // Already on this round
+    
+    // Load settings to check if "winning all four pays double" is enabled
+    let settings;
+    try {
+      settings = await storage.loadSettings();
+    } catch (error) {
+      console.error('Error loading settings:', error);
+      settings = { winningAllFourPaysDouble: false };
+    }
 
-      // Save current round state if it has any selections
-      const hasSelections = areas.some(area => area.selectedPlayers.length > 0);
-      if (hasSelections) {
-        // Check if any player won all 4 hands and apply doubling if setting is enabled
-        let finalPoints = { ...currentPoints };
+    // Save current round state if it has any selections
+    const hasSelections = areas.some(area => area.selectedPlayers.length > 0);
+    if (hasSelections) {
+      // Check if any player won all 4 hands and apply doubling if setting is enabled
+      let finalPoints = { ...currentPoints };
+      
+      if (settings.winningAllFourPaysDouble) {
+        // Find all players who won all 4 hands ALONE (no sharing)
+        const playersWinningAllFour: Player[] = [];
         
-        if (settings.winningAllFourPaysDouble) {
-          // Find all players who won all 4 hands ALONE (no sharing)
-          const playersWinningAllFour: Player[] = [];
-          
-          selectedPlayers.forEach((player: Player) => {
-            let wonAllFour = true;
-            areas.forEach((area: Area) => {
-              if (area.isDualHandMode && area.dualHandConditions) {
-                // For dual hand mode (8-point area), check if player won BOTH high and low hands ALONE
-                const wonHighHand = area.dualHandConditions.highHand.selectedPlayers.length === 1 && 
-                                   area.dualHandConditions.highHand.selectedPlayers.includes(player.id);
-                const wonLowHand = area.dualHandConditions.lowHand.selectedPlayers.length === 1 && 
-                                  area.dualHandConditions.lowHand.selectedPlayers.includes(player.id);
-                
-                if (!(wonHighHand && wonLowHand)) {
-                  wonAllFour = false;
-                }
-              } else {
-                // Standard single-selection logic: check if this player is the ONLY player selected in this area
-                if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
-                  wonAllFour = false;
-                }
+        selectedPlayers.forEach((player: Player) => {
+          let wonAllFour = true;
+          areas.forEach((area: Area) => {
+            if (area.isDualHandMode && area.dualHandConditions) {
+              // For dual hand mode (8-point area), check if player won BOTH high and low hands ALONE
+              const wonHighHand = area.dualHandConditions.highHand.selectedPlayers.length === 1 && 
+                                 area.dualHandConditions.highHand.selectedPlayers.includes(player.id);
+              const wonLowHand = area.dualHandConditions.lowHand.selectedPlayers.length === 1 && 
+                                area.dualHandConditions.lowHand.selectedPlayers.includes(player.id);
+              
+              if (!(wonHighHand && wonLowHand)) {
+                wonAllFour = false;
               }
-            });
-            
-            if (wonAllFour) {
-              playersWinningAllFour.push(player);
+            } else {
+              // Standard single-selection logic: check if this player is the ONLY player selected in this area
+              if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
+                wonAllFour = false;
+              }
             }
           });
           
-          // Only double points if exactly ONE player won all 4 hands alone (no tie, no sharing)
-          if (playersWinningAllFour.length === 1) {
-            const winner = playersWinningAllFour[0];
-            if (finalPoints[winner.id] > 0) {
-              finalPoints[winner.id] *= 2;
-              console.log(`Player ${winner.firstName} ${winner.lastName} won all 4 hands alone, doubling points from ${currentPoints[winner.id]} to ${finalPoints[winner.id]}`);
-            }
+          if (wonAllFour) {
+            playersWinningAllFour.push(player);
+          }
+        });
+        
+        // Only double points if exactly ONE player won all 4 hands alone (no tie, no sharing)
+        if (playersWinningAllFour.length === 1) {
+          const winner = playersWinningAllFour[0];
+          if (finalPoints[winner.id] > 0) {
+            finalPoints[winner.id] *= 2;
+            console.log(`Player ${winner.firstName} ${winner.lastName} won all 4 hands alone, doubling points from ${currentPoints[winner.id]} to ${finalPoints[winner.id]}`);
           }
         }
+      }
 
-        const roundState: RoundState = {
-          areas: [...areas],
-          points: finalPoints
-        };
-        
-        setRounds(prev => ({
-          ...prev,
-          [currentRound]: roundState
-        }));
-      }
+      const roundState: RoundState = {
+        areas: [...areas],
+        points: finalPoints
+      };
       
-      // Load next round state
-      const nextRound = currentRound + 1;
-      const nextRoundState = rounds[nextRound];
-      
-      if (nextRoundState) {
-        setAreas(nextRoundState.areas);
-        setCurrentRound(nextRound);
-      }
+      setRounds(prev => ({
+        ...prev,
+        [currentRound]: roundState
+      }));
     }
+    
+    // Navigate to target round
+    const targetRoundState = rounds[targetRound];
+    
+    if (targetRoundState) {
+      // Load existing round state
+      setAreas(targetRoundState.areas);
+    } else {
+      // Create new round with fresh state
+      setAreas(areas.map(area => ({
+        ...area,
+        selectedPlayers: [],
+        dualHandConditions: area.dualHandConditions ? {
+          highHand: { ...area.dualHandConditions.highHand, selectedPlayers: [] },
+          lowHand: { ...area.dualHandConditions.lowHand, selectedPlayers: [] }
+        } : undefined
+      })));
+    }
+    
+    setCurrentRound(targetRound);
+    
+    // Save game after round change
+    await saveGame();
+  };
+
+  const handleNextRoundNav = async () => {
+    // Load settings to check if "winning all four pays double" is enabled
+    let settings;
+    try {
+      settings = await storage.loadSettings();
+    } catch (error) {
+      console.error('Error loading settings:', error);
+      settings = { winningAllFourPaysDouble: false };
+    }
+
+    // Save current round state if it has any selections
+    const hasSelections = areas.some(area => area.selectedPlayers.length > 0);
+    if (hasSelections) {
+      // Check if any player won all 4 hands and apply doubling if setting is enabled
+      let finalPoints = { ...currentPoints };
+      
+      if (settings.winningAllFourPaysDouble) {
+        // Find all players who won all 4 hands ALONE (no sharing)
+        const playersWinningAllFour: Player[] = [];
+        
+        selectedPlayers.forEach((player: Player) => {
+          let wonAllFour = true;
+          areas.forEach((area: Area) => {
+            if (area.isDualHandMode && area.dualHandConditions) {
+              // For dual hand mode (8-point area), check if player won BOTH high and low hands ALONE
+              const wonHighHand = area.dualHandConditions.highHand.selectedPlayers.length === 1 && 
+                                 area.dualHandConditions.highHand.selectedPlayers.includes(player.id);
+              const wonLowHand = area.dualHandConditions.lowHand.selectedPlayers.length === 1 && 
+                                area.dualHandConditions.lowHand.selectedPlayers.includes(player.id);
+              
+              if (!(wonHighHand && wonLowHand)) {
+                wonAllFour = false;
+              }
+            } else {
+              // Standard single-selection logic: check if this player is the ONLY player selected in this area
+              if (area.selectedPlayers.length !== 1 || !area.selectedPlayers.includes(player.id)) {
+                wonAllFour = false;
+              }
+            }
+          });
+          
+          if (wonAllFour) {
+            playersWinningAllFour.push(player);
+          }
+        });
+        
+        // Only double points if exactly ONE player won all 4 hands alone (no tie, no sharing)
+        if (playersWinningAllFour.length === 1) {
+          const winner = playersWinningAllFour[0];
+          if (finalPoints[winner.id] > 0) {
+            finalPoints[winner.id] *= 2;
+            console.log(`Player ${winner.firstName} ${winner.lastName} won all 4 hands alone, doubling points from ${currentPoints[winner.id]} to ${finalPoints[winner.id]}`);
+          }
+        }
+      }
+
+      const roundState: RoundState = {
+        areas: [...areas],
+        points: finalPoints
+      };
+      
+      setRounds(prev => ({
+        ...prev,
+        [currentRound]: roundState
+      }));
+    }
+    
+    // Navigate to next round (either existing or new)
+    const nextRound = currentRound + 1;
+    const nextRoundState = rounds[nextRound];
+    
+    if (nextRoundState) {
+      // Load existing next round state
+      setAreas(nextRoundState.areas);
+    } else {
+      // Create new round with fresh state
+      setAreas(areas.map(area => ({
+        ...area,
+        selectedPlayers: [],
+        dualHandConditions: area.dualHandConditions ? {
+          highHand: { ...area.dualHandConditions.highHand, selectedPlayers: [] },
+          lowHand: { ...area.dualHandConditions.lowHand, selectedPlayers: [] }
+        } : undefined
+      })));
+    }
+    
+    setCurrentRound(nextRound);
+    
+    // Save game after round change
+    await saveGame();
   };
 
   const handleSaveRound = async () => {
@@ -1189,18 +1295,11 @@ export const MainScreen: React.FC = () => {
                         <Text style={[FONTS.h3, styles.roundNumber]}>Rd {currentRound}</Text>
                         
                         <TouchableOpacity
-                          style={[
-                            styles.roundNavButton,
-                            !rounds[currentRound + 1] && styles.roundNavButtonDisabled
-                          ]}
+                          style={styles.roundNavButton}
                           onPress={handleNextRoundNav}
-                          disabled={!rounds[currentRound + 1]}
                           activeOpacity={0.7}
                         >
-                          <Text style={[
-                            styles.roundNavButtonText,
-                            !rounds[currentRound + 1] && styles.roundNavButtonTextDisabled
-                          ]} adjustsFontSizeToFit numberOfLines={1}>→</Text>
+                          <Text style={styles.roundNavButtonText} adjustsFontSizeToFit numberOfLines={1}>→</Text>
                         </TouchableOpacity>
                       </View>
                       <View style={styles.pointsHeaderButtons}>
@@ -1271,9 +1370,15 @@ export const MainScreen: React.FC = () => {
                           <View key={round} style={styles.pointsRow}>
                             <View style={styles.pointsCell}>
                               <View style={styles.roundCellContent}>
-                                <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
-                                  {round}
-                                </Text>
+                                <TouchableOpacity
+                                  onPress={() => handleJumpToRound(round)}
+                                  activeOpacity={0.7}
+                                  style={styles.roundNumberButton}
+                                >
+                                  <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText, round === currentRound && styles.currentRoundText]}>
+                                    {round}
+                                  </Text>
+                                </TouchableOpacity>
                                 <TouchableOpacity
                                   style={styles.deleteButton}
                                   onPress={() => handleDeleteRound(round)}
@@ -1734,9 +1839,15 @@ export const MainScreen: React.FC = () => {
                               <View key={round} style={styles.pointsRow}>
                                 <View style={styles.pointsCell}>
                                   <View style={styles.roundCellContent}>
-                                    <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText]}>
-                                      {round}
-                                    </Text>
+                                    <TouchableOpacity
+                                      onPress={() => handleJumpToRound(round)}
+                                      activeOpacity={0.7}
+                                      style={styles.roundNumberButton}
+                                    >
+                                      <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.roundText, round === currentRound && styles.currentRoundText]}>
+                                        {round}
+                                      </Text>
+                                    </TouchableOpacity>
                                     <TouchableOpacity
                                       style={styles.deleteButton}
                                       onPress={() => handleDeleteRound(round)}
@@ -2781,5 +2892,14 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderTopColor: COLORS.surface,
     bottom: '25%',
+  },
+  roundNumberButton: {
+    paddingVertical: SPACING.xs,
+    paddingHorizontal: SPACING.sm,
+    borderRadius: SPACING.xs,
+  },
+  currentRoundText: {
+    fontWeight: 'bold',
+    color: COLORS.primary,
   },
 }); 
