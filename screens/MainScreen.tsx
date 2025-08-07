@@ -1484,7 +1484,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     justifyContent: 'center',
-    alignItems: 'stretch', // Allow children to stretch to full width
+    alignItems: 'stretch',
+    paddingHorizontal: 0, // Remove any horizontal padding that could constrain width
   },
   dualHandSectionTop: {
     top: '25%', // Start after the label area (roughly 25% from top)
@@ -1496,15 +1497,18 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.border, // Slightly different grey for low hand
     borderBottomLeftRadius: 16, // Match area card border radius
     borderBottomRightRadius: 16, // Match area card border radius
-    width: '100%', // Ensure full width background
+    width: '100%',
+    left: 0,
+    right: 0, // Ensure it spans the full width
   },
 
   dualHandPlayers: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between', // Spread to edges
     alignItems: 'center',
-    flex: 1, // Take full available space
-    paddingHorizontal: SPACING.sm,
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: SPACING.sm, // Add back some padding for edge spacing
     paddingVertical: SPACING.xs,
   },
   dualHandPlayerButton: {
