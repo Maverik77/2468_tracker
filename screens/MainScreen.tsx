@@ -916,7 +916,11 @@ export const MainScreen: React.FC = () => {
                                             {/* Conditional rendering: Dual Hand Mode vs Standard Mode */}
                       {area.isDualHandMode && area.dualHandConditions ? (
                         /* Dual Hand Mode - High Hand and Low Hand sections */
-                        <View style={styles.dualHandContainer}>
+                        <View style={[
+                          styles.dualHandContainer,
+                          isLandscape && styles.dualHandContainerLandscape,
+                          isLandscape && isTablet && styles.dualHandContainerLandscapeTablet
+                        ]}>
                           {/* High Hand Section (Top Half) */}
                           <View style={styles.dualHandSection}>
                             <View style={styles.dualHandPlayers}>
@@ -1485,6 +1489,12 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     flexDirection: 'column',
+  },
+  dualHandContainerLandscape: {
+    top: '35%', // More space needed in landscape mode
+  },
+  dualHandContainerLandscapeTablet: {
+    top: '30%', // Tablets can use slightly less space
   },
   dualHandSection: {
     flex: 1,
