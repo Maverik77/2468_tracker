@@ -575,8 +575,14 @@ export const MainScreen: React.FC = () => {
         settings = { winningAllFourPaysDouble: false };
       }
 
-      // Save current round state if it has any selections
-      const hasSelections = areas.some(area => area.selectedPlayers.length > 0);
+      // Save current round state if it has any selections (including dual hand selections)
+      const hasSelections = areas.some(area => 
+        area.selectedPlayers.length > 0 || 
+        (area.dualHandConditions && (
+          area.dualHandConditions.highHand.selectedPlayers.length > 0 ||
+          area.dualHandConditions.lowHand.selectedPlayers.length > 0
+        ))
+      );
       if (hasSelections) {
         // Check if any player won all 4 hands and apply doubling if setting is enabled
         let finalPoints = { ...currentPoints };
@@ -668,8 +674,14 @@ export const MainScreen: React.FC = () => {
       settings = { winningAllFourPaysDouble: false };
     }
 
-    // Save current round state if it has any selections
-    const hasSelections = areas.some(area => area.selectedPlayers.length > 0);
+    // Save current round state if it has any selections (including dual hand selections)
+    const hasSelections = areas.some(area => 
+      area.selectedPlayers.length > 0 || 
+      (area.dualHandConditions && (
+        area.dualHandConditions.highHand.selectedPlayers.length > 0 ||
+        area.dualHandConditions.lowHand.selectedPlayers.length > 0
+      ))
+    );
     if (hasSelections) {
       // Check if any player won all 4 hands and apply doubling if setting is enabled
       let finalPoints = { ...currentPoints };
@@ -759,8 +771,14 @@ export const MainScreen: React.FC = () => {
       settings = { winningAllFourPaysDouble: false };
     }
 
-    // Save current round state if it has any selections
-    const hasSelections = areas.some(area => area.selectedPlayers.length > 0);
+    // Save current round state if it has any selections (including dual hand selections)
+    const hasSelections = areas.some(area => 
+      area.selectedPlayers.length > 0 || 
+      (area.dualHandConditions && (
+        area.dualHandConditions.highHand.selectedPlayers.length > 0 ||
+        area.dualHandConditions.lowHand.selectedPlayers.length > 0
+      ))
+    );
     if (hasSelections) {
       // Check if any player won all 4 hands and apply doubling if setting is enabled
       let finalPoints = { ...currentPoints };
