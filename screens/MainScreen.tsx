@@ -2117,7 +2117,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   leftSideLandscape: {
-    width: '55%',
+    width: '52%',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -2125,7 +2125,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rightSideLandscape: {
-    width: '40%',
+    width: '48%',
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
@@ -2629,7 +2629,7 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   pointsContainerLandscape: {
-    height: '75%',
+    height: '95%',
     padding: SPACING.xs,
     marginBottom: SPACING.xs,
   },
