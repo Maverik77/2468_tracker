@@ -902,6 +902,13 @@ export const MainScreen: React.FC = () => {
     
     // Debug: Log selected players for reference
     console.log('DEBUG: selectedPlayers array:', selectedPlayers.map(p => ({ id: p.id, name: `${p.firstName} ${p.lastName}` })));
+    
+    // Debug: Log what the UI buttons are checking for
+    console.log('DEBUG: UI is looking for these player IDs:', {
+      player0: selectedPlayers[0]?.id,
+      player1: selectedPlayers[1]?.id, 
+      player2: selectedPlayers[2]?.id
+    });
 
     // Load settings to check if "winning all four pays double" is enabled
     let settings;
