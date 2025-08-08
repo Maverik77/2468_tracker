@@ -553,7 +553,11 @@ export const MainScreen: React.FC = () => {
     // Clear all area selections for new round
     setAreas(areas.map(area => ({
       ...area,
-      selectedPlayers: []
+      selectedPlayers: [],
+      dualHandConditions: area.dualHandConditions ? {
+        highHand: { ...area.dualHandConditions.highHand, selectedPlayers: [] },
+        lowHand: { ...area.dualHandConditions.lowHand, selectedPlayers: [] }
+      } : undefined
     })));
     
     // Save game after round change
