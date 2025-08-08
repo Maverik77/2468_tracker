@@ -1533,24 +1533,26 @@ export const MainScreen: React.FC = () => {
                           </View>
                         ))}
                       </View>
-                      
-                      {/* Total Row */}
-                      <View style={[styles.pointsRow, styles.totalRow]}>
-                        <View style={styles.pointsCell}>
-                          <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
-                            Total
-                          </Text>
-                        </View>
-                        {selectedPlayers.map((player) => (
-                          <View key={player.id} style={styles.pointsCell}>
-                            <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
-                              {totalPoints[player.id] || 0}
-                            </Text>
-                          </View>
-                        ))}
-                      </View>
                     </View>
                   </ScrollView>
+                  </View>
+
+                  {/* Fixed Totals Section */}
+                  <View style={styles.fixedTotalsSection}>
+                    <View style={[styles.pointsRow, styles.totalRow]}>
+                      <View style={styles.pointsCell}>
+                        <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
+                          Total
+                        </Text>
+                      </View>
+                      {selectedPlayers.map((player) => (
+                        <View key={player.id} style={styles.pointsCell}>
+                          <Text style={[FONTS.body, styles.pointsCellTextSmall, styles.totalText]}>
+                            {totalPoints[player.id] || 0}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
                   </View>
                 </View>
               </View>
@@ -2127,6 +2129,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'stretch',
     width: '100%',
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
   },
   leftSide: {
     flex: 1,
@@ -2847,6 +2851,12 @@ const styles = StyleSheet.create({
   },
   pointsTableScroll: {
     flex: 1,
+    width: '100%',
+  },
+  fixedTotalsSection: {
+    borderTopWidth: 2,
+    borderTopColor: COLORS.primary,
+    backgroundColor: COLORS.surface,
     width: '100%',
   },
   pointsCellTextSmall: {
