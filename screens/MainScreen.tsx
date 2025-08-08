@@ -2743,6 +2743,7 @@ const styles = StyleSheet.create({
   },
   pointsHeaderSection: {
     flexShrink: 0,
+    width: '100%',
   },
   pointsHeaderTop: {
     flexDirection: 'row',
@@ -2752,15 +2753,18 @@ const styles = StyleSheet.create({
     paddingBottom: SPACING.xs,
     minHeight: SPACING.xxl + SPACING.lg, // 48 + 16 = 64px, enough space for 48px buttons + padding
     paddingVertical: SPACING.xs,
+    width: '100%',
   },
   pointsTableHeaderSection: {
     flexShrink: 0,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
     backgroundColor: COLORS.surface,
+    width: '100%',
   },
   pointsTableContentSection: {
     flex: 1,
+    width: '100%',
   },
   pointsHeaderButton: {
     backgroundColor: COLORS.primary,
@@ -2844,6 +2848,7 @@ const styles = StyleSheet.create({
   },
   pointsTableScroll: {
     flex: 1,
+    width: '100%',
   },
   pointsCellTextSmall: {
     color: COLORS.textSecondary,
