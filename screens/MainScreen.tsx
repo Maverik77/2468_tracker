@@ -1109,12 +1109,16 @@ export const MainScreen: React.FC = () => {
                   </View>
 
                 {/* Areas Grid - New Single Column Layout */}
-                <View style={styles.areasList}>
+                <View style={[
+                  styles.areasList,
+                  isLandscape && styles.areasListLandscape
+                ]}>
                   {areas.map((area) => (
                     <View
                       key={area.id}
                       style={[
                         styles.areaRowCard,
+                        isLandscape && styles.areaRowCardLandscape,
                         area.baseValue === 8 && styles.specialFourthRow,
                       ]}
                     >
@@ -1134,7 +1138,10 @@ export const MainScreen: React.FC = () => {
                                   <Text style={[FONTS.h2, styles.areaLabel]}>
                                     {((area.baseValue / 2) * (area.multiplier || 1))}
                                   </Text>
-                                  <Text style={styles.handSubLabel}>High</Text>
+                                  <Text style={[
+                                    styles.handSubLabel,
+                                    isLandscape && styles.handSubLabelLandscape
+                                  ]}>High</Text>
                                 </View>
                               </TouchableOpacity>
                               {area.multiplier > 1 && (
@@ -1205,7 +1212,10 @@ export const MainScreen: React.FC = () => {
                                 <Text style={[FONTS.h2, styles.areaLabel]}>
                                   {((area.baseValue / 2) * (area.multiplier || 1))}
                                 </Text>
-                                <Text style={styles.handSubLabel}>Low</Text>
+                                <Text style={[
+                                  styles.handSubLabel,
+                                  isLandscape && styles.handSubLabelLandscape
+                                ]}>Low</Text>
                               </View>
                             </View>
                             <View style={styles.areaRightButtons}>
@@ -1602,7 +1612,10 @@ export const MainScreen: React.FC = () => {
                                           <Text style={[FONTS.caption, styles.multiplierText]}>×{area.multiplier}</Text>
                                         )}
                                       </View>
-                                      <Text style={styles.handSubLabel}>High</Text>
+                                      <Text style={[
+                                        styles.handSubLabel,
+                                        isLandscape && styles.handSubLabelLandscape
+                                      ]}>High</Text>
                                     </View>
                                   </TouchableOpacity>
                                 </View>
@@ -1638,7 +1651,10 @@ export const MainScreen: React.FC = () => {
                                         <Text style={[FONTS.caption, styles.multiplierText]}>×{area.multiplier}</Text>
                                       )}
                                     </View>
-                                    <Text style={styles.handSubLabel}>Low</Text>
+                                    <Text style={[
+                                      styles.handSubLabel,
+                                      isLandscape && styles.handSubLabelLandscape
+                                    ]}>Low</Text>
                                   </View>
                                 </View>
                                 <View style={styles.areaRightButtons}>
@@ -2136,8 +2152,11 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   titleSectionLandscape: {
-    marginBottom: SPACING.xl,
-    paddingBottom: SPACING.lg,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: SPACING.md,
+    paddingBottom: SPACING.sm,
   },
   titleButtons: {
     flexDirection: 'row',
@@ -2157,6 +2176,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: SPACING.sm,
     flex: 1,
+  },
+  areasListLandscape: {
+    gap: SPACING.xs,
+    justifyContent: 'space-evenly',
   },
   areasContainerLandscape: {
     gap: SPACING.sm,
@@ -2194,6 +2217,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     position: 'relative',
   },
+  areaRowCardLandscape: {
+    padding: SPACING.sm,
+    borderRadius: 12,
+  },
   areaRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -2214,6 +2241,9 @@ const styles = StyleSheet.create({
   handSubLabel: {
     color: COLORS.textSecondary,
     fontSize: 12,
+  },
+  handSubLabelLandscape: {
+    fontSize: 10,
   },
   areaRightButtons: {
     flexDirection: 'row',
@@ -2630,7 +2660,8 @@ const styles = StyleSheet.create({
   },
   pointsContainerLandscape: {
     height: '95%',
-    padding: SPACING.xs,
+    paddingVertical: SPACING.xs,
+    paddingHorizontal: 0,
     marginBottom: SPACING.xs,
   },
   pointsContainerLandscapeTablet: {
