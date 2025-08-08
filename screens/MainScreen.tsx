@@ -1701,18 +1701,11 @@ export const MainScreen: React.FC = () => {
                         <Text style={[FONTS.h3, styles.roundNumber]}>Rd {currentRound}</Text>
                         
                         <TouchableOpacity
-                          style={[
-                            styles.roundNavButton,
-                            !rounds[currentRound + 1] && styles.roundNavButtonDisabled
-                          ]}
-                          onPress={handleNextRound}
-                          disabled={!rounds[currentRound + 1]}
+                          style={styles.roundNavButton}
+                          onPress={handleNextRoundNav}
                           activeOpacity={0.7}
                         >
-                          <Text style={[
-                            styles.roundNavButtonText,
-                            !rounds[currentRound + 1] && styles.roundNavButtonTextDisabled
-                          ]} adjustsFontSizeToFit numberOfLines={1}>→</Text>
+                          <Text style={styles.roundNavButtonText} adjustsFontSizeToFit numberOfLines={1}>→</Text>
                         </TouchableOpacity>
                       </View>
 
