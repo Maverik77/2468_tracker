@@ -1299,11 +1299,18 @@ export const MainScreen: React.FC = () => {
                         <Text style={[FONTS.h3, styles.roundNumber]}>Rd {currentRound}</Text>
                         
                         <TouchableOpacity
-                          style={styles.roundNavButton}
+                          style={[
+                            styles.roundNavButton,
+                            currentRound >= Object.keys(rounds).length && Object.keys(rounds).length > 0 && styles.roundNavButtonDisabled
+                          ]}
                           onPress={handleNextRoundNav}
+                          disabled={currentRound >= Object.keys(rounds).length && Object.keys(rounds).length > 0}
                           activeOpacity={0.7}
                         >
-                          <Text style={styles.roundNavButtonText} adjustsFontSizeToFit numberOfLines={1}>→</Text>
+                          <Text style={[
+                            styles.roundNavButtonText,
+                            currentRound >= Object.keys(rounds).length && Object.keys(rounds).length > 0 && styles.roundNavButtonTextDisabled
+                          ]} adjustsFontSizeToFit numberOfLines={1}>→</Text>
                         </TouchableOpacity>
                       </View>
                       <View style={styles.pointsHeaderButtons}>
@@ -1705,11 +1712,18 @@ export const MainScreen: React.FC = () => {
                         <Text style={[FONTS.h3, styles.roundNumber]}>Rd {currentRound}</Text>
                         
                         <TouchableOpacity
-                          style={styles.roundNavButton}
+                          style={[
+                            styles.roundNavButton,
+                            currentRound >= Object.keys(rounds).length && Object.keys(rounds).length > 0 && styles.roundNavButtonDisabled
+                          ]}
                           onPress={handleNextRoundNav}
+                          disabled={currentRound >= Object.keys(rounds).length && Object.keys(rounds).length > 0}
                           activeOpacity={0.7}
                         >
-                          <Text style={styles.roundNavButtonText} adjustsFontSizeToFit numberOfLines={1}>→</Text>
+                          <Text style={[
+                            styles.roundNavButtonText,
+                            currentRound >= Object.keys(rounds).length && Object.keys(rounds).length > 0 && styles.roundNavButtonTextDisabled
+                          ]} adjustsFontSizeToFit numberOfLines={1}>→</Text>
                         </TouchableOpacity>
                       </View>
 
@@ -2774,7 +2788,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   pointsBottomSectionCompact: {
-    maxHeight: '35%',
+    height: '30%',
+    maxHeight: '30%',
   },
   pointsBottomSectionExpanded: {
     flex: 1, // Take all remaining space below title bar
