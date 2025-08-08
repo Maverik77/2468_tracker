@@ -901,7 +901,13 @@ export const MainScreen: React.FC = () => {
     })), null, 2));
     
     // Debug: Log selected players for reference
-    console.log('DEBUG: selectedPlayers array:', selectedPlayers.map(p => ({ id: p.id, name: `${p.firstName} ${p.lastName}` })));
+    console.log('DEBUG: selectedPlayers array FULL:', selectedPlayers);
+    console.log('DEBUG: selectedPlayers array mapped:', selectedPlayers.map(p => ({ 
+      id: p.id, 
+      name: `${p.firstName} ${p.lastName}`,
+      type: typeof p,
+      isString: typeof p === 'string'
+    })));
     
     // Debug: Log what the UI buttons are checking for
     console.log('DEBUG: UI is looking for these player IDs:', {
