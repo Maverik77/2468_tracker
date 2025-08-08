@@ -2116,10 +2116,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   dualLowRow: {
-    backgroundColor: COLORS.border,
-    borderRadius: 12,
-    paddingVertical: SPACING.xs,
-    paddingHorizontal: SPACING.xs,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    paddingTop: SPACING.sm,
+    marginTop: SPACING.xs,
   },
   topLeftSection: {
     position: 'absolute',
@@ -2178,9 +2178,10 @@ const styles = StyleSheet.create({
   },
 
   dualHandSectionLowBackground: {
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-    paddingTop: SPACING.xs,
+    borderTopWidth: 2,
+    borderTopColor: COLORS.primary,
+    paddingTop: SPACING.sm,
+    marginTop: SPACING.xs,
   },
 
   dualHandPlayers: {
