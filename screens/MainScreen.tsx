@@ -899,6 +899,9 @@ export const MainScreen: React.FC = () => {
         lowHand: { selectedPlayers: a.dualHandConditions.lowHand.selectedPlayers }
       } : undefined
     })), null, 2));
+    
+    // Debug: Log selected players for reference
+    console.log('DEBUG: selectedPlayers array:', selectedPlayers.map(p => ({ id: p.id, name: `${p.firstName} ${p.lastName}` })));
 
     // Load settings to check if "winning all four pays double" is enabled
     let settings;
