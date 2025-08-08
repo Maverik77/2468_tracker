@@ -2178,9 +2178,9 @@ const styles = StyleSheet.create({
   },
 
   dualHandSectionLowBackground: {
-    backgroundColor: COLORS.border,
-    borderBottomLeftRadius: 16,
-    borderBottomRightRadius: 16,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    paddingTop: SPACING.xs,
   },
 
   dualHandPlayers: {
