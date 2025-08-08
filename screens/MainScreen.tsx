@@ -652,6 +652,9 @@ export const MainScreen: React.FC = () => {
   const handleJumpToRound = async (targetRound: number) => {
     if (targetRound === currentRound) return; // Already on this round
     
+    // Minimize points section to show the areas after jumping to a round
+    setIsPointsExpanded(false);
+    
     // Load settings to check if "winning all four pays double" is enabled
     let settings;
     try {
