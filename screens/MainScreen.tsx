@@ -396,28 +396,32 @@ export const MainScreen: React.FC = () => {
       if (area.id === areaId && area.baseValue === 8) {
         const newDualHandMode = !area.isDualHandMode;
         
-        // If switching to dual hand mode, clear standard selections
-        // If switching from dual hand mode, clear dual hand selections
         if (newDualHandMode) {
+          // Switching to dual mode: copy single mode selections to High Hand
           return {
             ...area,
             isDualHandMode: true,
             selectedPlayers: [], // Clear standard selections
             dualHandConditions: area.dualHandConditions ? {
               ...area.dualHandConditions,
-              highHand: { ...area.dualHandConditions.highHand, selectedPlayers: [] },
-              lowHand: { ...area.dualHandConditions.lowHand, selectedPlayers: [] }
-            } : createDualHandConditions(area.multiplier)
+              highHand: { ...area.dualHandConditions.highHand, selectedPlayers: [...area.selectedPlayers] }, // Copy from single mode
+              lowHand: { ...area.dualHandConditions.lowHand, selectedPlayers: [] } // Clear Low Hand
+            } : {
+              ...createDualHandConditions(area.multiplier),
+              highHand: { ...createDualHandConditions(area.multiplier).highHand, selectedPlayers: [...area.selectedPlayers] } // Copy from single mode
+            }
           };
         } else {
+          // Switching to single mode: copy High Hand selections to single mode
+          const highHandPlayers = area.dualHandConditions?.highHand.selectedPlayers || [];
           return {
             ...area,
             isDualHandMode: false,
-            selectedPlayers: [], // Clear standard selections
+            selectedPlayers: [...highHandPlayers], // Copy from High Hand
             dualHandConditions: area.dualHandConditions ? {
               ...area.dualHandConditions,
-              highHand: { ...area.dualHandConditions.highHand, selectedPlayers: [] },
-              lowHand: { ...area.dualHandConditions.lowHand, selectedPlayers: [] }
+              highHand: { ...area.dualHandConditions.highHand, selectedPlayers: [] }, // Clear High Hand
+              lowHand: { ...area.dualHandConditions.lowHand, selectedPlayers: [] } // Clear Low Hand
             } : area.dualHandConditions
           };
         }
