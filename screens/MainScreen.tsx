@@ -1555,15 +1555,14 @@ export const MainScreen: React.FC = () => {
                 </View>
               </View>
 
-              {/* Instructions */}
-              <View style={[
-                styles.instructionsContainer,
-                isLandscape && styles.instructionsContainerLandscape
-              ]}>
-                <Text style={[FONTS.caption, styles.instructionsText]}>
-                  Tap any area to set its multiplier
-                </Text>
-              </View>
+              {/* Instructions - Hidden in landscape mode to save space */}
+              {!isLandscape && (
+                <View style={styles.instructionsContainer}>
+                  <Text style={[FONTS.caption, styles.instructionsText]}>
+                    Tap any area to set its multiplier
+                  </Text>
+                </View>
+              )}
             </View>
           ) : (
               /* Portrait Mode - New Vertical Layout */
