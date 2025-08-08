@@ -2125,7 +2125,7 @@ const styles = StyleSheet.create({
   },
   mainContentLandscape: {
     flexDirection: 'row',
-    gap: SPACING.lg,
+    gap: SPACING.xs,
     justifyContent: 'space-between',
     alignItems: 'stretch',
   },
@@ -2133,7 +2133,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   leftSideLandscape: {
-    width: '52%',
+    flex: 1.08,
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -2141,7 +2141,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rightSideLandscape: {
-    width: '48%',
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
@@ -2662,7 +2662,8 @@ const styles = StyleSheet.create({
     height: '95%',
     paddingVertical: SPACING.xs,
     paddingHorizontal: 0,
-    marginBottom: SPACING.xs,
+    marginTop: 0,
+    marginBottom: 0,
   },
   pointsContainerLandscapeTablet: {
     height: '80%',
