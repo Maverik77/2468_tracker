@@ -643,6 +643,16 @@ export const MainScreen: React.FC = () => {
       const previousRoundState = rounds[previousRound];
       
       if (previousRoundState) {
+        console.log('DEBUG: Loading round', previousRound, 'with areas:', JSON.stringify(previousRoundState.areas.map(a => ({ 
+          id: a.id, 
+          baseValue: a.baseValue, 
+          selectedPlayers: a.selectedPlayers,
+          isDualHandMode: a.isDualHandMode,
+          dualHandConditions: a.dualHandConditions ? {
+            highHand: { selectedPlayers: a.dualHandConditions.highHand.selectedPlayers },
+            lowHand: { selectedPlayers: a.dualHandConditions.lowHand.selectedPlayers }
+          } : undefined
+        })), null, 2));
         setAreas(previousRoundState.areas);
       } else {
         // If no previous round state, reset to initial state
@@ -742,6 +752,16 @@ export const MainScreen: React.FC = () => {
     
     if (targetRoundState) {
       // Load existing round state
+      console.log('DEBUG: Jumping to round', targetRound, 'with areas:', JSON.stringify(targetRoundState.areas.map(a => ({ 
+        id: a.id, 
+        baseValue: a.baseValue, 
+        selectedPlayers: a.selectedPlayers,
+        isDualHandMode: a.isDualHandMode,
+        dualHandConditions: a.dualHandConditions ? {
+          highHand: { selectedPlayers: a.dualHandConditions.highHand.selectedPlayers },
+          lowHand: { selectedPlayers: a.dualHandConditions.lowHand.selectedPlayers }
+        } : undefined
+      })), null, 2));
       setAreas(targetRoundState.areas);
     } else {
       // Create new round with fresh state
@@ -868,6 +888,18 @@ export const MainScreen: React.FC = () => {
   };
 
   const handleSaveCurrentRound = async () => {
+    // Debug: Log current areas state before saving
+    console.log('DEBUG: Saving round', currentRound, 'with areas:', JSON.stringify(areas.map(a => ({ 
+      id: a.id, 
+      baseValue: a.baseValue, 
+      selectedPlayers: a.selectedPlayers,
+      isDualHandMode: a.isDualHandMode,
+      dualHandConditions: a.dualHandConditions ? {
+        highHand: { selectedPlayers: a.dualHandConditions.highHand.selectedPlayers },
+        lowHand: { selectedPlayers: a.dualHandConditions.lowHand.selectedPlayers }
+      } : undefined
+    })), null, 2));
+
     // Load settings to check if "winning all four pays double" is enabled
     let settings;
     try {
