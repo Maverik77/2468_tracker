@@ -68,7 +68,35 @@ export const MainScreen: React.FC = () => {
   
   // Handle both new games and loaded games
   const isNewGame = 'selectedPlayers' in route.params;
-  const selectedPlayers = isNewGame ? route.params.selectedPlayers : route.params.game?.players || [];
+  const rawSelectedPlayers = isNewGame ? route.params.selectedPlayers : route.params.game?.players || [];
+  
+  // BUGFIX: Detect and correct corrupted player IDs
+  // If player IDs are simple numbers like "1", "2", they've been corrupted with area IDs
+  const selectedPlayers = rawSelectedPlayers.map((player, index) => {
+    // Check if the player ID looks like an area ID (simple number 1-4)
+    if (['1', '2', '3', '4'].includes(player.id)) {
+      console.warn(`BUGFIX: Player at index ${index} has corrupted ID "${player.id}", attempting to restore from route params`);
+      
+      // Try to get the original player data from route params if this is a new game
+      if (isNewGame && route.params.selectedPlayers && route.params.selectedPlayers[index]) {
+        const originalPlayer = route.params.selectedPlayers[index];
+        // If the original also has a corrupted ID, generate a new one
+        const restoredId = originalPlayer.id.length > 5 ? originalPlayer.id : `restored_${Date.now()}_${index}`;
+        return {
+          ...player,
+          id: restoredId
+        };
+      } else {
+        // Generate a new ID for this player
+        return {
+          ...player,
+          id: `restored_${Date.now()}_${index}`
+        };
+      }
+    }
+    return { ...player };
+  });
+  
   const currentGame = isNewGame ? null : route.params.game;
   
   const [gameId, setGameId] = useState<string>(currentGame?.id || Date.now().toString());
@@ -902,11 +930,13 @@ export const MainScreen: React.FC = () => {
     
     // Debug: Log selected players for reference
     console.log('DEBUG: selectedPlayers array FULL:', selectedPlayers);
-    console.log('DEBUG: selectedPlayers array mapped:', selectedPlayers.map(p => ({ 
+    console.log('DEBUG: selectedPlayers array mapped:', selectedPlayers.map((p, i) => ({ 
+      index: i,
       id: p.id, 
       name: `${p.firstName} ${p.lastName}`,
       type: typeof p,
-      isString: typeof p === 'string'
+      isString: typeof p === 'string',
+      fullObject: p
     })));
     
     // Debug: Log what the UI buttons are checking for
@@ -914,6 +944,13 @@ export const MainScreen: React.FC = () => {
       player0: selectedPlayers[0]?.id,
       player1: selectedPlayers[1]?.id, 
       player2: selectedPlayers[2]?.id
+    });
+    
+    // Debug: Check if the corruption is in the player objects themselves
+    console.log('DEBUG: First player object details:', {
+      player0_full: selectedPlayers[0],
+      player1_full: selectedPlayers[1],
+      player2_full: selectedPlayers[2]
     });
 
     // Load settings to check if "winning all four pays double" is enabled
