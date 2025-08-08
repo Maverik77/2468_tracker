@@ -920,30 +920,8 @@ export const MainScreen: React.FC = () => {
       } : undefined
     })), null, 2));
     
-    // Debug: Log selected players for reference
-    console.log('DEBUG: selectedPlayers array FULL:', selectedPlayers);
-    console.log('DEBUG: selectedPlayers array mapped:', selectedPlayers.map((p, i) => ({ 
-      index: i,
-      id: p.id, 
-      name: `${p.firstName} ${p.lastName}`,
-      type: typeof p,
-      isString: typeof p === 'string',
-      fullObject: p
-    })));
-    
-    // Debug: Log what the UI buttons are checking for
-    console.log('DEBUG: UI is looking for these player IDs:', {
-      player0: selectedPlayers[0]?.id,
-      player1: selectedPlayers[1]?.id, 
-      player2: selectedPlayers[2]?.id
-    });
-    
-    // Debug: Check if the corruption is in the player objects themselves
-    console.log('DEBUG: First player object details:', {
-      player0_full: selectedPlayers[0],
-      player1_full: selectedPlayers[1],
-      player2_full: selectedPlayers[2]
-    });
+    // Debug: Log basic info for verification (can be removed in production)
+    console.log('DEBUG: Players loaded:', selectedPlayers.map(p => ({ id: p.id, name: `${p.firstName} ${p.lastName}` })));
 
     // Load settings to check if "winning all four pays double" is enabled
     let settings;
