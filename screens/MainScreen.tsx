@@ -1543,16 +1543,16 @@ export const MainScreen: React.FC = () => {
                   </ScrollView>
                   </View>
                 </View>
+              </View>
 
-                {/* Instructions */}
-                <View style={[
-                  styles.instructionsContainer,
-                  isLandscape && styles.instructionsContainerLandscape
-                ]}>
-                  <Text style={[FONTS.caption, styles.instructionsText]}>
-                    Tap any area to set its multiplier
-                  </Text>
-                </View>
+              {/* Instructions */}
+              <View style={[
+                styles.instructionsContainer,
+                isLandscape && styles.instructionsContainerLandscape
+              ]}>
+                <Text style={[FONTS.caption, styles.instructionsText]}>
+                  Tap any area to set its multiplier
+                </Text>
               </View>
             </View>
           ) : (
