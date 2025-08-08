@@ -2774,7 +2774,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   pointsBottomSectionCompact: {
-    maxHeight: '30%',
+    maxHeight: '35%',
   },
   pointsBottomSectionExpanded: {
     flex: 1, // Take all remaining space below title bar
