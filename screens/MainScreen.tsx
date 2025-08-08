@@ -2125,15 +2125,15 @@ const styles = StyleSheet.create({
   },
   mainContentLandscape: {
     flexDirection: 'row',
-    gap: SPACING.xs,
     justifyContent: 'space-between',
     alignItems: 'stretch',
+    width: '100%',
   },
   leftSide: {
     flex: 1,
   },
   leftSideLandscape: {
-    flex: 1.08,
+    width: '54%',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -2141,7 +2141,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rightSideLandscape: {
-    flex: 1,
+    width: '46%',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     backgroundColor: 'rgba(255, 0, 0, 0.2)', // DEBUG: Red background to see right side bounds
@@ -2693,6 +2693,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     borderRadius: 8,
     flex: 1,
+    width: '100%',
     backgroundColor: 'rgba(0, 0, 255, 0.2)', // DEBUG: Blue background to see table bounds
   },
   pointsRow: {
@@ -2701,6 +2702,7 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.xs,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
+    width: '100%',
   },
   pointsCell: {
     flex: 1,
