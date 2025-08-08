@@ -2131,12 +2131,13 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
+    gap: SPACING.md,
   },
   leftSide: {
     flex: 1,
   },
   leftSideLandscape: {
-    width: '54%',
+    width: '50%',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -2144,7 +2145,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rightSideLandscape: {
-    width: '46%',
+    width: '50%',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     backgroundColor: 'rgba(255, 0, 0, 0.2)', // DEBUG: Red background to see right side bounds
@@ -2182,7 +2183,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   areasListLandscape: {
-    gap: SPACING.xs,
+    gap: SPACING.xs / 2,
     justifyContent: 'space-evenly',
   },
   areasContainerLandscape: {
@@ -2222,8 +2223,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   areaRowCardLandscape: {
-    padding: SPACING.sm,
-    borderRadius: 12,
+    padding: SPACING.xs,
+    borderRadius: 8,
   },
   areaRow: {
     flexDirection: 'row',
@@ -2236,7 +2237,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: SPACING.sm,
     flexShrink: 1,
-    width: '30%',
+    width: '28%',
     minWidth: 0,
   },
   areaLabelColumn: {
@@ -2247,7 +2248,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   handSubLabelLandscape: {
-    fontSize: 10,
+    fontSize: 9,
   },
   areaRightButtons: {
     flexDirection: 'row',
