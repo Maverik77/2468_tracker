@@ -2148,7 +2148,6 @@ const styles = StyleSheet.create({
     width: '50%',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: 'rgba(255, 0, 0, 0.2)', // DEBUG: Red background to see right side bounds
   },
   titleSection: {
     flexDirection: 'row',
@@ -2669,7 +2668,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     marginTop: 0,
     marginBottom: 0,
-    backgroundColor: 'rgba(0, 255, 0, 0.2)', // DEBUG: Green background to see container bounds
   },
   pointsContainerLandscapeTablet: {
     height: '80%',
@@ -2698,7 +2696,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     flex: 1,
     width: '100%',
-    backgroundColor: 'rgba(0, 0, 255, 0.2)', // DEBUG: Blue background to see table bounds
   },
   pointsRow: {
     flexDirection: 'row',
