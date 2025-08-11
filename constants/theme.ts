@@ -16,7 +16,7 @@ export const COLORS = {
 };
 
 export const SPACING = {
-  xs: 4,
+  xs: 4,  // Keep numeric for React Native compatibility, but use responsively
   sm: 8,
   md: 16,
   lg: 24,
@@ -24,41 +24,55 @@ export const SPACING = {
   xxl: 48,
 };
 
-export const BREAKPOINTS = {
-  phone: 480,
-  tablet: 768,
-  desktop: 1024,
+// Responsive spacing helpers for scalable layouts
+export const FLUID_SPACING = {
+  xs: 'clamp(0.25rem, 1vw, 0.5rem)',    // 4-8px fluid
+  sm: 'clamp(0.5rem, 2vw, 1rem)',      // 8-16px fluid  
+  md: 'clamp(1rem, 3vw, 2rem)',        // 16-32px fluid
+  lg: 'clamp(1.5rem, 4vw, 3rem)',      // 24-48px fluid
+  xl: 'clamp(2rem, 5vw, 4rem)',        // 32-64px fluid
 };
 
-export const isPhone = screenWidth < BREAKPOINTS.phone;
-export const isTablet = screenWidth >= BREAKPOINTS.phone && screenWidth < BREAKPOINTS.tablet;
-export const isDesktop = screenWidth >= BREAKPOINTS.tablet;
+// Simplified responsive system - only orientation matters now
 
 export const FONTS = {
   h1: {
-    fontSize: isPhone ? 24 : isTablet ? 32 : 40,
+    fontSize: 28, // Simplified - one size fits all
     fontWeight: 'bold' as const,
   },
   h2: {
-    fontSize: isPhone ? 20 : isTablet ? 28 : 32,
+    fontSize: 24,
     fontWeight: 'bold' as const,
   },
   h3: {
-    fontSize: isPhone ? 18 : isTablet ? 24 : 28,
+    fontSize: 20,
     fontWeight: '600' as const,
   },
   body: {
-    fontSize: isPhone ? 16 : isTablet ? 18 : 20,
+    fontSize: 16,
     fontWeight: 'normal' as const,
   },
   caption: {
-    fontSize: isPhone ? 14 : isTablet ? 16 : 18,
+    fontSize: 14,
     fontWeight: 'normal' as const,
   },
 };
 
 export const LAYOUT = {
-  containerPadding: isPhone ? SPACING.md : isTablet ? SPACING.lg : SPACING.xl,
-  cardPadding: isPhone ? SPACING.sm : isTablet ? SPACING.md : SPACING.lg,
-  borderRadius: isPhone ? 8 : isTablet ? 12 : 16,
+  containerPadding: SPACING.lg,
+  cardPadding: SPACING.md,
+  borderRadius: 12,
+};
+
+// Responsive sizing helpers for React Native
+export const RESPONSIVE = {
+  // Button sizes that scale with screen size
+  buttonSizeSmall: Math.min(screenWidth, screenHeight) * 0.08, // ~40-48px on most devices
+  buttonSizeMedium: Math.min(screenWidth, screenHeight) * 0.1,  // ~48-60px on most devices
+  buttonSizeLarge: Math.min(screenWidth, screenHeight) * 0.12,  // ~60-72px on most devices
+  
+  // Icon sizes that scale with screen
+  iconSmall: Math.min(screenWidth, screenHeight) * 0.04,  // ~20-24px
+  iconMedium: Math.min(screenWidth, screenHeight) * 0.05, // ~24-30px
+  iconLarge: Math.min(screenWidth, screenHeight) * 0.06,  // ~30-36px
 }; 

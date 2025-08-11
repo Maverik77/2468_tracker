@@ -14,7 +14,7 @@ export const OrientationAwareModal: React.FC<OrientationAwareModalProps> = ({
   onRequestClose,
   children,
 }) => {
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape } = useResponsive();
 
   return (
     <Modal
@@ -31,7 +31,7 @@ export const OrientationAwareModal: React.FC<OrientationAwareModalProps> = ({
       ]}>
         <View style={[
           styles.content,
-          isTablet && styles.contentTablet,
+          
           isLandscape && styles.contentLandscape
         ]}>
           {children}

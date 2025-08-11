@@ -23,7 +23,7 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Player'>;
 
 export const PlayerScreen: React.FC = () => {
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape  } = useResponsive();
   const navigation = useNavigation<NavigationProp>();
   const [players, setPlayers] = useState<Player[]>([]);
   const [searchText, setSearchText] = useState('');
@@ -232,7 +232,7 @@ export const PlayerScreen: React.FC = () => {
                     <TextInput
                       style={[
                         styles.searchInput,
-                        isTablet && styles.searchInputTablet
+                        
                       ]}
                       placeholder="Search players..."
                       value={searchText}
@@ -257,7 +257,7 @@ export const PlayerScreen: React.FC = () => {
                     <TouchableOpacity 
                       style={[
                         styles.startGameButton,
-                        isTablet && styles.startGameButtonTablet
+                        
                       ]}
                       onPress={handleStartGame}
                       activeOpacity={0.8}
@@ -265,7 +265,7 @@ export const PlayerScreen: React.FC = () => {
                       <Text style={[
                         FONTS.h3, 
                         styles.startGameButtonText,
-                        isTablet && styles.startGameButtonTextTablet
+                        
                       ]}>
                         Start Game ({selectedCount} selected)
                       </Text>
@@ -299,7 +299,6 @@ export const PlayerScreen: React.FC = () => {
                           onToggle={handlePlayerToggle}
                           onDelete={handlePlayerDelete}
                           onEdit={handleOpenEditModal}
-                          isTablet={isTablet}
                         />
                       ))}
                       {filteredPlayers.length === 0 && (
@@ -338,7 +337,6 @@ export const PlayerScreen: React.FC = () => {
                         onToggle={handlePlayerToggle}
                         onDelete={handlePlayerDelete}
                         onEdit={handleOpenEditModal}
-                        isTablet={isTablet}
                       />
                     ))}
                     {filteredPlayers.length === 0 && (
@@ -365,7 +363,7 @@ export const PlayerScreen: React.FC = () => {
                 <TextInput
                   style={[
                     styles.modalInput,
-                    isTablet && styles.modalInputTablet
+                    
                   ]}
                   value={newPlayer.firstName}
                   onChangeText={(text) => setNewPlayer({...newPlayer, firstName: text})}
@@ -379,7 +377,7 @@ export const PlayerScreen: React.FC = () => {
                 <TextInput
                   style={[
                     styles.modalInput,
-                    isTablet && styles.modalInputTablet
+                    
                   ]}
                   value={newPlayer.lastName}
                   onChangeText={(text) => setNewPlayer({...newPlayer, lastName: text})}
@@ -393,7 +391,7 @@ export const PlayerScreen: React.FC = () => {
                 <TextInput
                   style={[
                     styles.modalInput,
-                    isTablet && styles.modalInputTablet
+                    
                   ]}
                   value={newPlayer.initials}
                   onChangeText={(text) => setNewPlayer({...newPlayer, initials: text})}

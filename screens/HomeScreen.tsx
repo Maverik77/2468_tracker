@@ -6,7 +6,7 @@ import { useResponsive } from '../hooks/useResponsive';
 import { COLORS, FONTS, SPACING } from '../constants/theme';
 
 export const HomeScreen: React.FC = () => {
-  const { isLandscape, isTablet, width, height, orientation } = useResponsive();
+  const { isLandscape , width, height, orientation } = useResponsive();
 
   return (
     <ResponsiveContainer>
@@ -21,7 +21,7 @@ export const HomeScreen: React.FC = () => {
             Responsive App
           </Text>
           <Text style={[FONTS.body, styles.subtitle]}>
-            Adapts to {orientation} mode on {isTablet ? 'tablet' : 'phone'}
+            Adapts to {orientation} mode on {}
           </Text>
           <Text style={[FONTS.caption, styles.dimensions]}>
             Screen: {width} × {height}
@@ -82,7 +82,7 @@ export const HomeScreen: React.FC = () => {
               <View style={styles.infoItem}>
                 <Text style={[FONTS.caption, styles.infoLabel]}>Device Type</Text>
                 <Text style={[FONTS.body, styles.infoValue]}>
-                  {isTablet ? 'Tablet' : 'Phone'}
+                  {}
                 </Text>
               </View>
               <View style={styles.infoItem}>

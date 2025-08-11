@@ -1,0 +1,69 @@
+---
+description: Enforce responsive design practices in CSS
+alwaysApply: false
+---
+{
+  "name": "responsive-design",
+  "version": "1.0.0",
+  "type": "style",
+  "description": "Enforce responsive design practices in CSS by using rem, vw, and clamp() instead of fixed px values. Promote mobile-first breakpoints and use flex/grid for layout.",
+  "globs": ["**/*.css", "**/*.scss", "**/*.sass", "**/*.less", "**/*.tsx", "**/*.jsx"],
+  "rules": [
+    {
+      "id": "use-relative-units",
+      "description": "Use relative units instead of fixed pixels",
+      "pattern": "\\b\\d+px\\b",
+      "message": "Consider using rem or clamp() instead of fixed pixel values"
+    },
+    {
+      "id": "mobile-first",
+      "description": "Ensure mobile-first media queries",
+      "pattern": "@media\\s*\\(max-width:",
+      "message": "Use min-width media queries for mobile-first approach"
+    }
+  ],
+  "documentation": {
+    "guidelines": [
+      "Use `rem` for font sizes, spacing, and layout spacing instead of `px`",
+      "Use `vw` for widths and fluid layouts when needed",
+      "Use `clamp()` for scalable font sizes and spacing",
+      "Avoid fixed widths or heights unless necessary",
+      "Use Flexbox or CSS Grid for layout",
+      "Write base styles for mobile, then use media queries for larger screens",
+      "Use media queries like `@media (min-width: 768px)` for tablet and above",
+      "Ensure images and media use `max-width: 100%` and `height: auto`"
+    ]
+  }
+}{
+  "name": "responsive-design",
+  "version": "1.0.0",
+  "type": "style",
+  "description": "Enforce responsive design practices in CSS by using rem, vw, and clamp() instead of fixed px values. Promote mobile-first breakpoints and use flex/grid for layout.",
+  "globs": ["**/*.css", "**/*.scss", "**/*.sass", "**/*.less", "**/*.tsx", "**/*.jsx"],
+  "rules": [
+    {
+      "id": "use-relative-units",
+      "description": "Use relative units instead of fixed pixels",
+      "pattern": "\\b\\d+px\\b",
+      "message": "Consider using rem or clamp() instead of fixed pixel values"
+    },
+    {
+      "id": "mobile-first",
+      "description": "Ensure mobile-first media queries",
+      "pattern": "@media\\s*\\(max-width:",
+      "message": "Use min-width media queries for mobile-first approach"
+    }
+  ],
+  "documentation": {
+    "guidelines": [
+      "Use `rem` for font sizes, spacing, and layout spacing instead of `px`",
+      "Use `vw` for widths and fluid layouts when needed",
+      "Use `clamp()` for scalable font sizes and spacing",
+      "Avoid fixed widths or heights unless necessary",
+      "Use Flexbox or CSS Grid for layout",
+      "Write base styles for mobile, then use media queries for larger screens",
+      "Use media queries like `@media (min-width: 768px)` for tablet and above",
+      "Ensure images and media use `max-width: 100%` and `height: auto`"
+    ]
+  }
+}

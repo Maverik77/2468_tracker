@@ -20,7 +20,7 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Games'>;
 
 export const GamesScreen: React.FC = () => {
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape  } = useResponsive();
   const navigation = useNavigation<NavigationProp>();
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -145,7 +145,7 @@ export const GamesScreen: React.FC = () => {
                       key={game.id}
                       style={[
                         styles.gameCard,
-                        isTablet && styles.gameCardTablet
+                        
                       ]}
                       onPress={() => handleGamePress(game)}
                       activeOpacity={0.7}

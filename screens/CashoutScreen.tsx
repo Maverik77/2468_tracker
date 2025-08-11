@@ -17,7 +17,7 @@ export const CashoutScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
   const route = useRoute<CashoutRouteProp>();
   const { game } = route.params || {};
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape  } = useResponsive();
   
   const [directSettlements, setDirectSettlements] = useState<Array<{
     fromPlayer: Player;

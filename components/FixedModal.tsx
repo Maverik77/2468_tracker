@@ -14,7 +14,7 @@ export const FixedModal: React.FC<FixedModalProps> = ({
   onRequestClose,
   children,
 }) => {
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape } = useResponsive();
 
   return (
     <Modal
@@ -30,7 +30,7 @@ export const FixedModal: React.FC<FixedModalProps> = ({
       <View style={styles.overlay}>
         <View style={[
           styles.content,
-          isTablet && styles.contentTablet,
+          
           isLandscape && styles.contentLandscape
         ]}>
           {children}

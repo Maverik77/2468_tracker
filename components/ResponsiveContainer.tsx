@@ -16,18 +16,18 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
   padding = 'medium',
   backgroundColor = COLORS.background,
 }) => {
-  const { isLandscape, isTablet } = useResponsive();
+  const { isLandscape } = useResponsive();
 
   const getPadding = () => {
     switch (padding) {
       case 'none':
         return 0;
       case 'small':
-        return isTablet ? SPACING.md : SPACING.sm;
+        return 
       case 'medium':
-        return isTablet ? SPACING.lg : SPACING.md;
+        return 
       case 'large':
-        return isTablet ? SPACING.xl : SPACING.lg;
+        return 
       default:
         return LAYOUT.containerPadding;
     }
