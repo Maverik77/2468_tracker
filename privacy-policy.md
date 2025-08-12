@@ -1,6 +1,6 @@
 # Privacy Policy for 2468 Scorekeeper (Lite)
 
-**Last Updated:** [Current Date]
+**Last Updated:** January 8, 2025
 
 **Developer:** Erik Wagner  
 **Contact:** erikwagner77@gmail.com
