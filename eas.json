@@ -20,6 +20,7 @@
   "submit": {
     "production": {
       "ios": {
+        "ascAppId": "YOUR_ASC_APP_ID_HERE",
         "appleId": "erikwagner77@gmail.com"
       }
     }

@@ -1,0 +1,16 @@
+{
+  "configVersion": 0,
+  "apple": {
+    "info": {
+      "en-US": {
+        "title": "2468 Scorekeeper (Lite)",
+        "subtitle": "Advanced Poker Scoring Made Simple",
+        "description": "The ultimate scoring app for 2-4-6-8 poker games. Features dual hand mode for split pots, multiplier support, round-by-round tracking, and intuitive landscape/portrait layouts. Perfect for home games and tournaments with automatic doubling rules and comprehensive score history.",
+        "keywords": ["poker", "scorekeeper", "2468", "card game", "scoring", "tournament", "game tracker", "split pot", "dual hand"],
+        "marketingUrl": "https://github.com/Maverik77/2468_tracker",
+        "supportUrl": "https://github.com/Maverik77/2468_tracker/issues",
+        "privacyPolicyUrl": "https://raw.githubusercontent.com/Maverik77/2468_tracker/refs/heads/main/privacy-policy.md"
+      }
+    }
+  }
+} 

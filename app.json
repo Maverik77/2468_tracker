@@ -20,6 +20,7 @@
         "ITSAppUsesNonExemptEncryption": false
       }
     },
+    "privacyPolicyUrl": "https://raw.githubusercontent.com/Maverik77/2468_tracker/refs/heads/main/privacy-policy.md",
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
